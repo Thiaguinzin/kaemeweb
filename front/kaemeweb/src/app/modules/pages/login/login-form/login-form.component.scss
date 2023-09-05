@@ -1,0 +1,109 @@
+.row{
+  --bs-gutter-x: 0;
+}
+.cardLogin{
+  min-width: 350px;
+  width: 330px;
+  height: 650px;
+  text-align: center;
+  border-bottom: 4px solid #00ffaa;
+}
+
+mat-card-footer{
+  position: absolute;
+  bottom: 15px;
+  min-width: 100%;
+}
+.imgLogo{
+  max-width: 200px;
+}
+.btnLogin{
+  margin-top: 10px;
+  height: 40px;
+}
+.divLogin{
+  min-height: 100%;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.img{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.imgBatimentos{
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+
+}
+
+.cardTitle{
+  color: #577A85;
+}
+
+mat-card{
+  border-radius: 16px;
+}
+.divPrincipal{
+  background-color: rgba(217, 217, 217);
+  height: 100%;
+  width: 100%;
+  align-self: center;
+}
+.imgLogin{
+  position: fixed;
+  align-self: start;
+  opacity: 0.4;
+  width: auto;
+  max-height: 100%;
+}
+
+.divTermos{
+  text-align: left;
+  margin-top: 30px;
+}
+
+.animated{
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
+.animated2{
+  position: fixed;
+  top: 0px;
+  right: 0px;
+}
+.animated-1{
+  position: absolute;
+  bottom: -14em;
+  left: -14em;
+  animation: loading 7s linear infinite;
+}
+.animated-2{
+  transform: rotate(35deg);
+  position: absolute;
+  bottom: -14em;
+  left: -14em;
+  animation: loading 5s linear infinite;
+}
+@keyframes loading {
+0% {
+  transform: rotate(0);
+}
+100% {
+  transform: rotate(360deg);
+}
+}
+

@@ -1,0 +1,49 @@
+<div class="d-flex justify-content-end ">
+  <img src="./assets/img/img-fundo-1.jpg" class="imgLogin d-none d-sm-block" alt="img">
+</div>
+<div class="divPrincipal col-12 col-md-12 d-flex justify-content-center">
+  <div class="divLogin ">
+      <div class="row">
+          <mat-card class="mat-elevation-z3 cardLogin">
+              <div class="img">
+                  <a href="https://www.sofis.com.br/" target="_blank">
+                      <!-- <img class="imgLogo" src="./assets/img/Hemote-Plus500x300.png"> -->
+                  </a>
+              </div>
+              <form [formGroup]="form">
+                  <mat-card-content>
+                    <div class="row">
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-icon matSuffix>person</mat-icon>
+                        <mat-label>Login</mat-label>
+                        <input #loginInput matInput placeholder="" formControlName="login" maxlength="10">
+                      </mat-form-field>
+                    </div>
+
+                    <div class="row">
+                      <mat-form-field appearance="outline" style="width: 100%;">
+                        <mat-label>Senha</mat-label>
+                          <input type="password" matInput placeholder="" formControlName="senha" maxlength="10">
+                          <mat-icon matSuffix>lock</mat-icon>
+                        </mat-form-field>
+                    </div>
+
+                      <div class="row">
+                        <button mat-raised-button color="accent" name="login" class="btnLogin col-12"
+                        [disabled]="!form.valid" (click)="login()" style="width: 100%;">Entrar</button>
+                      </div>
+                      <!-- <div class="divTermos">
+                          <span>Ao prosseguir, você declara que concorda com os <span style="color: blue;cursor: pointer;" (click)="openDialog()">Termos de Uso e a Política de
+                              Privacidade</span>, conforme a Lei Geral de Proteção de Dados Pessoais (LGPD), LEI Nº 13.709,
+                              DE 14 DE AGOSTO DE 2018.</span>
+                      </div> -->
+                  </mat-card-content>
+              </form>
+              <mat-card-footer>
+                  <span>Versão: 0.1</span>
+              </mat-card-footer>
+          </mat-card>
+      </div>
+      <div class="col-md-7"></div>
+  </div>
+</div>
