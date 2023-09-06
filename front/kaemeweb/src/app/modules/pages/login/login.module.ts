@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input'
 import { MatIconModule } from '@angular/material/icon'
 import { MatButtonModule } from '@angular/material/button'
 import { SharedModule } from '../../shared/shared.module';
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { SharedModule } from '../../shared/shared.module';
     MatInputModule,
     MatIconModule,
     MatButtonModule,
-    SharedModule
+    SharedModule,
+    MatToolbarModule
   ]
 })
 export class LoginModule { }

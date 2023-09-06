@@ -1,0 +1,114 @@
+<mat-toolbar class="toolbarHeader">
+  <!-- <button mat-icon-button (click)="menuLateral.abreMenu()" (keyup.space)="menuLateral.abreMenu()"
+      class="icon sticky-top d-none d-sm-none d-md-block d-lg-block d-xl-block">
+      <span *ngIf="!menuLateral.mostraMenu else btnFecharMenu" class="material-icons" [ngStyle]="{'color': 'black'}">
+          menu
+      </span>
+      <ng-template #btnFecharMenu>
+          <span class="material-icons" [ngStyle]="{'color': 'black'}">
+              close
+          </span>
+      </ng-template>
+  </button>-->
+  <!-- <span><img class="logoSofis" src="./assets/img/Hemote-Plus500x300.png"></span> -->
+  <div class="d-block d-sm-block d-md-block d-lg-block d-xl-block">
+      <div class="nomeModulo">
+          <span>
+              Transfusional
+          </span>
+      </div>
+      <span class="versao">
+          {{0.1}}
+      </span>
+  </div>
+  <span class="spacer"></span>
+  <div class="row nomeUnidade d-none d-sm-none d-md-block d-lg-block d-xl-block">
+      <div style="margin-top: 0.8em;">
+          <div class="alinha">
+              <span style="font-size: 1.6em;" class="material-icons iconNomeUnidade">
+                  pin_drop
+              </span>
+              <span>
+                  {{'teste'}}
+              </span>
+          </div>
+          <p class="alinha">
+              <span style="font-size: 1.6em;" class="material-icons iconNomeUnidade">
+                  person
+              </span>
+              <span>
+                  {{'administrado'}}
+              </span>
+          </p>
+      </div>
+  </div>
+  <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+      <button mat-icon-button [matMenuTriggerFor]="menuUsuario" class="botoesHeader" style="border-right: solid 1px;"
+          matTooltip="Configurações">
+
+          <mat-icon class="material-icons-outlined ">
+              settings
+          </mat-icon>
+          <span class="mat-button-focus-overlay"></span>
+      </button>
+      <!-- <button mat-icon-button (click)="menuLateral.abrirAjuda()" class="botoesHeader" style="border-right: solid 1px;"
+          matTooltip='Ajuda'>
+          <mat-icon class="material-icons-outlined ">
+              help_outline
+          </mat-icon>
+          <span class="mat-button-focus-overlay"></span>
+      </button> -->
+      <!-- <button mat-icon-button class="botaoSair" matTooltip="Sair da conta" (click)="menuLateral.logout()">
+          <span class="material-icons ">
+              power_settings_new
+          </span>
+          <span class="mat-button-focus-overlay"></span>
+      </button> -->
+  </div>
+  <!-- <button mat-icon-button (click)="menuLateral.abreMenu()" (keyup.space)="menuLateral.abreMenu()"
+      class="icon sticky-top d-block d-sm-block d-md-none d-lg-none d-xl-none">
+      <span *ngIf="!menuLateral.mostraMenu else btnFecharMenu" class="material-icons" [ngStyle]="{'color': 'black'}">
+          menu
+      </span>
+      <ng-template #btnFecharMenu>
+          <span class="material-icons" [ngStyle]="{'color': 'black'}">
+              close
+          </span>
+      </ng-template>
+  </button> -->
+
+</mat-toolbar>
+<mat-menu class="matMenu" #menuUsuario="matMenu">
+
+  <!-- <div mat-menu-item>
+      <mat-icon>
+          edit_location
+      </mat-icon>
+      Trocar unidade
+  </div> -->
+
+  <!-- <div mat-menu-item>
+      <mat-icon>
+          manage_accounts
+      </mat-icon>
+      Perfil do usuário
+  </div> -->
+
+  <!-- <div mat-menu-item (click)="menuLateral.alterarTema()">
+      <mat-icon>
+          {{menuLateral.iconTema}}
+      </mat-icon>
+      Alterar tema
+  </div>
+
+  <div mat-menu-item (click)="configurarImpressoras()">
+      <mat-icon>
+          print
+      </mat-icon>
+      Impressoras
+  </div>
+
+</mat-menu>
+
+<app-menu #menuLateral>
+</app-menu> -->

@@ -1,0 +1,133 @@
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toolbarHeader {
+  height: 2.5em;
+  background-color: #EDEDED !important;
+  color: black !important;
+  border-bottom: 0.1em solid #D80000;
+  position: fixed;
+  z-index: 12;
+}
+
+p {
+  line-height: 0.5em;
+}
+
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3em;
+  padding-top: 1em;
+}
+
+.btnMenu {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.alinha {
+  display: flex;
+  align-items: center;
+  justify-content: left;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.nomeModulo{
+  font-size: 0.6em;
+  color: #969696;
+  margin-left: 65px;
+  height: 16px;
+}
+.versao{
+  font-size: 0.5em;
+  margin-left: 67px;
+  color: #969696;
+}
+
+.botaoSair{
+  color:#D80000;
+}
+
+.botaoSair:hover{
+  background-color: #d8000029 !important;
+  border-radius: 0px;
+  max-width: 40px;
+  min-width: 0px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+::ng-deep.darkMode .mat-menu-item:hover{
+  background-color: rgba(255, 255, 255, 0.2) !important;
+}
+
+.mat-menu-item:hover{
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+.botoesHeader{
+  border-radius: 0px;
+  max-width: 40px;
+  min-width: 0px;
+  justify-content: center;
+  align-items: center;
+  align-self: center;
+}
+
+.botoesHeader:hover .mat-button-focus-overlay {
+  opacity: 0.2 !important;
+  background: rgba(0, 0, 0, 0.84) !important;
+}
+
+
+.nomeUnidade {
+  color: #527682;
+  font-size: 0.45em;
+  margin-right: 1%;
+}
+.logoSofis{
+  width: 5em;
+}
+
+
+
+@media (max-width: 1024px) and (min-width: 768px) {
+  .nomeUnidade{
+    font-size: 0.4em;
+  }
+  .iconNomeUnidade{
+    font-size: 14px;
+  }
+  .nomeModulo{
+    font-size: 0.5em;
+    margin-left: 23px;
+  }
+  .versao{
+    font-size: 0.49em;
+    margin-left: 25px;
+  }
+  .logoSofis{
+    width: 4em;
+  }
+ }
+
+@media only screen and (max-width: 767px) {
+  .toolbarHeader {
+    background-color: #EDEDED !important;
+    color: black !important;
+    border-bottom: 0.2em solid #D80000;
+    position: relative;
+  }
+
+}

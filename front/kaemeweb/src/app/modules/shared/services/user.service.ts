@@ -20,7 +20,22 @@ export class UserService {
 
   setInfo(nome_user: string): void {
     window.localStorage.setItem("k_user", nome_user);
-}
+  }
+
+  logout(): void {
+    this.tokenService.removeToken();
+  }
+
+  isLogged(): boolean {
+    if (this.tokenService.hasToken()) {
+        const token: UsuarioToken = JSON.parse(this.tokenService.getToken());
+        const dataExpiracao = new Date(token.Expiracao);
+        if (dataExpiracao < new Date()) {
+            this.logout();
+        }
+    }
+    return this.tokenService.hasToken();
+  }
 
   private decodeAndNotify(): void {
     const token = this.tokenService.getToken();
