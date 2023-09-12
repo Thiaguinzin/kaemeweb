@@ -28,6 +28,7 @@ export class LoginFormComponent {
   }
 
   login() {
+
     const usuarioLogin: UsuarioLogin = this.montaUsuarioLogin();
 
     this.authService.login(usuarioLogin)

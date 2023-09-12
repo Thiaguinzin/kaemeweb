@@ -1,0 +1,298 @@
+//OPÇÕES MENU
+::ng-deep .mat-expansion-panel {
+  color: white;
+}
+
+.mat-expansion-panel-header-title {
+  color: white;
+  flex-basis: auto !important;
+}
+
+.mat-expansion-panel-content {
+  color: white;
+}
+
+.mat-expansion-panel-header-description {
+  color: white;
+}
+
+.mat-expansion-indicator {
+  color: white;
+}
+
+.mat-accordion .mat-expansion-panel {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.mat-accordion .mat-expansion-panel {
+  border-bottom-right-radius: 0px;
+  border-bottom-left-radius: 0px;
+}
+
+.mat-accordion .mat-expansion-panel {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.mat-accordion .mat-expansion-panel {
+  border-top-right-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+::ng-deep .mat-expansion-panel-body {
+  padding: 0 10px 15px !important;
+}
+
+.opcaoMenu {
+  margin-left: 24px;
+  margin: 0px;
+  padding-top: 0.5em;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+  cursor: pointer;
+}
+
+p.opcaoMenu:hover {
+  //opacity: 0.6;
+  background-color: #3e4c50 !important;
+}
+
+.painelMenuHeaderWeb:hover  {
+  background-color: #3e4c50 !important;
+}
+
+::ng-deep.mat-expansion-panel-header.painelMenuHeaderWeb.mat-expanded{
+  background-color: #3e4c50 !important;
+}
+
+::ng-deep.mat-expansion-panel-body{
+  margin-top: 10px !important;
+}
+
+.painelMenuHeader {
+  background-color: #527682 !important;
+  color: white !important;
+}
+
+::ng-deep.mat-expansion-panel-header.painelMenuHeader.mat-expanded{
+  background-color: #3e4c50 !important;
+}
+
+
+.painelMenuHeaderWeb {
+  background-color: #527682 !important;
+  color: white !important;
+  max-height: 40px;
+}
+
+.menuPrincipalMobile{
+  background-color: #527682 !important;
+  color: white !important;
+  max-height: 40px;
+}
+::ng-deep.mat-expansion-indicator{
+  color: white !important;
+}
+
+::ng-deep.mat-expansion-indicator::after{
+  color: white !important;
+}
+
+.opcoesPrincipais {
+  background-color: #527682;
+  color: white;
+  margin-top: 0.5em;
+  outline: 0.3em solid #527682;
+  outline-offset: -0.3em;
+}
+
+.opcoesPrincipaisWeb {
+  background-color: #527682;
+  color: white;
+  outline: 0.3em solid #527682;
+  outline-offset: -0.3em;
+  margin-left: 5px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+}
+.botaoSair{
+  color:#D80000;
+}
+
+//FIM OPÇÕES MENU
+
+//MENU LATERAL
+.menu-bar {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  max-width: 380px;
+  margin: 0;
+  padding: 5px;
+  background: #EDEDED;
+  top: 0;
+  left: -390px;
+  transition: left 0.25s ease-out;
+  z-index: 11;
+  margin-top: 3.5em;
+  margin-bottom: 30px;
+  overflow-y: auto;
+}
+
+.menu-bar::-webkit-scrollbar {
+  width: 6px; /* Largura da barra de rolagem */
+}
+
+.menu-bar::-webkit-scrollbar-track {
+  background-color: #f1f1f1;
+}
+
+.menu-bar::-webkit-scrollbar-thumb {
+  background-color: #bcbcbc;
+  border-radius: 4px;
+}
+
+.menu-bar::-webkit-scrollbar-thumb:hover {
+  background-color: #a3a3a3;
+}
+
+::ng-deep.darkMode .menu-bar {
+  background: #424242;
+}
+
+.active-menu .menu-bar {
+  left: 0;
+}
+
+.active-menu .overlay {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+}
+
+.opcoesPrincipaisWeb.mat-expansion-panel-spacing  {
+  margin: 0px 5px 5px !important;
+}
+//FIM MENU LATERAL
+
+
+//MENU MOBILE
+.menu-bar-mobile {
+  position: absolute;
+  width: 100%;
+  height: auto;
+  margin: 0;
+  background: #EDEDED;
+  transition: top 0.25s ease-out;
+  z-index: 2;
+  margin-top: 3.5em;
+  top: -100%;
+}
+
+.active-menu-mobile .menu-bar-mobile {
+  top: 0;
+}
+
+.active-menu-mobile .overlay-mobile {
+  position: fixed !important;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+}
+
+::ng-deep.darkMode .menu-bar-mobile {
+  background: #424242;
+}
+
+//INICIO MENU MOBILE
+.tituloMenuMobile{
+  font-size: 0.8em;
+  margin-left: 5px;
+}
+
+.versaoMenuMobile{
+  font-size: 0.7em;
+  margin-left: 40px;
+}
+
+.cardUsuarioMenuMobile{
+  border-radius: 0px;
+  background-color: #527682;
+  padding: 5px;
+  color: white !important;
+  font-size: 0.7em !important;
+  cursor: pointer;
+}
+
+.linhaUsuarioMenuMobile{
+  display: flex;
+}
+
+.nomeUsuarioMenuMobile{
+  align-self: center;
+}
+
+.linhaUsuarioMenuMobile .material-icons{
+  font-size: 1.7em;
+  align-self: flex-end;
+}
+
+.linhaUsuarioMenuMobile .mat-icon{
+  height: auto;
+}
+
+.btnAjudaSair{
+  border-radius: 0px;
+  background-color: #527682;
+  color: white !important;
+  min-width: 49%;
+  height: 48px;
+}
+
+.spaceIcon{
+  margin-left:50%
+}
+
+::ng-deep.mat-menu-panel{
+  //margin-left: 50% !important;
+  //overflow: initial !important;
+  min-width: auto !important;
+}
+
+//FIM MENU MOBILE
+
+// light-bar
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
+// dark bar
+
+::ng-deep.darkMode ::-webkit-scrollbar-track {
+  background-color: #525252;
+}
+
+::ng-deep.darkMode ::-webkit-scrollbar {
+  width: 6px;
+  background: white;
+}
+
+::ng-deep.darkMode ::-webkit-scrollbar-thumb {
+  background: #303030;
+}

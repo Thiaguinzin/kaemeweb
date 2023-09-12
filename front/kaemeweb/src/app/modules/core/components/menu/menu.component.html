@@ -1,0 +1,48 @@
+<!--Versão web -->
+
+<div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
+  <div [ngClass]="{ 'active-menu': mostraMenu }">
+    <div class="menu-bar mat-elevation-z5" style="z-index: 999999;">
+
+      <!-- INICIO DO CONTEÚDO DO MENU-->
+      <mat-accordion>
+        <mat-expansion-panel class="opcoesPrincipaisWeb">
+          <mat-expansion-panel-header class="painelMenuHeaderWeb">
+            <mat-panel-title>
+              Rotina
+            </mat-panel-title>
+            <mat-panel-description style="justify-content: flex-end;">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-accordion>
+            <p class="opcaoMenu" [routerLink]="['/transfusional/rotina/gestao-pedidos']" (click)="selecionaOpcao()">
+              Gestão de Pedido Médico</p>
+
+          </mat-accordion>
+        </mat-expansion-panel>
+
+      </mat-accordion>
+      <!-- FIM DO CONTEUDO DO MENU-->
+    </div>
+    <div class="overlay" (click)="abreMenu()"></div>
+  </div>
+</div>
+
+<mat-menu class="matMenu" #menuUsuario="matMenu" style="margin-left: 50%
+  !important;">
+
+  <!-- <div mat-menu-item (click)="alterarTema()">
+    <mat-icon>
+      {{iconTema}}
+    </mat-icon>
+    Alterar tema
+  </div> -->
+
+  <div mat-menu-item (click)="logout()">
+    <mat-icon class="botaoSair">
+      power_settings_new
+    </mat-icon>
+    Sair
+  </div>
+
+</mat-menu>

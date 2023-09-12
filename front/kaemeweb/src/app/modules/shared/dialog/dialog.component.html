@@ -1,0 +1,20 @@
+<div class="cardDialog" cdkDrag cdkDragBoundary=".cdk-overlay-container">
+  <div class="topoCardPrincipal">
+  <span class="dialogHeader">{{titulo}}</span>
+  </div>
+  <div class="dialogCorpo">
+  <mat-dialog-content class="mat-typography">
+  <div [innerHTML]="corpo"></div>
+  </mat-dialog-content>
+  <mat-dialog-actions *ngIf="qtdBotoes == 1 else layoutDoisBotoes" >
+    <button mat-button mat-dialog-close>Fechar</button>
+  </mat-dialog-actions>
+  </div>
+
+  <ng-template #layoutDoisBotoes>
+    <mat-dialog-actions>
+      <button mat-button [mat-dialog-close]="true">Continuar</button>
+      <button mat-button mat-dialog-close>Cancelar</button>
+    </mat-dialog-actions>
+  </ng-template>
+  </div>
