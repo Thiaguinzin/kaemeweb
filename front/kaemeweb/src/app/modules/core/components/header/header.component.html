@@ -10,11 +10,11 @@
           </span>
       </ng-template>
   </button>
-  <!-- <span><img class="logoSofis" src="./assets/img/Hemote-Plus500x300.png"></span> -->
+  <!-- <span><img class="logo" src="./assets/img/kaeme_logo.png"></span> -->
   <div class="d-block d-sm-block d-md-block d-lg-block d-xl-block">
       <div class="nomeModulo">
           <span>
-              Transfusional
+              KaemeWeb
           </span>
       </div>
       <span class="versao">
@@ -24,26 +24,26 @@
   <span class="spacer"></span>
   <div class="row nomeUnidade d-none d-sm-none d-md-block d-lg-block d-xl-block">
       <div style="margin-top: 0.8em;">
-          <div class="alinha">
+          <!-- <div class="alinha">
               <span style="font-size: 1.6em;" class="material-icons iconNomeUnidade">
                   pin_drop
               </span>
               <span>
                   {{'teste'}}
               </span>
-          </div>
+          </div> -->
           <p class="alinha">
               <span style="font-size: 1.6em;" class="material-icons iconNomeUnidade">
                   person
               </span>
               <span>
-                  {{'administrado'}}
+                  {{user}}
               </span>
           </p>
       </div>
   </div>
   <div class="d-none d-sm-none d-md-block d-lg-block d-xl-block">
-      <button mat-icon-button [matMenuTriggerFor]="menuUsuario" class="botoesHeader" style="border-right: solid 1px;"
+      <button mat-icon-button [matMenuTriggerFor]="menuUsuario" class="botoesHeader"
           matTooltip="Configurações">
 
           <mat-icon class="material-icons-outlined ">

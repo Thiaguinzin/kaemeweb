@@ -21,9 +21,12 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@ng-bootstrap/ng-bootstrap": "^15.1.1",
-    "material-icons": "^1.13.10",
+    "material-icons": "^1.13.11",
+    "ngx-toastr": "^17.0.2",
+    "roboto-fontface": "^0.10.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "xng-breadcrumb": "^10.0.0",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

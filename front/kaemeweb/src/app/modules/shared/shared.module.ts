@@ -7,23 +7,34 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { DialogComponent } from './dialog/dialog.component';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { TemplateDefaultComponent } from './components/template-default/template-default.component';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 
 
 @NgModule({
   declarations: [
-    DialogComponent
+    DialogComponent,
+    TemplateDefaultComponent
   ],
   imports: [
     CommonModule,
     MatToolbarModule,
     MatDialogModule,
     MatIconModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule,
+    MatCardModule,
+    MatFormFieldModule
   ],
   providers: [
     AuthService,
     TokenService
+  ],
+  exports: [
+    TemplateDefaultComponent
   ]
 })
 export class SharedModule { }

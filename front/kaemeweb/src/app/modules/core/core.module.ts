@@ -7,6 +7,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MenuComponent } from './components/menu/menu.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { RouterModule } from '@angular/router';
     MatIconModule,
     MatMenuModule,
     MatExpansionModule,
-    RouterModule
+    RouterModule,
+    MatButtonModule
   ],
   exports: [
     HeaderComponent,

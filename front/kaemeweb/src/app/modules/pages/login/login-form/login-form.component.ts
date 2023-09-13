@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioLogin } from 'src/app/modules/shared/models/UsuarioModels/usuario-login';
 import { AuthService } from 'src/app/modules/shared/services/auth.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login-form',
@@ -21,9 +22,10 @@ export class LoginFormComponent {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private router: Router) {}
+              private router: Router,
+              private toastr: ToastrService) {}
 
-  ngOninit() {
+  ngOnInit() {
 
   }
 
@@ -38,8 +40,12 @@ export class LoginFormComponent {
           this.token = res.body.token;
           this.usuarioLogado = res.body.usuario;
           this.logarUsuario();
+        } else {
+          this.toastr.error(res.body.errorMessage);
         }
         console.log(res);
+      }, error => {
+        this.toastr.error("Algo deu errado!");
       })
 
   }

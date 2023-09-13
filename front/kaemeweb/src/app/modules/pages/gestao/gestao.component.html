@@ -1,1 +1,15 @@
 <app-header></app-header>
+
+<div class="divPrincipal">
+  <div class="divSuperior">
+      <xng-breadcrumb [separator]="'>'">
+          <ng-container *xngBreadcrumbItem="let breadcrumb">
+            <ng-container *ngIf="!breadcrumb.includes('>') else breadCustom">{{ breadcrumb }}</ng-container>
+
+            <ng-template #breadCustom>{{breadcrumb.split('>')[0] }}</ng-template>
+          </ng-container>
+        </xng-breadcrumb>
+        <!-- <app-progress-bar></app-progress-bar> -->
+  </div>
+  <router-outlet></router-outlet>
+</div>

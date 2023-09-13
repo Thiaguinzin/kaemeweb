@@ -6,7 +6,7 @@
   height: 2.5em;
   background-color: #EDEDED !important;
   color: black !important;
-  border-bottom: 0.1em solid #D80000;
+  border-bottom: 0.1em solid #00ffaa;
   position: fixed;
   z-index: 12;
 }
@@ -58,15 +58,15 @@ p {
   color:#D80000;
 }
 
-.botaoSair:hover{
-  background-color: #d8000029 !important;
-  border-radius: 0px;
-  max-width: 40px;
-  min-width: 0px;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-}
+// .botaoSair:hover{
+//   background-color: #d8000029 !important;
+//   border-radius: 0px;
+//   max-width: 40px;
+//   min-width: 0px;
+//   justify-content: center;
+//   align-items: center;
+//   align-self: center;
+// }
 
 ::ng-deep.darkMode .mat-menu-item:hover{
   background-color: rgba(255, 255, 255, 0.2) !important;
@@ -78,7 +78,7 @@ p {
 
 .botoesHeader{
   border-radius: 0px;
-  max-width: 40px;
+  // max-width: 40px;
   min-width: 0px;
   justify-content: center;
   align-items: center;
@@ -96,7 +96,7 @@ p {
   font-size: 0.45em;
   margin-right: 1%;
 }
-.logoSofis{
+.logoS{
   width: 5em;
 }
 
@@ -117,7 +117,7 @@ p {
     font-size: 0.49em;
     margin-left: 25px;
   }
-  .logoSofis{
+  .logo{
     width: 4em;
   }
  }
@@ -126,7 +126,7 @@ p {
   .toolbarHeader {
     background-color: #EDEDED !important;
     color: black !important;
-    border-bottom: 0.2em solid #D80000;
+    border-bottom: 0.2em solid #00ffaa;
     position: relative;
   }
 

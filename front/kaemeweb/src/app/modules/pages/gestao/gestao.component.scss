@@ -1,0 +1,64 @@
+.divImg{
+  min-width: 100%;
+  height: 100%;
+  position: fixed;
+  background-color: #D9D9D9 !important;
+}
+
+::ng-deep.darkMode .divImg{
+  background-color: #545454 !important;
+}
+
+.imgFundo {
+  position: fixed;
+  align-self: start;
+  width: auto;
+  height: 100%;
+  margin-top: 3.5em;
+  background-blend-mode: darken !important;
+  opacity: 0.4;
+}
+
+::ng-deep.darkMode .imgFundo{
+  filter: brightness(30%) contrast(70%);
+  opacity: 1;
+}
+
+.divPrincipal{
+  position: absolute;
+  margin-top: 3.5em;
+  min-width: 100%;
+}
+
+::ng-deep.darkMode .divPrincipal{
+  background-color: #303030;
+}
+
+::ng-deep.divSuperior{
+  min-width: 100%;
+}
+
+
+::ng-deep.xng-breadcrumb-root{
+  padding-left: 2em !important;
+  background-color: #C1C1FF;
+}
+
+::ng-deep.xng-breadcrumb-root{
+  color: rgb(0, 0, 0) !important;
+  font-size: 0.75em;
+}
+
+::ng-deep.xng-breadcrumb-trail{
+  color: black !important;
+}
+
+@media only screen and (max-width: 767px) {
+  .divPrincipal{
+    margin-top: 0px;
+  }
+
+  ::ng-deep.xng-breadcrumb-root{
+    display: none !important;
+  }
+}

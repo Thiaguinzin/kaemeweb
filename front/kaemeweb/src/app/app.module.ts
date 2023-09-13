@@ -8,8 +8,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './modules/shared/guards/auth.guard';
 import { CoreModule } from './modules/core/core.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
   declarations: [
@@ -21,7 +20,12 @@ import { MatIconModule } from '@angular/material/icon';
     BrowserAnimationsModule,
     SharedModule,
     HttpClientModule,
-    CoreModule
+    CoreModule,
+    ToastrModule.forRoot({
+      positionClass: 'toast-top-left',
+      preventDuplicates: true,
+      closeButton: true
+    }),
   ],
   providers: [
     AuthGuard

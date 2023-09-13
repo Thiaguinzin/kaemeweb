@@ -1,0 +1,289 @@
+.cardPrincipal {
+  margin-top: 7px;
+
+  .mat-form-field-appearance-legacy .mat-form-field-underline {
+      bottom: 0.1em;
+  }
+
+  .mat-form-field-appearance-outline {
+
+      .mat-form-field-infix {
+          padding: 6px !important;
+      }
+
+      .mat-form-field-label {
+          top: 1em !important;
+          margin-top: 1px !important;
+
+      }
+
+      .mat-form-field-outline {
+          color: rgba(0, 0, 0, 0.4) !important;
+      }
+  }
+
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label {
+      transform: translateY(-1.15375em) scale(0.75) !important;
+      width: 133.3333333333% !important;
+  }
+
+
+  .divBtns {
+      margin-bottom: 10px !important;
+  }
+
+  .mat-tab-body-content {
+      height: 100% !important;
+      overflow: initial !important;
+  }
+
+  .mat-form-field {
+      margin-top: 0.8em !important;
+      margin-bottom: 0.5em !important;
+      font-size: 12px !important;
+  }
+
+  .mat-form-field-wrapper {
+      padding-bottom: 0.2em !important;
+  }
+
+  .mat-form-field-invalid .mat-input-element {
+      color: #f44336 !important;
+  }
+
+  .mat-input-element:disabled{
+      color: rgba(0, 0, 0, 0.65) !important;
+  }
+
+  .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+      color: rgba(0, 0, 0, 0.4) !important;
+  }
+
+  .mat-error {
+      margin-top: 10px !important;
+  }
+
+  .mat-hint {
+      margin-top: 10px !important;
+  }
+
+  .mat-tab-label.mat-tab-label-active {
+      color: #575757 !important;
+      opacity: 1 !important;
+      background-color: #E8E8E8 !important;
+  }
+
+  .mat-tab-label.mat-tab-label-active:hover {
+      color: #575757 !important;
+      opacity: 1 !important;
+      background-color: #E8E8E8 !important;
+  }
+
+  .mat-tab-label {
+      background-color: #F8F8F8 !important;
+      color: #838282 !important;
+      margin-right: 5px !important;
+      border-top-left-radius: 5px !important;
+      border-top-right-radius: 5px !important;
+      height: 38px !important;
+      opacity: 1 !important;
+      border: 2px solid #E8E8E8 !important;
+  }
+
+  .mat-tab-label:hover {
+      background-color: #E8E8E8 !important;
+      color: #363636 !important;
+      opacity: 1 !important;
+  }
+
+  .mat-ink-bar {
+      height: 3px !important;
+      background-color: #3E4C50 !important;
+  }
+}
+
+.darkMode .cardPrincipal {
+  .mat-tab-label.mat-tab-label-active {
+      color: #e0e0e0 !important;
+      opacity: 1 !important;
+      background-color: #525252 !important;
+  }
+
+  .mat-tab-label.mat-tab-label-active:hover {
+      color: #e0e0e0 !important;
+      opacity: 1 !important;
+      background-color: #525252 !important;
+  }
+
+  .mat-tab-label {
+      background-color: #474747 !important;
+      color: #b8b8b8 !important;
+      margin-right: 5px !important;
+      border: 2px solid #575757 !important;
+  }
+
+  .mat-input-element:disabled{
+      color: rgba(255, 255, 255, 0.65) !important;
+  }
+
+  .mat-form-field-appearance-outline.mat-form-field-disabled .mat-form-field-label {
+      color: rgba(255, 255, 255, 0.4) !important;
+  }
+
+  .mat-tab-label:hover {
+      opacity: .9 !important;
+      background-color: auto !important;
+      color: auto !important;
+      color: #e0e0e0 !important;
+      background-color: #525252 !important;
+  }
+
+  .mat-ink-bar {
+      background-color: #e0e0e0 !important;
+  }
+
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+      color: rgba(255, 255, 255, 0.3) !important;
+  }
+}
+
+.btnAcao {
+  margin-right: 15px !important;
+}
+
+.divBtns {
+  margin-bottom: 30px;
+}
+
+.mat-card-title {
+  display: flex;
+  align-items: center;
+}
+
+.mat-card-title .mat-icon {
+  margin-right: 5px !important;
+}
+
+.mat-card-title {
+  display: flex !important;
+  align-items: center !important;
+}
+
+
+.botaoOpcaoHeader {
+  min-width: 40px !important;
+  padding: 0px !important;
+  margin-right: 15px !important;
+}
+
+.darkMode .botaoOpcaoHeader:hover {
+  background-color: rgba(255, 255, 255, 0.137) !important;
+}
+
+.botaoOpcaoHeader:hover {
+  background-color: rgba(0, 0, 0, 0.203);
+}
+
+.topoCardPrincipal {
+  background-color: rgb(232, 232, 232);
+  border-radius: 4px 4px 0px 0px;
+  padding-top: 0.6em !important;
+  padding-left: 0em !important;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  border-bottom: solid 1px;
+}
+
+.darkMode .topoCardPrincipal {
+  background-color: rgb(82, 82, 82) !important;
+}
+
+.btnHeader {
+  background-color: #E8E8E8;
+  margin-bottom: 0.5em !important;
+}
+
+.darkMode .btnHeader {
+  background-color: rgb(82, 82, 82);
+}
+
+.btnHeader:hover {
+  background-color: rgba(0, 0, 0, 0.203);
+}
+
+.darkMode .btnHeader:hover {
+  background-color: rgba(255, 255, 255, 0.137) !important;
+}
+
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.toast-container {
+  left: calc(50% - 150px) !important;
+}
+
+.corpo {
+  margin-top: 10px;
+}
+
+.mat-progress-bar {
+  position: absolute !important;
+}
+
+
+.mat-select-disabled .mat-select-value{
+  color: rgba(0, 0, 0, 0.75) !important;
+}
+.cardPrincipal .mat-input-element:disabled{
+  color: rgba(0, 0, 0, 0.75) !important;
+}
+
+.cardPrincipal .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+  color: rgba(0, 0, 0, 0.75) !important;
+  font-weight: 600 !important;
+}
+
+.darkMode .cardPrincipal .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label{
+  color: rgba(255, 255, 255, 0.75) !important;
+  font-weight: 500 !important;
+}
+
+.darkMode .mat-select-disabled .mat-select-value{
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+.darkMode .cardPrincipal .mat-input-element:disabled{
+  color: rgba(255, 255, 255, 0.75) !important;
+}
+
+// light-bar
+
+::-webkit-scrollbar-track {
+  background-color: #F4F4F4;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  background: #F4F4F4;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #dad7d7;
+}
+
+// dark bar
+
+::ng-deep.darkMode ::-webkit-scrollbar-track {
+  background-color: #525252;
+}
+
+::ng-deep.darkMode ::-webkit-scrollbar {
+  width: 6px;
+  background: white;
+}
+
+::ng-deep.darkMode ::-webkit-scrollbar-thumb {
+  background: #303030;
+}
