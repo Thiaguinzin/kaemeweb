@@ -44,6 +44,7 @@ builder.Services.AddSingleton<DapperContext>();
 
 builder.Services.AddScoped<IUsuarioRepository, UsuarioRepository>();
 builder.Services.AddScoped<IPerfilRepository, PerfilRepository>();
+builder.Services.AddScoped<IUfRepository, UfRepository>();
 
 var app = builder.Build();
 

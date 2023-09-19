@@ -6,6 +6,8 @@ import { CoreModule } from '../../core/core.module';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { ClienteModule } from './cliente/cliente.module';
 import { FornecedorComponent } from './fornecedor/fornecedor.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { RequestInterceptor } from '../../shared/interceptors/request.interceptor';
 
 @NgModule({
   imports: [
@@ -16,6 +18,13 @@ import { FornecedorComponent } from './fornecedor/fornecedor.component';
     ClienteModule
 
   ],
-  declarations: [GestaoComponent, FornecedorComponent]
+  declarations: [GestaoComponent, FornecedorComponent],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
+  ]
 })
 export class GestaoModule { }

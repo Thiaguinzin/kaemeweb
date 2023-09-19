@@ -5,10 +5,11 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AuthGuard } from './modules/shared/guards/auth.guard';
 import { CoreModule } from './modules/core/core.module';
 import { ToastrModule } from 'ngx-toastr';
+import { RequestInterceptor } from './modules/shared/interceptors/request.interceptor';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,12 @@ import { ToastrModule } from 'ngx-toastr';
     }),
   ],
   providers: [
-    AuthGuard
+    AuthGuard,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: RequestInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

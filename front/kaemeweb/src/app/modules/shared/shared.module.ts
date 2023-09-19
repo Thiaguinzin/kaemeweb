@@ -11,6 +11,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { TemplateDefaultComponent } from './components/template-default/template-default.component';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 
 
 
@@ -27,11 +28,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatInputModule,
     MatButtonModule,
     MatCardModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    NgxMaskDirective,
+    NgxMaskPipe
   ],
   providers: [
     AuthService,
-    TokenService
+    TokenService,
+    provideNgxMask()
   ],
   exports: [
     TemplateDefaultComponent
