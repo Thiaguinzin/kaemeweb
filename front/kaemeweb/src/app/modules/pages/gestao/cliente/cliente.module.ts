@@ -1,3 +1,4 @@
+import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ClienteRoutingModule } from './cliente-routing.module';
@@ -28,7 +29,8 @@ import { MatSelectModule } from '@angular/material/select';
     NgxMaskDirective,
     NgxMaskPipe,
     ReactiveFormsModule,
-    MatSelectModule
+    MatSelectModule,
+    MatButtonModule
   ]
 })
 export class ClienteModule { }

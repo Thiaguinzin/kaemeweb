@@ -14,27 +14,34 @@ export class RequestInterceptor implements HttpInterceptor {
     utilFuncoes = UtilFuncoes;
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        if (this.tokenService.hasToken()) {
-            const token: UsuarioToken = JSON.parse(this.tokenService.getToken());
-            req = req.clone({
-                headers: req.headers.set('Authorization', `Bearer ${token}`)
-            });
+      // debugger
 
-            if(req.body != null && req.body != undefined){
-                this.corrigirDatas(req.body)
-            }
-        }
-        //O CABEÇALHO VAI INCLUSIVE NAS REQUISIÇÕES NÃO AUTENTICADAS COM O TOKEN
-        let path = this.getEndPoint(req.url);
-        let dataCode = this.utilFuncoes.replaceNumbersWithLetters(this.utilFuncoes.dateToNumericString(new Date))
-        req = req.clone({
-            headers: req.headers.set('shw-rhw-a', this.generateHash(path + "|." + dataCode))
-            //headers: req.headers.set('shw-rhw-a', this.generateHash(path + "|." + this.utilFuncoes.dateToNumericString(new Date)))
-        });
-        // console.log(dataCode)
-        // console.log(this.utilFuncoes.dateToNumericString(new Date))
+      if (!req.url.includes('viacep')) {
+        if (this.tokenService.hasToken()) {
+          const token: UsuarioToken = JSON.parse(this.tokenService.getToken());
+          req = req.clone({
+              headers: req.headers.set('Authorization', `Bearer ${token}`)
+          });
+
+          if(req.body != null && req.body != undefined){
+              this.corrigirDatas(req.body)
+          }
+      }
+      //O CABEÇALHO VAI INCLUSIVE NAS REQUISIÇÕES NÃO AUTENTICADAS COM O TOKEN
+      let path = this.getEndPoint(req.url);
+      let dataCode = this.utilFuncoes.replaceNumbersWithLetters(this.utilFuncoes.dateToNumericString(new Date))
+      req = req.clone({
+          headers: req.headers.set('shw-rhw-a', this.generateHash(path + "|." + dataCode))
+          //headers: req.headers.set('shw-rhw-a', this.generateHash(path + "|." + this.utilFuncoes.dateToNumericString(new Date)))
+      });
+      // console.log(dataCode)
+      // console.log(this.utilFuncoes.dateToNumericString(new Date))
 
         return next.handle(req);
+      }
+
+      return next.handle(req);
+
     }
 
     generateHash(input: string): string {

@@ -27,15 +27,18 @@ export class ClienteFormComponent extends BaseFormulario {
     nome: ['', [Validators.required]],
     data_nasc: ['', [Validators.required]],
     signo: ['', []],
-    cpf: ['', [Validators.required]],
+    cpf: ['', []],
     telefone: ['', []],
     email: ['', []],
+    instagram: ['', []],
+    meio_captacao: ['', []],
     cep: ['', []],
     logradouro: ['', []],
     numero: ['', []],
     complemento: ['', []],
     bairro: ['', []],
     uf: ['', []],
+    sexo: ['', [Validators.required]],
 
   })
 

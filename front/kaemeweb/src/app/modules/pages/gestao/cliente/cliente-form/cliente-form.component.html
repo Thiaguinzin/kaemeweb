@@ -8,19 +8,9 @@
 
         <div class="row">
 
-          <mat-form-field class="col-md-3" appearance="outline">
+          <mat-form-field class="col-md-6" appearance="outline">
             <mat-label>Nome</mat-label>
             <input matInput formControlName="nome">
-          </mat-form-field>
-
-          <mat-form-field class="col-md-2" appearance="outline">
-            <mat-label>Data de Nascimento</mat-label>
-            <input matInput formControlName="data_nasc" mask="00/00/0000">
-          </mat-form-field>
-
-          <mat-form-field class="col-md-1" appearance="outline">
-            <mat-label>Signo</mat-label>
-            <input matInput formControlName="signo">
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
@@ -29,59 +19,96 @@
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
-            <mat-label>Telefone</mat-label>
-            <input matInput formControlName="telefone" mask="(00) 00000-0000">
+            <mat-label>Data de Nascimento</mat-label>
+            <input matInput formControlName="data_nasc" mask="00/00/0000">
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
-            <mat-label>Email</mat-label>
-            <input matInput formControlName="email" mask="000.000.000-00">
+            <mat-label>Signo</mat-label>
+            <input matInput formControlName="signo">
           </mat-form-field>
 
         </div>
 
         <div class="row">
 
-          <mat-form-field class="col-md-1" appearance="outline">
-            <mat-label>CEP</mat-label>
-            <input matInput formControlName="cep" mask="00000-000" (focusout)="buscaCep()">
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" mask="(00) 00000-0000">
           </mat-form-field>
 
-          <mat-form-field class="col-md-2" appearance="outline">
-            <mat-label>Logradouro</mat-label>
-            <input matInput formControlName="logradouro">
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
           </mat-form-field>
 
-          <mat-form-field class="col-md-1" appearance="outline">
-            <mat-label>Número</mat-label>
-            <input matInput formControlName="numero">
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Instagram</mat-label>
+            <input matInput formControlName="instagram">
           </mat-form-field>
 
-          <mat-form-field class="col-md-1" appearance="outline">
-            <mat-label>Complemento</mat-label>
-            <input matInput formControlName="complemento">
-          </mat-form-field>
-
-          <mat-form-field class="col-md-2" appearance="outline">
-            <mat-label>Bairro</mat-label>
-            <input matInput formControlName="bairro">
-          </mat-form-field>
-
-          <mat-form-field class="col-md-1" appearance="outline">
-            <mat-label>Uf</mat-label>
-            <mat-select formControlName="uf">
-                <mat-option *ngFor="let uf of lista_uf" [value]="uf.codigo">
-                  {{uf.codigo}}
-                </mat-option>
-            </mat-select>
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Meio de Captação</mat-label>
+            <input matInput formControlName="meio_captacao">
           </mat-form-field>
 
         </div>
 
+        <div class="row">
+
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>CEP</mat-label>
+          <input matInput formControlName="cep" mask="00000-000" (focusout)="buscaCep()">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>Logradouro</mat-label>
+          <input matInput formControlName="logradouro">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-1" appearance="outline">
+          <mat-label>Número</mat-label>
+          <input matInput formControlName="numero">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-1" appearance="outline">
+          <mat-label>Complemento</mat-label>
+          <input matInput formControlName="complemento">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-3" appearance="outline">
+          <mat-label>Bairro</mat-label>
+          <input matInput formControlName="bairro">
+        </mat-form-field>
+
+        <mat-form-field class="col-md-1" appearance="outline">
+          <mat-label>UF</mat-label>
+          <mat-select formControlName="uf">
+              <mat-option *ngFor="let uf of lista_uf" [value]="uf.codigo">
+                {{uf.codigo}}
+              </mat-option>
+          </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>Sexo</mat-label>
+          <input matInput formControlName="sexo">
+        </mat-form-field>
+
+      </div>
+
       </div>
     </div>
+
     </form>
 
+    <footer>
+      <div class="d-flex justify-content-end">
+        <button mat-raised-button color="primary" style="margin-right: 10px;">Cadastrar</button>
+        <button mat-raised-button>Cancelar</button>
+      </div>
+
+    </footer>
 
   </app-template-default>
 </div>
