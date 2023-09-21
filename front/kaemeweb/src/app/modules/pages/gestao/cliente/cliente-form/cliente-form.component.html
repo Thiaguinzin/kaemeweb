@@ -1,5 +1,5 @@
 <div class="col-md-12" style="padding: 0.5em;">
-  <app-template-default titulo="Cliente">
+  <app-template-default titulo="Cliente" (acaoFormulario)="getAcaoFormulario($event)">
 
 
     <form [formGroup]="form">
@@ -42,14 +42,23 @@
             <input matInput formControlName="email">
           </mat-form-field>
 
-          <mat-form-field class="col-md-3" appearance="outline">
+          <mat-form-field class="col-md-2" appearance="outline">
             <mat-label>Instagram</mat-label>
             <input matInput formControlName="instagram">
           </mat-form-field>
 
-          <mat-form-field class="col-md-3" appearance="outline">
+          <mat-form-field class="col-md-2" appearance="outline">
             <mat-label>Meio de Captação</mat-label>
             <input matInput formControlName="meio_captacao">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Sexo</mat-label>
+            <mat-select formControlName="sexo">
+              <mat-option [value]="'F'">FEMININO</mat-option>
+              <mat-option [value]="'M'">MASCULINO</mat-option>
+              <mat-option [value]="'N'">NÃO DEFINIDO</mat-option>
+          </mat-select>
           </mat-form-field>
 
         </div>
@@ -58,7 +67,7 @@
 
         <mat-form-field class="col-md-2" appearance="outline">
           <mat-label>CEP</mat-label>
-          <input matInput formControlName="cep" mask="00000-000" (focusout)="buscaCep()">
+          <input matInput formControlName="cep" mask="00000-000" (focusout)="buscarCep()">
         </mat-form-field>
 
         <mat-form-field class="col-md-2" appearance="outline">
@@ -81,6 +90,11 @@
           <input matInput formControlName="bairro">
         </mat-form-field>
 
+        <mat-form-field class="col-md-2" appearance="outline">
+          <mat-label>Cidade</mat-label>
+          <input matInput formControlName="cidade">
+        </mat-form-field>
+
         <mat-form-field class="col-md-1" appearance="outline">
           <mat-label>UF</mat-label>
           <mat-select formControlName="uf">
@@ -90,25 +104,12 @@
           </mat-select>
         </mat-form-field>
 
-        <mat-form-field class="col-md-2" appearance="outline">
-          <mat-label>Sexo</mat-label>
-          <input matInput formControlName="sexo">
-        </mat-form-field>
-
       </div>
 
       </div>
     </div>
 
     </form>
-
-    <footer>
-      <div class="d-flex justify-content-end">
-        <button mat-raised-button color="primary" style="margin-right: 10px;">Cadastrar</button>
-        <button mat-raised-button>Cancelar</button>
-      </div>
-
-    </footer>
 
   </app-template-default>
 </div>

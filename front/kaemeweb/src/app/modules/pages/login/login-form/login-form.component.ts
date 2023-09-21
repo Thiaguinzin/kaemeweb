@@ -31,7 +31,7 @@ export class LoginFormComponent {
 
   login() {
 
-    const usuarioLogin: UsuarioLogin = this.montaUsuarioLogin();
+    const usuarioLogin: UsuarioLogin = this.montarUsuarioLogin();
 
     this.authService.login(usuarioLogin)
       .subscribe(res => {
@@ -56,7 +56,7 @@ export class LoginFormComponent {
   }
 
 
-  montaUsuarioLogin(): UsuarioLogin {
+  montarUsuarioLogin(): UsuarioLogin {
     return {
       login: this.form.get('login').value.trim(),
       senha: this.form.get('senha').value.trim(),

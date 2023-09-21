@@ -18,8 +18,9 @@ export class UserService {
     this.decodeAndNotify();
   }
 
-  setInfo(nome_user: string): void {
+  setInfo(nome_user: string, id_user: number): void {
     window.localStorage.setItem("k_user", nome_user);
+    window.localStorage.setItem("k_user_id", id_user.toString());
   }
 
   logout(): void {

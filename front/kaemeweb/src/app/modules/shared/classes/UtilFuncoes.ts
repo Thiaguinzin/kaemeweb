@@ -37,4 +37,22 @@ export class UtilFuncoes {
     return year + month + day + hours + minutes + seconds;
   }
 
+  static hasValue(value: string | null): boolean {
+
+    if (value) {
+
+      if (value.toString().trim() != "") {
+        return true;
+      }
+      else {
+        return false;
+      }
+
+    }
+    else {
+      return false;
+    }
+
+  }
+
 }

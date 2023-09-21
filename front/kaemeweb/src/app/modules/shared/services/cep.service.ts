@@ -10,7 +10,7 @@ export class CepService {
 
   constructor(private httpClient: HttpClient) { }
 
-  consultaCep(cep: string) {
+  consultarCep(cep: string) {
     return this.httpClient.get<CepReturn>('https://viacep.com.br/ws/' + cep + '/json');
   }
 

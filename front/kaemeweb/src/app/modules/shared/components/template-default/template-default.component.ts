@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'app-template-default',
@@ -8,5 +8,11 @@ import { Component, Input } from '@angular/core';
 export class TemplateDefaultComponent {
 
   @Input('titulo') titulo: string = '';
+
+  @Output() acaoFormulario = new EventEmitter<any>();
+
+  acaoClick(acao: string) {
+    this.acaoFormulario.emit(acao);
+  }
 
 }

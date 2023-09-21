@@ -18,9 +18,9 @@ namespace Infra.Repository
         public bool Create(Cliente cliente)
         {
             var sql = "INSERT INTO cliente (nome, data_nasc, signo, cpf, telefone, email, instagram, meio_captacao, logradouro, numero, complemento, " +
-                        " bairro, cidade, uf_id, sexo, data_criacao, criado_por) " +
+                        " bairro, cidade, uf, sexo, data_criacao, criado_por) " +
                         " VALUES (@Nome, @DataNasc, @Signo, @CPF, @Telefone, @Email, @Instagram, @MeioCaptacao, @Logradouro, @Numero, @Complemento, " +
-                        "  @Bairro, @Cidade, @UfId, @Sexo, @DataCriacao, @CriadoPor)";
+                        "  @Bairro, @Cidade, @Uf, @Sexo, @DataCriacao, @CriadoPor)";
 
             using (var connection = _context.CreateConnection())
             {
@@ -39,7 +39,7 @@ namespace Infra.Repository
                     Complemento = cliente.Complemento,
                     Bairro = cliente.Bairro,
                     Cidade = cliente.Cidade,
-                    UfId = cliente.UfId,
+                    Uf = cliente.Uf,
                     Sexo = cliente.Sexo,
                     DataCriacao = cliente.DataCriacao,
                     CriadoPor = cliente.CriadoPor
