@@ -1,5 +1,5 @@
 <div class="col-md-12" style="padding: 0.5em;">
-  <app-template-default titulo="Cliente" (acaoFormulario)="getAcaoFormulario($event)">
+  <app-template-default titulo="Cadastrar Cliente" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
 
 
     <form [formGroup]="form">
@@ -11,6 +11,7 @@
           <mat-form-field class="col-md-6" appearance="outline">
             <mat-label>Nome</mat-label>
             <input matInput formControlName="nome">
+            <mat-error *ngIf="!!form.get('nome').hasError('maxlength')">Nome deve conter até 200 caracteres</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
@@ -20,7 +21,7 @@
 
           <mat-form-field class="col-md-2" appearance="outline">
             <mat-label>Data de Nascimento</mat-label>
-            <input matInput formControlName="data_nasc" mask="00/00/0000">
+            <input matInput formControlName="data_nasc" mask="00/00/0000" (focusout)="getSigno()">
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
@@ -40,11 +41,14 @@
           <mat-form-field class="col-md-3" appearance="outline">
             <mat-label>Email</mat-label>
             <input matInput formControlName="email">
+            <mat-error *ngIf="!!form.get('email').hasError('maxlength')">Email deve conter até 50 caracteres</mat-error>
+            <mat-error *ngIf="!!form.get('email').hasError('email')">Email inválido</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
             <mat-label>Instagram</mat-label>
             <input matInput formControlName="instagram">
+            <mat-error *ngIf="!!form.get('instagram').hasError('maxlength')">Instagram deve conter até 50 caracteres</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-md-2" appearance="outline">
@@ -73,26 +77,31 @@
         <mat-form-field class="col-md-2" appearance="outline">
           <mat-label>Logradouro</mat-label>
           <input matInput formControlName="logradouro">
+          <mat-error *ngIf="!!form.get('logradouro').hasError('maxlength')">Logradouro deve conter até 100 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-md-1" appearance="outline">
           <mat-label>Número</mat-label>
           <input matInput formControlName="numero">
+          <mat-error *ngIf="!!form.get('numero').hasError('maxlength')">Número deve conter até 5 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-md-1" appearance="outline">
           <mat-label>Complemento</mat-label>
           <input matInput formControlName="complemento">
+          <mat-error *ngIf="!!form.get('complemento').hasError('maxlength')">Complemento deve conter até 30 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-md-3" appearance="outline">
           <mat-label>Bairro</mat-label>
           <input matInput formControlName="bairro">
+          <mat-error *ngIf="!!form.get('bairro').hasError('maxlength')">Bairro deve conter até 50 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-md-2" appearance="outline">
           <mat-label>Cidade</mat-label>
           <input matInput formControlName="cidade">
+          <mat-error *ngIf="!!form.get('cidade').hasError('maxlength')">Cidade deve conter até 50 caracteres</mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-md-1" appearance="outline">

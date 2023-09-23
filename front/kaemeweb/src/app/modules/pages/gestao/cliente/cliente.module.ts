@@ -11,12 +11,14 @@ import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { ClienteFormComponent } from './cliente-form/cliente-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
+import { ClienteListaComponent } from './cliente-lista/cliente-lista.component';
 
 
 
 @NgModule({
   declarations: [
     ClienteFormComponent,
+    ClienteListaComponent
   ],
   imports: [
     CommonModule,

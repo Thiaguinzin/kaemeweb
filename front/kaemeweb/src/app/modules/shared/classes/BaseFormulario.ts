@@ -22,7 +22,7 @@ export class BaseFormulario implements OnInit {
   formSalvarHabilitado: boolean = true;
 
   exibirBtnFechar: boolean = true;
-  exibirBtnSalvar: boolean = true;
+  exibirBtnCadastrar: boolean = true;
   exibirBtnReverter: boolean = true;
   exibirBtnPesquisar: boolean = true;
   exibirBtnEditar: boolean = true;
@@ -78,7 +78,7 @@ export class BaseFormulario implements OnInit {
 
 
   fechar() {
-    this.customRouter.navigate(['/transfusional']);
+    this.customRouter.navigate(['/gestao']);
   }
 
   reverter(){
@@ -171,7 +171,7 @@ export class BaseFormulario implements OnInit {
         this.adicionar();
         break;
 
-      case 'fechar':
+      case 'cancelar':
         this.fechar();
         break;
 

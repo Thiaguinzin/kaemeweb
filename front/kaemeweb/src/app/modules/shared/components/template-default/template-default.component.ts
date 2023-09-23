@@ -11,6 +11,8 @@ export class TemplateDefaultComponent {
 
   @Output() acaoFormulario = new EventEmitter<any>();
 
+  @Input('paginaComponent') paginaComponent: any;
+
   acaoClick(acao: string) {
     this.acaoFormulario.emit(acao);
   }

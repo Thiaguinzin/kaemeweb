@@ -24,20 +24,20 @@ export class ClienteFormComponent extends BaseFormulario {
   lista_uf: Uf[] = [];
 
   override form: FormGroup = this.fb.group({
-    nome: ['', [Validators.required]],
+    nome: ['', [Validators.required, Validators.maxLength(200)]],
     data_nasc: ['', [Validators.required]],
     signo: ['', []],
     cpf: ['', []],
     telefone: ['', []],
-    email: ['', []],
-    instagram: ['', []],
+    email: ['', [Validators.email, Validators.maxLength(50)]],
+    instagram: ['', [Validators.maxLength(50)]],
     meio_captacao: ['', []],
     cep: ['', []],
-    logradouro: ['', []],
-    numero: ['', []],
-    complemento: ['', []],
-    bairro: ['', []],
-    cidade: ['', []],
+    logradouro: ['', [ Validators.maxLength(100)]],
+    numero: ['', [ Validators.maxLength(5)]],
+    complemento: ['', [Validators.maxLength(30)]],
+    bairro: ['', [Validators.maxLength(50)]],
+    cidade: ['', [Validators.maxLength(50)]],
     uf: ['', []],
     sexo: ['', [Validators.required]],
 
@@ -53,9 +53,8 @@ export class ClienteFormComponent extends BaseFormulario {
   { super (dialog, fb, toastr, router) }
 
   override ngOnInit() {
-    console.log(localStorage.getItem('k_user'))
-    console.log(localStorage.getItem('k_user_id'))
     this.carregarUf();
+    this.form.controls['signo'].disable();
   }
 
   carregarUf() {
@@ -93,6 +92,7 @@ export class ClienteFormComponent extends BaseFormulario {
 
         if(res) {
           this.toastr.success("Cliente cadastrado com sucesso!")
+          this.exibirBtnCadastrar = false;
           super.consultar();
         } else {
           this.toastr.warning("Erro ao cadastrar o cliente!")
@@ -123,6 +123,18 @@ export class ClienteFormComponent extends BaseFormulario {
       dataCriacao: new Date(),
       criadoPor: +localStorage.getItem('k_user_id')
     }
+
+  }
+
+  getSigno() {
+
+    const data_nasc = this.utilFuncoes.hasValue(this.form.controls['data_nasc'].value) ? moment(this.form.controls['data_nasc'].value, "DD/MM/yyyy").toDate() : null;
+
+    if (moment.isDate(data_nasc)) {
+      const signo = this.utilFuncoes.getSigno(data_nasc);
+      this.form.controls['signo'].setValue(signo)
+    }
+
 
   }
 

@@ -8,6 +8,7 @@ import { ClienteModule } from './cliente/cliente.module';
 import { FornecedorComponent } from './fornecedor/fornecedor.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from '../../shared/interceptors/request.interceptor';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { RequestInterceptor } from '../../shared/interceptors/request.intercepto
     GestaoRoutingModule,
     CoreModule,
     BreadcrumbModule,
-    ClienteModule
+    ClienteModule,
+    SharedModule
 
   ],
   declarations: [GestaoComponent, FornecedorComponent],
