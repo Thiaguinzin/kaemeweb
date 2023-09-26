@@ -31,8 +31,7 @@ export class BaseFormulario implements OnInit {
   exibirBtnImprimir: boolean = false;
   exibirBtnMenu: boolean = false;
 
-
-  conteudoImpressao: string[] = [];
+  redirectFechar: string = '/gestao';
 
   ngOnInit(): void {
     this.home();
@@ -78,7 +77,7 @@ export class BaseFormulario implements OnInit {
 
 
   fechar() {
-    this.customRouter.navigate(['/gestao']);
+    this.customRouter.navigate([this.redirectFechar]);
   }
 
   reverter(){
@@ -97,18 +96,6 @@ export class BaseFormulario implements OnInit {
         }
       }
     })
-  }
-
-  excluir(){
-    const resultado = this.resultadoDialog('Excluir registro', 'Ao prosseguir, o registro será excluído e essa operação não poderá ser desfeita. Deseja continuar?');
-    resultado.subscribe((resultadoDialog) => {
-      if (resultadoDialog == true) {
-        this.prosseguirExclusao();
-      }
-    })
-  }
-
-  prosseguirExclusao(){
   }
 
   acaoSalvar(){
@@ -179,9 +166,9 @@ export class BaseFormulario implements OnInit {
         this.pesquisar();
         break
 
-      case 'editar':
-        this.editar();
-        break
+      // case 'editar':
+      //   this.editar();
+      //   break
 
       case 'reverter':
         this.reverter();
@@ -189,9 +176,6 @@ export class BaseFormulario implements OnInit {
 
       case 'salvar':
         this.acaoSalvar();
-        break
-      case 'excluir':
-        this.excluir();
         break
 
       default:

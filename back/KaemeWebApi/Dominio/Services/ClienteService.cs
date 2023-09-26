@@ -26,5 +26,57 @@ namespace Dominio.Services
             }
         }
 
+        public RepositoryResult Update(Cliente cliente)
+        {
+            try
+            {
+                var result = _clienteRepository.Update(cliente);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }
+
+        public RepositoryResult Delete(int id)
+        {
+            try
+            {
+                var result = _clienteRepository.Delete(id);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }           
+
+        public async Task<RepositoryResult> GetAllTop()
+        {
+            try
+            {
+                var result = await _clienteRepository.GetAllTop();
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }
+
+        public async Task<RepositoryResult> GetClienteById(int id)
+        {
+            try
+            {
+                var result = await _clienteRepository.GetClienteById(id);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }          
+
     }
 }

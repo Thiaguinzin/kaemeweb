@@ -5,3 +5,15 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.mat-mdc-row:nth-child(even){
+  background-color: #fbedff;
+}
+
+.mat-mdc-row:nth-child(odd){
+  background-color: white;
+}
+
+.mat-mdc-row:hover {
+  background-color: #dcfadf;
+}

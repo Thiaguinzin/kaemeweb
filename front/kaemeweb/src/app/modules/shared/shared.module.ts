@@ -12,6 +12,8 @@ import { TemplateDefaultComponent } from './components/template-default/template
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
+import { MatPaginatorIntl } from '@angular/material/paginator';
+import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
 
 
 
@@ -35,7 +37,9 @@ import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
   providers: [
     AuthService,
     TokenService,
-    provideNgxMask()
+    provideNgxMask(),
+    { provide: MatPaginatorIntl, useValue: getPortuguesePaginatorIntl() }
+
   ],
   exports: [
     TemplateDefaultComponent

@@ -24,4 +24,33 @@ public class ClienteController : BaseApiController
         var result = _clienteService.Create(cliente);
         return GetActionResult(result);
     }
+
+    [HttpPut("[action]")]
+    public IActionResult Update([FromBody] Cliente cliente)
+    {
+        var result = _clienteService.Update(cliente);
+        return GetActionResult(result);
+    }
+
+    [HttpDelete("[action]")]
+    public IActionResult Delete([FromQuery] int id)
+    {
+        var result = _clienteService.Delete(id);
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetAllTop()
+    {
+        var result = await _clienteService.GetAllTop();
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetClienteById([FromQuery] int id)
+    {
+        var result = await _clienteService.GetClienteById(id);
+        return GetActionResult(result);
+    }      
+    
 }

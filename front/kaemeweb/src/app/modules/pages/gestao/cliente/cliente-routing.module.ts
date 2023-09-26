@@ -6,7 +6,10 @@ import { ClienteListaComponent } from './cliente-lista/cliente-lista.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {label: 'Cliente'} } },
   { path: 'cadastrar', component: ClienteFormComponent, data: {breadcrumb: {skip: true} } },
+  { path: ':id/editar', component: ClienteFormComponent, data: {breadcrumb: {skip: true} } },
+  { path: ':id/consultar', component: ClienteFormComponent, data: {breadcrumb: {skip: true} } },
   { path: 'home', component: ClienteListaComponent, data: {breadcrumb: {skip: true} } }
+
 ];
 
 

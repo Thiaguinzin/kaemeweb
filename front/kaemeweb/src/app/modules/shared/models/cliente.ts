@@ -1,13 +1,14 @@
 export interface Cliente {
   id?: number;
   nome: string;
-  dataNasc: Date | null;
+  data_Nasc: Date | null;
   signo: string | null;
   cpf: string | null;
   telefone: string | null;
   email: string | null;
   instagram: string | null;
-  meioCaptacao: string | null;
+  meio_Captacao: string | null;
+  cep: string | null;
   logradouro: string | null;
   numero: number | null;
   complemento: string | null;
@@ -15,6 +16,6 @@ export interface Cliente {
   cidade: string | null;
   uf: number | null;
   sexo: string | null;
-  dataCriacao: Date;
-  criadoPor: number;
+  data_Criacao: Date;
+  criado_Por: number;
 }
