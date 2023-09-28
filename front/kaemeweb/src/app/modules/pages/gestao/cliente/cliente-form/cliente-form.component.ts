@@ -60,6 +60,7 @@ export class ClienteFormComponent extends BaseFormulario {
     // Caso entre para cadastrar cliente
     this.modoFormulario = 'cadastro';
     this.exibirBtnEditar = false;
+    this.redirectFechar = 'gestao/cliente';
 
     if (this.router.url.includes('editar') === true) {
 

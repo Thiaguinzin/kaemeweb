@@ -5,10 +5,10 @@ import { GestaoRoutingModule } from './gestao-routing.module';
 import { CoreModule } from '../../core/core.module';
 import { BreadcrumbModule } from 'xng-breadcrumb';
 import { ClienteModule } from './cliente/cliente.module';
-import { FornecedorComponent } from './fornecedor/fornecedor.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from '../../shared/interceptors/request.interceptor';
 import { SharedModule } from '../../shared/shared.module';
+import { FornecedorModule } from './fornecedor/fornecedor.module';
 
 @NgModule({
   imports: [
@@ -16,11 +16,12 @@ import { SharedModule } from '../../shared/shared.module';
     GestaoRoutingModule,
     CoreModule,
     BreadcrumbModule,
+    SharedModule,
     ClienteModule,
-    SharedModule
+    FornecedorModule
 
   ],
-  declarations: [GestaoComponent, FornecedorComponent],
+  declarations: [GestaoComponent],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

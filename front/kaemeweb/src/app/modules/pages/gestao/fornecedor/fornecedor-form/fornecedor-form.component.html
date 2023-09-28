@@ -1,0 +1,89 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Cadastrar Fornecedor" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form">
+
+    <div class="divDadosPrincipais">
+      <div class="col-md-12">
+
+        <div class="row">
+
+          <mat-form-field class="col-md-6" appearance="outline">
+            <mat-label>Razão Social</mat-label>
+            <input matInput formControlName="razao_social">
+            <mat-error *ngIf="!!form.get('razao_social').hasError('maxlength')">Razão Social deve conter até 100 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Logradouro</mat-label>
+            <input matInput formControlName="logradouro">
+            <mat-error *ngIf="!!form.get('logradouro').hasError('maxlength')">Logradouro deve conter até 100 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-1" appearance="outline">
+            <mat-label>UF</mat-label>
+            <mat-select formControlName="uf">
+                <mat-option *ngFor="let uf of lista_uf" [value]="uf.codigo">
+                  {{uf.codigo}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <input matInput formControlName="cnpj" mask="00.000.000/0000-00">
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Instagram</mat-label>
+            <input matInput formControlName="instagram">
+            <mat-error *ngIf="!!form.get('instagram').hasError('maxlength')">Instagram deve conter até 50 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email">
+            <mat-error *ngIf="!!form.get('email').hasError('maxlength')">Email deve conter até 50 caracteres</mat-error>
+            <mat-error *ngIf="!!form.get('email').hasError('email')">Email inválido</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Telefone</mat-label>
+            <input matInput formControlName="telefone" mask="(00) 00000-0000">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Min. Pedido Atacado</mat-label>
+            <input matInput formControlName="min_pedido_atacado" [maxlength]="8">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Perc. Desconto a Vista</mat-label>
+            <input matInput formControlName="perc_desc_a_vista" [maxLength]="2">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Tipo Frete</mat-label>
+            <mat-select formControlName="tipo_frete">
+                <mat-option *ngFor="let tipoFrete of lista_tipoFrete" [value]="tipoFrete.id">
+                  {{tipoFrete.descricao.toUpperCase()}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+    </div>
+
+    </form>
+
+  </app-template-default>
+</div>
+
+
