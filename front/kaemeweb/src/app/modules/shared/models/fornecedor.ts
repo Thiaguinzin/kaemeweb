@@ -12,4 +12,7 @@ export interface Fornecedor {
   tipo_Frete_Id: number | null;
   data_Criacao: Date | null;
   criado_Por: number | null;
+
+  // Campos auxiliares
+  tipo_Frete?: string | null;
 }

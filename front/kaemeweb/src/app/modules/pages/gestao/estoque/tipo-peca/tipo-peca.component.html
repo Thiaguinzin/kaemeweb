@@ -1,0 +1,82 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Tipo Peça" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form" style="margin-bottom: 20px;">
+
+      <div class="divDadosPrincipais">
+        <div class="col-md-12">
+
+          <div class="row d-flex justify-content-center">
+
+            <mat-form-field class="col-md-3" appearance="outline">
+              <mat-label>Código</mat-label>
+              <input matInput formControlName="codigo" appUpperCaseInput>
+              <mat-error *ngIf="!!form.get('codigo').hasError('maxlength')">Código deve conter até 20 caracteres</mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-4" appearance="outline">
+              <mat-label>Descrição</mat-label>
+              <input matInput formControlName="descricao" appUpperCaseInput>
+              <mat-error *ngIf="!!form.get('descricao').hasError('maxlength')">Descrição deve conter até 100 caracteres</mat-error>
+            </mat-form-field>
+
+            <button class="col-md-1" mat-raised-button color="primary" style="margin-right: 10px; height: 40px;" (click)="salvar()">Cadastrar</button>
+
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+
+
+
+  <mat-form-field class="col-md-12">
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+        <td mat-cell *matCellDef="let row"> {{row.codigo.trim()}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="descricao">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Descrição </th>
+        <td mat-cell *matCellDef="let row"> {{row.descricao.trim()}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="ativo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Ativo </th>
+        <td mat-cell *matCellDef="let row"> {{row.ativo === true ? "SIM" : "NÃO"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="btnExcluir">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;"></th>
+        <td mat-cell *matCellDef="let row" (click)="acaoExcluir(row)">
+          <button mat-button>
+            <span class="material-icons">delete</span>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhum resultado obtido na pesquisa "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+
+
+  </app-template-default>
+</div>

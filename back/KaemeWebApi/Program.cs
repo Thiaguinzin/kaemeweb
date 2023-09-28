@@ -48,6 +48,7 @@ builder.Services.AddScoped<IUfRepository, UfRepository>();
 builder.Services.AddScoped<IClienteRepository, ClienteRepository>();
 builder.Services.AddScoped<ITipoFreteRepository, TipoFreteRepository>();
 builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
+builder.Services.AddScoped<ITipoPecaRepository, TipoPecaRepository>();
 
 var app = builder.Build();
 

@@ -15,4 +15,26 @@ export class FornecedorService {
     return this.httpClient.post<boolean>('https://localhost:7072' + '/fornecedor/Create', fornecedor);
   }
 
+  update(fornecedor: Fornecedor): Observable<boolean> {
+    return this.httpClient.put<boolean>('https://localhost:7072' + '/fornecedor/Update', fornecedor);
+  }
+
+  delete(id: number): Observable<boolean> {
+    let params = new HttpParams()
+    params = params.append('id', id)
+
+    return this.httpClient.delete<boolean>('https://localhost:7072' + '/fornecedor/Delete', {params});
+  }
+
+  getAll(): Observable<Fornecedor[]> {
+    return this.httpClient.get<Fornecedor[]>('https://localhost:7072' + '/fornecedor/GetAll');
+  }
+
+  getFornecedorById(id: number): Observable<Fornecedor> {
+    let params = new HttpParams()
+    params = params.append('id', id)
+
+    return this.httpClient.get<Fornecedor>('https://localhost:7072' + '/fornecedor/GetFornecedorById', {params});
+  }
+
 }

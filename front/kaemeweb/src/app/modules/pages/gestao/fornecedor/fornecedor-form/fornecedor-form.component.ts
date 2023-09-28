@@ -53,7 +53,38 @@ export class FornecedorFormComponent extends BaseFormulario {
     // Caso entre para cadastrar cliente
     this.modoFormulario = 'cadastro';
     this.exibirBtnEditar = false;
-    this.redirectFechar = 'gestao/cliente';
+    this.redirectFechar = 'gestao/fornecedor';
+
+    if (this.router.url.includes('editar') === true) {
+
+      // Caso entre para edição
+      this.modoFormulario = 'edicao';
+      this.exibirBtnEditar = true;
+      this.exibirBtnCadastrar = false;
+      this.redirectFechar = 'gestao/fornecedor';
+
+      const id = this.route.snapshot.params['id'];
+      this.fornecedorService.getFornecedorById(id)
+        .subscribe(res => {
+          this.carregarFornecedor(res);
+        });
+    }
+
+    if (this.router.url.includes('consultar') === true) {
+
+      // Caso entre para edição
+      this.modoFormulario = 'consulta';
+      this.exibirBtnEditar = false;
+      this.exibirBtnCadastrar = false;
+      this.redirectFechar = 'gestao/fornecedor';
+
+      const id = this.route.snapshot.params['id'];
+      this.fornecedorService.getFornecedorById(id)
+        .subscribe(res => {
+          this.carregarFornecedor(res);
+          this.form.disable();
+        });
+    }
 
     this.carregarUf();
     this.carregarTipoFrete();
@@ -75,23 +106,40 @@ export class FornecedorFormComponent extends BaseFormulario {
   }
 
   override salvar() {
+    debugger
     const fornecedor = this.montarFornecedor();
 
-    this.fornecedorService.create(fornecedor)
+    if (this.modoFormulario === 'cadastro') {
+      this.fornecedorService.create(fornecedor)
       .subscribe(res => {
         if(res) {
           this.toastr.success("Fornecedor cadastrado com sucesso!")
-          // this.router.navigate(['gestao/cliente']);
+          this.router.navigate(['gestao/fornecedor']);
           this.exibirBtnCadastrar = false;
           super.consultar();
         } else {
           this.toastr.warning("Erro ao cadastrar o fornecedor!")
         }
       })
+    }
+
+    if (this.modoFormulario === 'edicao') {
+      this.fornecedorService.update(fornecedor)
+      .subscribe(res => {
+        if(res) {
+          this.toastr.success("Fornecedor editado com sucesso!")
+          this.router.navigate(['gestao/fornecedor']);
+          this.exibirBtnCadastrar = false;
+          super.consultar();
+        } else {
+          this.toastr.warning("Erro ao editar o fornecedor!")
+        }
+      })
+    }
+
   }
 
   montarFornecedor(): Fornecedor {
-    debugger
     return {
       razao_Social: this.form.controls['razao_social'].value.toString().toUpperCase(),
       logradouro: this.utilFuncoes.hasValue(this.form.controls['logradouro'].value) ? this.form.controls['logradouro'].value.toString().toUpperCase() : null,
@@ -108,6 +156,19 @@ export class FornecedorFormComponent extends BaseFormulario {
 
       id: this.route.snapshot.params['id']
     }
+  }
+
+  carregarFornecedor(fornecedor: Fornecedor) {
+    this.form.controls['razao_social'].setValue(fornecedor.razao_Social)
+    this.form.controls['logradouro'].setValue(fornecedor.logradouro)
+    this.form.controls['uf'].setValue(fornecedor.uf)
+    this.form.controls['cnpj'].setValue(fornecedor.cnpj)
+    this.form.controls['instagram'].setValue(fornecedor.instagram)
+    this.form.controls['email'].setValue(fornecedor.email)
+    this.form.controls['telefone'].setValue(fornecedor.telefone)
+    this.form.controls['min_pedido_atacado'].setValue(fornecedor.min_Pedido_Atacado)
+    this.form.controls['perc_desc_a_vista'].setValue(fornecedor.perc_Desc_A_Vista)
+    this.form.controls['tipo_frete'].setValue(fornecedor.tipo_Frete_Id)
   }
 
 

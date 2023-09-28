@@ -94,11 +94,11 @@ export class ClienteListaComponent extends BaseFormulario {
           this.toastr.success("Cliente excluido com sucesso!")
           window.location.reload();
         } else {
-          this.toastr.warning("Não foi possível excluir o Cliente!")
+          this.toastr.warning("Não foi possível excluir o cliente!")
         }
 
       }, error => {
-        this.toastr.error("Erro ao excluir o Cliente!")
+        this.toastr.error("Erro ao excluir o cliente!")
         console.log(error)
       })
 

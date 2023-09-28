@@ -20,8 +20,23 @@
               Clientes</p>
             <!-- <p class="opcaoMenu" [routerLink]="['/gestao/cliente/cadastrar']" (click)="selecionaOpcao()">
               Cadastrar Cliente</p> -->
-            <p class="opcaoMenu" [routerLink]="['/gestao/cliente/cadastrar']" (click)="selecionaOpcao()">
-              Cadastrar Fornecedor</p>
+            <p class="opcaoMenu" [routerLink]="['/gestao/fornecedor']" (click)="selecionaOpcao()">
+              Fornecedores</p>
+
+            <mat-expansion-panel class="opcoesPrincipaisWeb mat-elevation-z2">
+              <mat-expansion-panel-header class="painelMenuHeaderWeb">
+                <mat-panel-title>
+                  Estoque
+                </mat-panel-title>
+                <mat-panel-description style="justify-content: flex-end;">
+                </mat-panel-description>
+              </mat-expansion-panel-header>
+              <mat-accordion>
+                <p class="opcaoMenu" [routerLink]="['/gestao/estoque/tipopeca']" (click)="selecionaOpcao()">
+                  Tipo Peça</p>
+
+              </mat-accordion>
+            </mat-expansion-panel>
 
           </mat-accordion>
         </mat-expansion-panel>

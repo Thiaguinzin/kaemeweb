@@ -4,33 +4,20 @@ using Shared.RepositoryShared;
 
 namespace Dominio.Services
 {
-    public class FornecedorService
+    public class TipoPecaService
     {
-        private IFornecedorRepository _fornecedorRepository;
+        private ITipoPecaRepository _tipoPecaRepository;
 
-        public FornecedorService(IFornecedorRepository fornecedorRepository)
+        public TipoPecaService(ITipoPecaRepository tipoPecaRepository)
         {
-            _fornecedorRepository = fornecedorRepository;
+            _tipoPecaRepository = tipoPecaRepository;
         }
 
-        public RepositoryResult Create(Fornecedor fornecedor)
+        public RepositoryResult Create(TipoPeca tipoPeca)
         {
             try
             {
-                var result = _fornecedorRepository.Create(fornecedor);
-                return RepositoryResult.AddDapper(result);
-            }
-            catch (Exception e)
-            {
-                return RepositoryResult.AddException(e);
-            }
-        }
-
-        public RepositoryResult Update(Fornecedor fornecedor)
-        {
-            try
-            {
-                var result = _fornecedorRepository.Update(fornecedor);
+                var result = _tipoPecaRepository.Create(tipoPeca);
                 return RepositoryResult.AddDapper(result);
             }
             catch (Exception e)
@@ -43,7 +30,7 @@ namespace Dominio.Services
         {
             try
             {
-                var result = _fornecedorRepository.Delete(id);
+                var result = _tipoPecaRepository.Delete(id);
                 return RepositoryResult.AddDapper(result);
             }
             catch (Exception e)
@@ -56,7 +43,7 @@ namespace Dominio.Services
         {
             try
             {
-                var result = _fornecedorRepository.GetAll();
+                var result = _tipoPecaRepository.GetAll();
                 return RepositoryResult.AddDapper(result);
             }
             catch (Exception e)
@@ -65,11 +52,11 @@ namespace Dominio.Services
             }
         }
 
-        public RepositoryResult GetFornecedorById(int id)
+        public RepositoryResult GetAllAtivos()
         {
             try
             {
-                var result = _fornecedorRepository.GetFornecedorById(id);
+                var result = _tipoPecaRepository.GetAllAtivos();
                 return RepositoryResult.AddDapper(result);
             }
             catch (Exception e)

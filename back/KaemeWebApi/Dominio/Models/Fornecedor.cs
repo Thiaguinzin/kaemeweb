@@ -15,5 +15,9 @@ namespace Dominio.Models
         public int? Tipo_Frete_Id { get; set; }
         public DateTime? Data_Criacao { get; set; }
         public int? Criado_Por { get; set; }
+
+
+        // Campos auxiliares
+        public string? Tipo_Frete { get; set; }
     }
 }

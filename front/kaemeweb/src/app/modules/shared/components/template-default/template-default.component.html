@@ -18,7 +18,7 @@
   <mat-card-actions class="d-flex justify-content-end">
     <div class="d-flex justify-content-end">
       <button *ngIf="paginaComponent.exibirBtnCadastrar" mat-raised-button color="primary" style="margin-right: 10px;" (click)="acaoClick('salvar')">Cadastrar</button>
-      <button *ngIf="paginaComponent.exibirBtnEditar" mat-raised-button color="primary" style="margin-right: 10px;">Editar</button>
+      <button *ngIf="paginaComponent.exibirBtnEditar" mat-raised-button color="primary" style="margin-right: 10px;" (click)="acaoClick('salvar')">Editar</button>
       <button mat-raised-button (click)="acaoClick('cancelar')">Cancelar</button>
     </div>
   </mat-card-actions>
