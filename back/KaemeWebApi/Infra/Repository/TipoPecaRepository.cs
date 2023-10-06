@@ -85,7 +85,7 @@ namespace Infra.Repository
 
         public List<TipoPeca> GetAllAtivos()
         {
-            var query = @"SELECT * FROM tipo_peca where tipo_frete.ativo = 1";
+            var query = @"SELECT * FROM tipo_peca where tipo_peca.ativo = 1";
 
             using (var connection = _context.CreateConnection())
             {

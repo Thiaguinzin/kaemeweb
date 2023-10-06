@@ -1,0 +1,88 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Cadastrar Fornecedor" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form">
+
+    <div class="divDadosPrincipais">
+      <div class="col-md-12">
+
+        <div class="row">
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Código</mat-label>
+            <input matInput formControlName="codigo" appUpperCaseInput>
+            <mat-error *ngIf="!!form.get('codigo').hasError('maxlength')">Código deve conter até 50 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-5" appearance="outline">
+            <mat-label>Descrição</mat-label>
+            <input matInput formControlName="descricao" appUpperCaseInput>
+            <mat-error *ngIf="!!form.get('descricao').hasError('maxlength')">Descrição deve conter até 100 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Valor Compra</mat-label>
+            <input matInput formControlName="valor_compra"
+            mask="separator.2"
+            [thousandSeparator]="'.'"
+            [decimalMarker]="','"
+            prefix="R$ "
+            type="text"
+            [dropSpecialCharacters]="true">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Valor Venda</mat-label>
+            <input matInput formControlName="valor_venda"
+            mask="separator.2"
+            [thousandSeparator]="'.'"
+            [decimalMarker]="','"
+            prefix="R$ "
+            type="text"
+            [dropSpecialCharacters]="true">
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Fornecedor</mat-label>
+            <mat-select formControlName="fornecedor_id">
+                <mat-option *ngFor="let fornecedor of lista_fornecedores" [value]="fornecedor.id">
+                  {{fornecedor.razao_Social.toUpperCase()}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Tipo Peça</mat-label>
+            <mat-select formControlName="tipo_peca_id">
+                <mat-option *ngFor="let tipoPeca of lista_tipoPecas" [value]="tipoPeca.id">
+                  {{tipoPeca.descricao.toUpperCase()}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>Quantidade</mat-label>
+            <input matInput formControlName="quantidade">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-4" appearance="outline">
+            <mat-label>Observação</mat-label>
+            <input matInput formControlName="observacao" appUpperCaseInput>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+    </div>
+
+    </form>
+
+  </app-template-default>
+</div>
+
+

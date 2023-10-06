@@ -1,0 +1,135 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Estoque Peças" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form" style="margin-bottom: 20px;">
+
+      <div class="divDadosPrincipais">
+        <div class="col-md-12">
+
+          <div class="row d-flex justify-content-center">
+
+            <mat-form-field class="col-md-3" appearance="outline">
+              <mat-label>Código</mat-label>
+              <input matInput formControlName='codigo' appUpperCaseInput>
+              <!-- <mat-error *ngIf="!!form.get('codigo').hasError('maxlength')">Código deve conter até 20 caracteres</mat-error> -->
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3" appearance="outline">
+              <mat-label>Tipo Peça</mat-label>
+              <mat-select formControlName="tipo_peca_id">
+                  <mat-option *ngFor="let tipoPeca of lista_tipoPecas" [value]="tipoPeca.id">
+                    {{tipoPeca.descricao}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-3" appearance="outline">
+              <mat-label>Fornecedor</mat-label>
+              <mat-select formControlName="fornecedor_id">
+                  <mat-option *ngFor="let fornecedor of lista_fornecedores" [value]="fornecedor.id">
+                    {{fornecedor.razao_Social.toUpperCase()}}
+                  </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <button class="col-md-1" mat-raised-button color="primary" style="margin-right: 10px; height: 40px;" (click)="salvar()">Buscar</button>
+            <button class="col-md-1" mat-raised-button style="margin-right: 10px; height: 40px;" (click)="limparCampos()">Limpar</button>
+
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+
+
+  <mat-form-field class="col-md-12">
+    <mat-label>Filtrar</mat-label>
+    <input matInput (keyup)="applyFilter($event)" #input>
+  </mat-form-field>
+
+  <!-- <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="btnConsultar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;"></th>
+        <td mat-cell *matCellDef="let row" (click)="consultarFornecedor(row)">
+          <button mat-button>
+            <span class="material-icons">search</span>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="razao_Social">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Razão Social </th>
+        <td mat-cell *matCellDef="let row"> {{row.razao_Social}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="telefone">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
+        <td mat-cell *matCellDef="let row"> {{row.telefone | mask: "(00) 00000-0000"}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="instagram">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Instagram </th>
+        <td mat-cell *matCellDef="let row"> {{row.instagram}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="tipo_Frete">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Frete </th>
+        <td mat-cell *matCellDef="let row"> {{row.tipo_Frete}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="min_Pedido_Atacado">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Min. Pedido Atacado </th>
+        <td mat-cell *matCellDef="let row"> R$ {{row.min_Pedido_Atacado}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="perc_Desc_A_Vista">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Perc. Desconto a Vista </th>
+        <td mat-cell *matCellDef="let row"> {{row.perc_Desc_A_Vista}} % </td>
+      </ng-container>
+
+      <ng-container matColumnDef="btnEditar">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;"></th>
+        <td mat-cell *matCellDef="let row" (click)="redirectEditar(row)">
+          <button mat-button>
+            <span class="material-icons">edit</span>
+          </button>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="btnExcluir">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;">
+          <button mat-button [routerLink]="['/gestao/fornecedor/cadastrar']">
+            <span class="material-icons">add_box</span>
+          </button>
+        </th>
+        <td mat-cell *matCellDef="let row" (click)="acaoExcluir(row)">
+          <button mat-button>
+            <span class="material-icons">delete</span>
+          </button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhum resultado obtido na pesquisa "{{input.value}}"</td>
+      </tr>
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div> -->
+
+
+
+  </app-template-default>
+</div>

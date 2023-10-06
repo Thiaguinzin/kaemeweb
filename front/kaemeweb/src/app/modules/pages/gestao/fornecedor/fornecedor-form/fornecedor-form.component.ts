@@ -72,7 +72,7 @@ export class FornecedorFormComponent extends BaseFormulario {
 
     if (this.router.url.includes('consultar') === true) {
 
-      // Caso entre para edição
+      // Caso entre para consulta
       this.modoFormulario = 'consulta';
       this.exibirBtnEditar = false;
       this.exibirBtnCadastrar = false;

@@ -1,15 +1,15 @@
 import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
-import { TipoPecaComponent } from './tipo-peca/tipo-peca.component';
+import { PecaFormComponent } from './peca-form/peca-form.component';
+import { PecaListaComponent } from './peca-lista/peca-lista.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'peca', pathMatch: 'full', data: {breadcrumb: {label: 'Peça'} } },
+  { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {skip: true} } },
   // { path: 'cadastrar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
   // { path: ':id/editar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
   // { path: ':id/consultar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
-  // { path: 'home', component: FornecedorListaComponent, data: {breadcrumb: {skip: true} } }
-  { path: 'tipopeca', component: TipoPecaComponent, data: {breadcrumb: {label: 'Tipo Peça'} } },
-  { path: 'peca', loadChildren: () => import('./peca/peca.module').then(m => m.PecaModule), data: {breadcrumb: {label: 'Peça'} } }
+  { path: 'home', component: PecaListaComponent, data: {breadcrumb: {skip: true} } },
+  { path: 'cadastrar', component: PecaFormComponent, data: {breadcrumb: {label: 'Cadastrar'} } }
 
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class EstoqueRoutingModule {}
+export class PecaRoutingModule {}
