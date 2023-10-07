@@ -3,10 +3,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { MatTableDataSource } from '@angular/material/table';
+import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BaseFormulario } from 'src/app/modules/shared/classes/BaseFormulario';
+import { DialogComponent } from 'src/app/modules/shared/dialog/dialog.component';
 import { Fornecedor } from 'src/app/modules/shared/models/fornecedor';
 import { Peca } from 'src/app/modules/shared/models/peca';
 import { TipoPeca } from 'src/app/modules/shared/models/tipo-peca';
@@ -21,9 +22,13 @@ import { TipoPecaService } from 'src/app/modules/shared/services/tipo-peca.servi
 })
 export class PecaListaComponent extends BaseFormulario {
 
+  lista_pecas: Peca[] = [];
   dataSource: MatTableDataSource<Peca>;
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
+  @ViewChild(MatTable) table: MatTable<any>;
+  displayedColumns: string[] = ['btnConsultar', 'codigo', 'valor_compra', 'valor_venda', 'tipo_peca', 'fornecedor', 'quantidade', 'btnEditar', 'btnExcluir'];
+
 
   lista_fornecedores: Fornecedor[] = [];
   lista_tipoPecas: TipoPeca[] = [];
@@ -32,7 +37,12 @@ export class PecaListaComponent extends BaseFormulario {
     codigo: ['', [Validators.maxLength(50)]],
     tipo_peca_id: ['', []],
     fornecedor_id: ['', []],
+  });
+
+  formQuantidade: FormGroup = this.fb.group({
+    quantidade: ['', []]
   })
+
 
   constructor(private router: Router,
     public override fb: FormBuilder,
@@ -49,12 +59,23 @@ export class PecaListaComponent extends BaseFormulario {
 
     // Caso entre para cadastrar cliente
     this.modoFormulario = 'cadastro';
+    this.exibirBtnCadastrar = false;
     this.exibirBtnEditar = false;
     this.redirectFechar = 'gestao/estoque/peca';
 
+    this.carregarGetTop100();
     this.carregarFornecedor();
     this.carregarTipoPeca();
 
+  }
+
+  carregarGetTop100() {
+    this.pecaService.getTop100()
+      .subscribe(res => {
+        console.log(res)
+        this.lista_pecas = res;
+        this.dataSource = new MatTableDataSource(res);
+      })
   }
 
   carregarFornecedor() {
@@ -88,6 +109,104 @@ export class PecaListaComponent extends BaseFormulario {
 
   limparCampos() {
     this.form.reset();
+  }
+
+  atualizarQuantidade(peca: Peca, event: any) {
+    const novaQuantidade = +event.target.value;
+    const pecaUpdate = peca;
+
+    if (novaQuantidade != peca.quantidade) {
+
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: "Atualizar Estoque",
+          corpo: "Tem certeza que deseja atualizar o estoque?",
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          pecaUpdate.quantidade = novaQuantidade;
+          this.pecaService.update(pecaUpdate)
+            .subscribe(res => {
+              if(res) {
+                this.toastr.success("Quantidade editada com sucesso!")
+                // this.router.navigate(['gestao/fornecedor']);
+                // this.exibirBtnCadastrar = false;
+              } else {
+                this.toastr.warning("Erro ao editar quantidade!")
+              }
+            })
+        }
+      });
+
+    }
+
+  }
+
+  consultarPeca(peca: Peca) {
+    this.router.navigate(['/gestao/estoque/peca/'+peca.id+'/consultar/']);
+  }
+
+  toggleChange(peca: Peca, event: any) {
+
+    if (peca.ativo) {
+
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Inativar peça',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          this.update(peca);
+        } else {
+          this.carregarGetTop100();
+        }
+      });
+
+    }
+    else {
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Ativar peça',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          this.update(peca);
+        } else {
+          this.carregarGetTop100();
+        }
+      });
+    }
+
+  }
+
+  update(peca: Peca) {
+
+    this.pecaService.update(peca)
+      .subscribe(res => {
+
+        if (res) {
+          this.toastr.success("Peça atualizada com sucesso!")
+          window.location.reload();
+        } else {
+          this.toastr.warning("Não foi possível atualizar a peça!")
+        }
+
+      }, error => {
+        this.toastr.error("Erro ao atualizar a peça!")
+        console.log(error)
+      })
+
   }
 
 }

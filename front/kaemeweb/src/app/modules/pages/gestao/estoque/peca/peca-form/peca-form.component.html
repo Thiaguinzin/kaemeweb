@@ -11,13 +11,13 @@
 
           <mat-form-field class="col-md-3" appearance="outline">
             <mat-label>Código</mat-label>
-            <input matInput formControlName="codigo" appUpperCaseInput>
+            <input matInput formControlName="codigo" appUpperCaseInput appSpecialCharacterFilter>
             <mat-error *ngIf="!!form.get('codigo').hasError('maxlength')">Código deve conter até 50 caracteres</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-md-5" appearance="outline">
             <mat-label>Descrição</mat-label>
-            <input matInput formControlName="descricao" appUpperCaseInput>
+            <input matInput formControlName="descricao" appUpperCaseInput appSpecialCharacterFilter>
             <mat-error *ngIf="!!form.get('descricao').hasError('maxlength')">Descrição deve conter até 100 caracteres</mat-error>
           </mat-form-field>
 

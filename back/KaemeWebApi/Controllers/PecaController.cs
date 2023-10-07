@@ -23,6 +23,34 @@ public class PecaController : BaseApiController
     {
         var result = _pecaService.Create(peca);
         return GetActionResult(result);
-    }   
+    }
+
+    [HttpPut("[action]")]
+    public IActionResult Update([FromBody] Peca peca)
+    {
+        var result = _pecaService.Update(peca);
+        return GetActionResult(result);
+    }
+
+    [HttpDelete("[action]")]
+    public IActionResult Delete([FromQuery] int id)
+    {
+        var result = _pecaService.Delete(id);
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public IActionResult GetTop100()
+    {
+        var result = _pecaService.GetTop100();
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public IActionResult GetPecaById(int id)
+    {
+        var result = _pecaService.GetPecaById(id);
+        return GetActionResult(result);
+    }      
     
 }

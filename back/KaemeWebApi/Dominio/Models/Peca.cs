@@ -15,5 +15,9 @@ namespace Dominio.Models
         public DateTime Data_Criacao { get; set; }
         public int Criado_Por { get; set; }
 
+        // Propriedades de visualização
+        public string? Tipo_Peca_Descricao { get; set; }
+        public string? Fornecedor { get; set; }
+
     }
 }

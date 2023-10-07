@@ -44,61 +44,61 @@
     </form>
 
 
-  <mat-form-field class="col-md-12">
+  <mat-form-field class="col-md-12" style="margin-top: 30px;">
     <mat-label>Filtrar</mat-label>
     <input matInput (keyup)="applyFilter($event)" #input>
   </mat-form-field>
 
-  <!-- <div class="mat-elevation-z8">
+  <div class="mat-elevation-z8">
     <table mat-table [dataSource]="dataSource" matSort>
 
       <ng-container matColumnDef="btnConsultar">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;"></th>
-        <td mat-cell *matCellDef="let row" (click)="consultarFornecedor(row)">
+        <td mat-cell *matCellDef="let row" (click)="consultarPeca(row)">
           <button mat-button>
             <span class="material-icons">search</span>
           </button>
         </td>
       </ng-container>
 
-      <ng-container matColumnDef="razao_Social">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Razão Social </th>
-        <td mat-cell *matCellDef="let row"> {{row.razao_Social}} </td>
+      <ng-container matColumnDef="codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+        <td mat-cell *matCellDef="let row"> {{row.codigo}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="email">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
-        <td mat-cell *matCellDef="let row"> {{row.email}} </td>
+      <ng-container matColumnDef="valor_compra">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Compra </th>
+        <td mat-cell *matCellDef="let row"> R$ {{row.valor_Compra}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="telefone">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Telefone </th>
-        <td mat-cell *matCellDef="let row"> {{row.telefone | mask: "(00) 00000-0000"}} </td>
+      <ng-container matColumnDef="valor_venda">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Venda </th>
+        <td mat-cell *matCellDef="let row"> R$ {{row.valor_Venda}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="instagram">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Instagram </th>
-        <td mat-cell *matCellDef="let row"> {{row.instagram}} </td>
+      <ng-container matColumnDef="tipo_peca">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Peça </th>
+        <td mat-cell *matCellDef="let row"> {{row.tipo_Peca_Descricao}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="tipo_Frete">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Frete </th>
-        <td mat-cell *matCellDef="let row"> {{row.tipo_Frete}} </td>
+      <ng-container matColumnDef="fornecedor">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Fornecedor </th>
+        <td mat-cell *matCellDef="let row"> {{row.fornecedor}} </td>
       </ng-container>
 
-      <ng-container matColumnDef="min_Pedido_Atacado">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Min. Pedido Atacado </th>
-        <td mat-cell *matCellDef="let row"> R$ {{row.min_Pedido_Atacado}} </td>
-      </ng-container>
-
-      <ng-container matColumnDef="perc_Desc_A_Vista">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Perc. Desconto a Vista </th>
-        <td mat-cell *matCellDef="let row"> {{row.perc_Desc_A_Vista}} % </td>
+      <ng-container matColumnDef="quantidade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
+        <td mat-cell *matCellDef="let row" (focusout)="atualizarQuantidade(row, $event)">
+          <mat-form-field appearance="outline" style="width: 75px;">
+            <input matInput [value]="row.quantidade" style="text-align: center;">
+          </mat-form-field>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="btnEditar">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;"></th>
-        <td mat-cell *matCellDef="let row" (click)="redirectEditar(row)">
+        <!-- <td mat-cell *matCellDef="let row" (click)="redirectEditar(row)"> -->
+          <td mat-cell *matCellDef="let row">
           <button mat-button>
             <span class="material-icons">edit</span>
           </button>
@@ -107,14 +107,15 @@
 
       <ng-container matColumnDef="btnExcluir">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;">
-          <button mat-button [routerLink]="['/gestao/fornecedor/cadastrar']">
+          <button mat-button [routerLink]="['/gestao/estoque/peca/cadastrar']">
             <span class="material-icons">add_box</span>
           </button>
         </th>
-        <td mat-cell *matCellDef="let row" (click)="acaoExcluir(row)">
-          <button mat-button>
+        <td mat-cell *matCellDef="let row">
+          <!-- <button mat-button>
             <span class="material-icons">delete</span>
-          </button>
+          </button> -->
+          <mat-slide-toggle [checked]="row.ativo" (toggleChange)="toggleChange(row, $event)"></mat-slide-toggle>
         </td>
       </ng-container>
 
@@ -127,7 +128,7 @@
     </table>
 
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
-  </div> -->
+  </div>
 
 
 

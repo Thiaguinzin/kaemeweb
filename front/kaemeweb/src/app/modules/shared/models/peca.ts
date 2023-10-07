@@ -11,4 +11,9 @@ export interface Peca {
   observacao?: string | null;
   data_Criacao: Date;
   criado_Por: number;
+
+  // Propriedades de visualização
+  tipo_Peca_Descricao?: string | null;
+  fornecedor?: string | null;
+
 }

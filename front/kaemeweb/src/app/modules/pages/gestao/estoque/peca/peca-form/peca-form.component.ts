@@ -49,14 +49,41 @@ export class PecaFormComponent extends BaseFormulario {
 
   override ngOnInit() {
 
+    this.carregarFornecedor();
+    this.carregarTipoPeca();
+
     // Caso entre para cadastrar cliente
     this.modoFormulario = 'cadastro';
     this.exibirBtnEditar = false;
     this.redirectFechar = 'gestao/estoque/peca';
 
-    this.carregarFornecedor();
-    this.carregarTipoPeca();
+    if (this.router.url.includes('consultar') === true) {
 
+      // Caso entre para consulta
+      this.modoFormulario = 'consulta';
+      this.exibirBtnEditar = false;
+      this.exibirBtnCadastrar = false;
+
+      const id = this.route.snapshot.params['id'];
+      this.pecaService.getPecaById(id)
+        .subscribe(res => {
+          this.carregarPeca(res);
+          this.form.disable();
+        });
+    }
+
+
+  }
+
+  carregarPeca(peca: Peca) {
+    this.form.controls['codigo'].setValue(peca.codigo)
+    this.form.controls['descricao'].setValue(peca.descricao)
+    this.form.controls['valor_compra'].setValue(peca.valor_Compra)
+    this.form.controls['valor_venda'].setValue(peca.valor_Venda)
+    this.form.controls['quantidade'].setValue(peca.quantidade)
+    this.form.controls['tipo_peca_id'].setValue(peca.tipo_Peca_Id)
+    this.form.controls['fornecedor_id'].setValue(peca.fornecedor_Id)
+    this.form.controls['observacao'].setValue(peca.observacao)
   }
 
   carregarFornecedor() {
@@ -105,7 +132,7 @@ export class PecaFormComponent extends BaseFormulario {
       valor_Compra: this.form.controls['valor_compra'].value,
       valor_Venda: this.form.controls['valor_venda'].value,
       quantidade: this.form.controls['quantidade'].value,
-      observacao: this.form.controls['observacao'].value,
+      observacao: this.utilFuncoes.hasValue(this.form.controls['observacao'].value) ? this.form.controls['observacao'].value : null,
       tipo_Peca_Id: this.form.controls['tipo_peca_id'].value,
       fornecedor_Id: this.form.controls['fornecedor_id'].value,
       data_Criacao: new Date(),

@@ -11,13 +11,13 @@
 
           <mat-form-field class="col-md-6" appearance="outline">
             <mat-label>Razão Social</mat-label>
-            <input matInput formControlName="razao_social">
+            <input matInput formControlName="razao_social" appUpperCaseInput appSpecialCharacterFilter>
             <mat-error *ngIf="!!form.get('razao_social').hasError('maxlength')">Razão Social deve conter até 100 caracteres</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-md-3" appearance="outline">
             <mat-label>Logradouro</mat-label>
-            <input matInput formControlName="logradouro">
+            <input matInput formControlName="logradouro" appUpperCaseInput appSpecialCharacterFilter>
             <mat-error *ngIf="!!form.get('logradouro').hasError('maxlength')">Logradouro deve conter até 100 caracteres</mat-error>
           </mat-form-field>
 

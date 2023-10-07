@@ -60,29 +60,27 @@ namespace Infra.Repository
 
         }
 
-        public bool Update(Fornecedor fornecedor)
+        public bool Update(Peca peca)
         {
             try
             {
-                var sql = $@"UPDATE fornecedor set
-                            razao_social = @Razao_Social, logradouro = @Logradouro, uf = @Uf, cnpj = @Cnpj, telefone = @Telefone, email = @Email,
-                            instagram = @Instagram, min_pedido_atacado = @Min_Pedido_Atacado, perc_desc_a_vista = @Perc_Desc_A_Vista, tipo_frete_id = @Tipo_Frete_Id
-                            where fornecedor.id = {fornecedor.Id}";
+                var sql = $@"UPDATE peca set
+                            codigo = @Codigo, descricao = @Descricao, valor_compra = @Valor_Compra, valor_venda = @Valor_Venda, quantidade = @Quantidade,
+                            tipo_peca_id = @Tipo_Peca_Id, fornecedor_id = @Fornecedor_Id, observacao = @Observacao
+                            where peca.id = {peca.Id}";
 
                 using (var connection = _context.CreateConnection())
                 {
-		            var clienteSql = new Fornecedor() 
+		            var clienteSql = new Peca() 
                     {
-                        Razao_Social = fornecedor.Razao_Social,
-                        Logradouro = fornecedor.Logradouro,
-                        Uf = fornecedor.Uf,
-                        Cnpj = fornecedor.Cnpj,
-                        Telefone = fornecedor.Telefone,
-                        Email = fornecedor.Email,
-                        Instagram = fornecedor.Instagram,
-                        Min_Pedido_Atacado = fornecedor.Min_Pedido_Atacado,
-                        Perc_Desc_A_Vista = fornecedor.Perc_Desc_A_Vista,
-                        Tipo_Frete_Id = fornecedor.Tipo_Frete_Id
+                        Codigo = peca.Codigo,
+                        Descricao = peca.Descricao,
+                        Valor_Compra = peca.Valor_Compra,
+                        Valor_Venda = peca.Valor_Venda,
+                        Quantidade = peca.Quantidade,
+                        Tipo_Peca_Id = peca.Tipo_Peca_Id,
+                        Fornecedor_Id = peca.Fornecedor_Id,
+                        Observacao = peca.Observacao,
                     };
 
                     int linhasAfetadas = connection.Execute(sql, clienteSql);
@@ -108,7 +106,7 @@ namespace Infra.Repository
 
         public bool Delete(int id)
         {
-            var query = $"DELETE fornecedor WHERE fornecedor.id = {id}";
+            var query = $"UPDATE peca SET peca.ativo = 0 WHERE peca.id = {id}";
 
             using (var connection = _context.CreateConnection())
             {
@@ -141,14 +139,32 @@ namespace Infra.Repository
             }
         }
 
-        public Fornecedor GetFornecedorById(int id)
+        public Peca GetPecaById(int id)
         {
-            var query = $@"SELECT * FROM fornecedor WHERE fornecedor.id = {id}";
+            var query = $@"SELECT * FROM peca WHERE peca.id = {id}";
 
             using (var connection = _context.CreateConnection())
             {
-                var fornecedor = connection.Query<Fornecedor>(query);
+                var fornecedor = connection.Query<Peca>(query);
                 return fornecedor.FirstOrDefault();
+            }
+        }
+
+        public List<Peca> GetTop100()
+        {
+            var query = $@"SELECT TOP 100 
+                        	peca.*,
+                        	tipo_peca.descricao as Tipo_Peca_Descricao,
+                        	fornecedor.razao_social as Fornecedor
+                        FROM peca
+                        JOIN tipo_peca on tipo_peca.id = peca.tipo_peca_id
+                        JOIN fornecedor on fornecedor.id = peca.fornecedor_id
+                        order by peca.data_criacao, peca.ativo desc";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var peca = connection.Query<Peca>(query);
+                return peca.ToList();
             }
         }
     }

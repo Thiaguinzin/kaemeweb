@@ -13,6 +13,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 
 
@@ -34,7 +35,8 @@ import { DirectivesModule } from 'src/app/modules/shared/directives/directives.m
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    DirectivesModule
+    DirectivesModule,
+    MatSlideToggleModule
   ]
 })
 export class PecaModule { }
