@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "HxAtDk1BJUMVtZM1kcfhWgAMaKNHx+MCATS1VItsFB/5oylW1Fxnw1NyoSxwJGbdoP7K1VuVbrZi/3kb7xay5g==",
+  "dgSpecHash": "8dROujc7hF+s+VCqBG0GBdc54SWQ9Ti5wBsu8H5La/3rHM70C0NTmZLg7QhlphDorc9DO6w98W8hEwL3HrhGFg==",
   "success": true,
   "projectFilePath": "C:\\Users\\thiag\\OneDrive\\Documentos\\kaemeweb\\back\\KaemeWebApi\\KaemeWebApi.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\thiag\\.nuget\\packages\\bcrypt.net-next\\4.0.3\\bcrypt.net-next.4.0.3.nupkg.sha512",
     "C:\\Users\\thiag\\.nuget\\packages\\dapper\\2.0.151\\dapper.2.0.151.nupkg.sha512",
+    "C:\\Users\\thiag\\.nuget\\packages\\dapper.sqlbuilder\\2.0.78\\dapper.sqlbuilder.2.0.78.nupkg.sha512",
     "C:\\Users\\thiag\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\6.0.8\\microsoft.aspnetcore.authentication.jwtbearer.6.0.8.nupkg.sha512",
     "C:\\Users\\thiag\\.nuget\\packages\\microsoft.csharp\\4.5.0\\microsoft.csharp.4.5.0.nupkg.sha512",
     "C:\\Users\\thiag\\.nuget\\packages\\microsoft.entityframeworkcore\\7.0.10\\microsoft.entityframeworkcore.7.0.10.nupkg.sha512",

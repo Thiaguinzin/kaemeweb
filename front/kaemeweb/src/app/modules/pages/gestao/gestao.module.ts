@@ -9,6 +9,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RequestInterceptor } from '../../shared/interceptors/request.interceptor';
 import { SharedModule } from '../../shared/shared.module';
 import { FornecedorModule } from './fornecedor/fornecedor.module';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   imports: [
@@ -18,7 +19,8 @@ import { FornecedorModule } from './fornecedor/fornecedor.module';
     BreadcrumbModule,
     SharedModule,
     ClienteModule,
-    FornecedorModule
+    FornecedorModule,
+    MatCardModule
 
   ],
   declarations: [GestaoComponent],

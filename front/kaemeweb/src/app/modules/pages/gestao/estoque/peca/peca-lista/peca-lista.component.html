@@ -33,7 +33,7 @@
               </mat-select>
             </mat-form-field>
 
-            <button class="col-md-1" mat-raised-button color="primary" style="margin-right: 10px; height: 40px;" (click)="salvar()">Buscar</button>
+            <button class="col-md-1" mat-raised-button color="primary" style="margin-right: 10px; height: 40px;" (click)="buscarPecas()">Buscar</button>
             <button class="col-md-1" mat-raised-button style="margin-right: 10px; height: 40px;" (click)="limparCampos()">Limpar</button>
 
           </div>
@@ -97,8 +97,7 @@
 
       <ng-container matColumnDef="btnEditar">
         <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;"></th>
-        <!-- <td mat-cell *matCellDef="let row" (click)="redirectEditar(row)"> -->
-          <td mat-cell *matCellDef="let row">
+        <td mat-cell *matCellDef="let row" (click)="redirectEditar(row)">
           <button mat-button>
             <span class="material-icons">edit</span>
           </button>

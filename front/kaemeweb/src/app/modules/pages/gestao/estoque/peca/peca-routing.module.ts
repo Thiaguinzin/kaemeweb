@@ -6,8 +6,8 @@ import { PecaListaComponent } from './peca-lista/peca-lista.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {skip: true} } },
   // { path: 'cadastrar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
-  // { path: ':id/editar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
   { path: ':id/consultar', component: PecaFormComponent, data: {breadcrumb: {skip: true} } },
+  { path: ':id/editar', component: PecaFormComponent, data: {breadcrumb: {skip: true} } },
   { path: 'home', component: PecaListaComponent, data: {breadcrumb: {skip: true} } },
   { path: 'cadastrar', component: PecaFormComponent, data: {breadcrumb: {label: 'Cadastrar'} } }
 

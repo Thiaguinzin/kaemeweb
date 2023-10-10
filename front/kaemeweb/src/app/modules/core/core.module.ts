@@ -8,11 +8,14 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { RouterModule } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { MatCardModule } from '@angular/material/card';
 
 @NgModule({
   declarations: [
     HeaderComponent,
-    MenuComponent
+    MenuComponent,
+    DashboardComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatMenuModule,
     MatExpansionModule,
     RouterModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   exports: [
     HeaderComponent,

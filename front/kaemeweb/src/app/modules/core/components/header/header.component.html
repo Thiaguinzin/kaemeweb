@@ -10,14 +10,18 @@
           </span>
       </ng-template>
   </button>
-  <!-- <span><img class="logo" src="./assets/img/kaeme_logo.png"></span> -->
+
+  <a [routerLink]="['/gestao']">
+    <img class="logo" src="./assets/img/kaeme_logo-transformed.png">
+  </a>
+
   <div class="d-block d-sm-block d-md-block d-lg-block d-xl-block">
-      <div class="nomeModulo">
-          <span>
+      <div class="nomeModulo" style="margin-left: 10px;">
+          <span >
               KaemeWeb
           </span>
       </div>
-      <span class="versao">
+      <span class="versao" style="margin-left: 10px;">
           {{0.1}}
       </span>
   </div>

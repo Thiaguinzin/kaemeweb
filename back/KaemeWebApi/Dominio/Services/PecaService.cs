@@ -76,7 +76,20 @@ namespace Dominio.Services
             {
                 return RepositoryResult.AddException(e);
             }
-        }           
+        }
+
+        public RepositoryResult GetPecaBySearch(string? codigo, int? tipo_peca_id, int? fornecedor_id)
+        {
+            try
+            {
+                var result = _pecaRepository.GetPecaBySearch(codigo, tipo_peca_id, fornecedor_id);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }         
 
     }
 }

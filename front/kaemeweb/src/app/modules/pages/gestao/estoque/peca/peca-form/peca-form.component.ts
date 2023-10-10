@@ -72,6 +72,20 @@ export class PecaFormComponent extends BaseFormulario {
         });
     }
 
+    if (this.router.url.includes('editar') === true) {
+
+      // Caso entre para consulta
+      this.modoFormulario = 'edicao';
+      this.exibirBtnEditar = true;
+      this.exibirBtnCadastrar = false;
+
+      const id = this.route.snapshot.params['id'];
+      this.pecaService.getPecaById(id)
+        .subscribe(res => {
+          this.carregarPeca(res);
+        });
+    }
+
 
   }
 
@@ -107,7 +121,6 @@ export class PecaFormComponent extends BaseFormulario {
   }
 
   override salvar() {
-    debugger
     const peca = this.montarPeca();
 
     if (this.modoFormulario === 'cadastro') {
@@ -120,6 +133,19 @@ export class PecaFormComponent extends BaseFormulario {
             super.consultar();
           } else {
             this.toastr.warning("Erro ao cadastrar a peça!")
+          }
+        })
+    }
+
+    if (this.modoFormulario === 'edicao') {
+      this.pecaService.update(peca)
+        .subscribe(res => {
+          if(res) {
+            this.toastr.success("Peça editada com sucesso!")
+            this.router.navigate(['gestao/estoque/peca']);
+            super.consultar();
+          } else {
+            this.toastr.warning("Erro ao editar a peça!")
           }
         })
     }

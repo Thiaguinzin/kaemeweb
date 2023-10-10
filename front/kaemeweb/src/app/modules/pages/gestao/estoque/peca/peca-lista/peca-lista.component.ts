@@ -7,6 +7,7 @@ import { MatTable, MatTableDataSource } from '@angular/material/table';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BaseFormulario } from 'src/app/modules/shared/classes/BaseFormulario';
+import { UtilFuncoes } from 'src/app/modules/shared/classes/UtilFuncoes';
 import { DialogComponent } from 'src/app/modules/shared/dialog/dialog.component';
 import { Fornecedor } from 'src/app/modules/shared/models/fornecedor';
 import { Peca } from 'src/app/modules/shared/models/peca';
@@ -33,6 +34,9 @@ export class PecaListaComponent extends BaseFormulario {
   lista_fornecedores: Fornecedor[] = [];
   lista_tipoPecas: TipoPeca[] = [];
 
+  btnBuscarPress: boolean = false;
+  btnLimparPress: boolean = false;
+
   override form: FormGroup = this.fb.group({
     codigo: ['', [Validators.maxLength(50)]],
     tipo_peca_id: ['', []],
@@ -57,11 +61,9 @@ export class PecaListaComponent extends BaseFormulario {
 
   override ngOnInit() {
 
-    // Caso entre para cadastrar cliente
-    this.modoFormulario = 'cadastro';
     this.exibirBtnCadastrar = false;
     this.exibirBtnEditar = false;
-    this.redirectFechar = 'gestao/estoque/peca';
+    this.redirectFechar = 'gestao';
 
     this.carregarGetTop100();
     this.carregarFornecedor();
@@ -72,7 +74,6 @@ export class PecaListaComponent extends BaseFormulario {
   carregarGetTop100() {
     this.pecaService.getTop100()
       .subscribe(res => {
-        console.log(res)
         this.lista_pecas = res;
         this.dataSource = new MatTableDataSource(res);
       })
@@ -108,6 +109,8 @@ export class PecaListaComponent extends BaseFormulario {
   }
 
   limparCampos() {
+    this.btnLimparPress = true;
+    this.btnBuscarPress = false;
     this.form.reset();
   }
 
@@ -131,13 +134,14 @@ export class PecaListaComponent extends BaseFormulario {
           this.pecaService.update(pecaUpdate)
             .subscribe(res => {
               if(res) {
-                this.toastr.success("Quantidade editada com sucesso!")
-                // this.router.navigate(['gestao/fornecedor']);
-                // this.exibirBtnCadastrar = false;
+                this.toastr.success("Quantidade editada com sucesso!");
+                // this.atualizarListaPecasInExecutionTime();
               } else {
                 this.toastr.warning("Erro ao editar quantidade!")
               }
             })
+        } else {
+          this.atualizarTabela();
         }
       });
 
@@ -147,6 +151,10 @@ export class PecaListaComponent extends BaseFormulario {
 
   consultarPeca(peca: Peca) {
     this.router.navigate(['/gestao/estoque/peca/'+peca.id+'/consultar/']);
+  }
+
+  redirectEditar(peca: Peca) {
+    this.router.navigate(['/gestao/estoque/peca/'+peca.id+'/editar/']);
   }
 
   toggleChange(peca: Peca, event: any) {
@@ -163,9 +171,10 @@ export class PecaListaComponent extends BaseFormulario {
 
       resultadoDialog.afterClosed().subscribe(resultado => {
         if(resultado == true) {
+          peca.ativo = false;
           this.update(peca);
         } else {
-          this.carregarGetTop100();
+          this.atualizarTabela();
         }
       });
 
@@ -181,9 +190,10 @@ export class PecaListaComponent extends BaseFormulario {
 
       resultadoDialog.afterClosed().subscribe(resultado => {
         if(resultado == true) {
+          peca.ativo = true;
           this.update(peca);
         } else {
-          this.carregarGetTop100();
+          this.atualizarTabela();
         }
       });
     }
@@ -206,6 +216,35 @@ export class PecaListaComponent extends BaseFormulario {
         this.toastr.error("Erro ao atualizar a peça!")
         console.log(error)
       })
+
+  }
+
+  buscarPecas() {
+    const codigo = this.form.controls['codigo'].value ? this.form.controls['codigo'].value : '';
+    const tipo_peca_id = this.form.controls['tipo_peca_id'].value ? this.form.controls['tipo_peca_id'].value : '';
+    const fornecedor_id = this.form.controls['fornecedor_id'].value ? this.form.controls['fornecedor_id'].value : '';
+
+    this.pecaService.getPecaBySearch(codigo, tipo_peca_id, fornecedor_id)
+      .subscribe(res => {
+        this.lista_pecas = res;
+        this.btnLimparPress = false;
+        this.btnBuscarPress = true;
+        this.dataSource = new MatTableDataSource(res);
+    });
+  }
+
+  atualizarTabela() {
+    const codigo = this.form.controls['codigo'].value ? this.form.controls['codigo'].value : '';
+    const tipo_peca_id = this.form.controls['tipo_peca_id'].value ? this.form.controls['tipo_peca_id'].value : '';
+    const fornecedor_id = this.form.controls['fornecedor_id'].value ? this.form.controls['fornecedor_id'].value : '';
+
+    if (this.btnBuscarPress && (UtilFuncoes.hasValue(codigo) || UtilFuncoes.hasValue(tipo_peca_id) || UtilFuncoes.hasValue(fornecedor_id))) {
+      this.buscarPecas();
+    }
+
+    if (!this.btnBuscarPress) {
+      this.carregarGetTop100();
+    }
 
   }
 
