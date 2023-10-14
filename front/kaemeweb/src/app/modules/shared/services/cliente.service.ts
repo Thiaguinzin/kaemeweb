@@ -36,4 +36,12 @@ export class ClienteService {
     return this.httpClient.get<Cliente>('https://localhost:7072' + '/cliente/GetClienteById', {params});
   }
 
+  getClienteBySearch(nome?: string, cpf?: string): Observable<Cliente[]> {
+    let params = new HttpParams()
+    params = params.append('nome', nome)
+    params = params.append('cpf', cpf)
+
+    return this.httpClient.get<Cliente[]>('https://localhost:7072' + '/cliente/GetClienteBySearch', {params});
+  }
+
 }

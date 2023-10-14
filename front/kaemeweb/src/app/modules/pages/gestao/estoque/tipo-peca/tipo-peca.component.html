@@ -52,7 +52,9 @@
 
       <ng-container matColumnDef="ativo">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Ativo </th>
-        <td mat-cell *matCellDef="let row"> {{row.ativo === true ? "SIM" : "NÃO"}} </td>
+        <td mat-cell *matCellDef="let row">
+          <mat-slide-toggle [checked]="row.ativo" (toggleChange)="toggleChange(row, $event)"></mat-slide-toggle>
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="btnExcluir">

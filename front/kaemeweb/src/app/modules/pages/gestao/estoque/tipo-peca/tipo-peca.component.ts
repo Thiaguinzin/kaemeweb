@@ -8,6 +8,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BaseFormulario } from 'src/app/modules/shared/classes/BaseFormulario';
+import { UtilFuncoes } from 'src/app/modules/shared/classes/UtilFuncoes';
 import { DialogComponent } from 'src/app/modules/shared/dialog/dialog.component';
 import { TipoPeca } from 'src/app/modules/shared/models/tipo-peca';
 
@@ -90,7 +91,7 @@ export class TipoPecaComponent extends BaseFormulario {
 
     const resultadoDialog = this.dialog.open(DialogComponent, {
       data: {
-        titulo: 'Excluir fornecedor',
+        titulo: 'Excluir peça',
         corpo: 'Deseja realmente prosseguir?',
         qtdBotoes: 2
       }
@@ -106,20 +107,84 @@ export class TipoPecaComponent extends BaseFormulario {
 
   excluir(tipoPeca: TipoPeca) {
 
-    // this.fornecedorService.delete(fornecedor.id)
-    //   .subscribe(res => {
+    this.tipoPecaService.delete(tipoPeca.id)
+      .subscribe(res => {
 
-    //     if (res) {
-    //       this.toastr.success("Fornecedor excluido com sucesso!")
-    //       window.location.reload();
-    //     } else {
-    //       this.toastr.warning("Não foi possível excluir o fornecedor!")
-    //     }
+        if (res) {
+          this.toastr.success("Tipo Peça excluida com sucesso!")
+          window.location.reload();
+        } else {
+          this.toastr.warning("Não foi possível excluir a tipo peça!")
+        }
 
-    //   }, error => {
-    //     this.toastr.error("Erro ao excluir o fornecedor!")
-    //     console.log(error)
-    //   })
+      }, error => {
+        this.toastr.error("Erro ao excluir a tipo peça!")
+        console.log(error)
+      })
+
+  }
+
+
+  toggleChange(tipo_peca: TipoPeca, event: any) {
+
+    if (tipo_peca.ativo) {
+
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Inativar tipo peça',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          tipo_peca.ativo = false;
+          this.update(tipo_peca);
+        } else {
+          this.carregarTipoPecas();
+        }
+      });
+
+    }
+    else {
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Ativar peça',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          tipo_peca.ativo = true;
+          this.update(tipo_peca);
+        } else {
+          this.carregarTipoPecas();
+        }
+      });
+    }
+
+  }
+
+  update(tipo_peca: TipoPeca) {
+
+    this.tipoPecaService.update(tipo_peca)
+      .subscribe(res => {
+
+        if (res) {
+          this.toastr.success("Tipo peça atualizada com sucesso!")
+        } else {
+          this.toastr.warning("Não foi possível atualizar tipo peça!")
+          this.carregarTipoPecas();
+        }
+
+      }, error => {
+        this.toastr.error("Erro ao atualizar tipo peça!")
+        console.log(error)
+        this.carregarTipoPecas();
+      })
 
   }
 

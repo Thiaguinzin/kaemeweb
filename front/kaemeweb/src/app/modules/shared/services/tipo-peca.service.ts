@@ -16,6 +16,10 @@ export class TipoPecaService {
     return this.httpClient.post<boolean>('https://localhost:7072' + '/tipopeca/Create', tipo_peca);
   }
 
+  update(tipo_peca: TipoPeca): Observable<boolean> {
+    return this.httpClient.put<boolean>('https://localhost:7072' + '/tipopeca/Update', tipo_peca);
+  }
+
   delete(id: number): Observable<boolean> {
     let params = new HttpParams()
     params = params.append('id', id)

@@ -1,0 +1,13 @@
+.containerDialog {
+  width: 1500px;
+  // position: absolute;
+  left: 50%;
+  top: 50%;
+  // transform: translate(-50%, -50%);
+}
+
+.fixed-header {
+  position: sticky !important;
+  top: 0px !important;
+  z-index: 999;
+}

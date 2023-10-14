@@ -1,32 +1,26 @@
-import { MatButtonModule } from '@angular/material/button';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ClienteRoutingModule } from './cliente-routing.module';
+import { PedidoFormComponent } from './pedido-form/pedido-form.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { PedidoRoutingModule } from './pedido-routing.module';
+import {MatStepperModule} from '@angular/material/stepper';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
-import { ClienteFormComponent } from './cliente-form/cliente-form.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
-import { ClienteListaComponent } from './cliente-lista/cliente-lista.component';
-import { ClienteDialogComponent } from './cliente-dialog/cliente-dialog.component';
-import { MatDialogModule } from '@angular/material/dialog';
-
-
+import { MatButtonModule } from '@angular/material/button';
+import { ClienteModule } from '../cliente/cliente.module';
+import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 
 @NgModule({
-  declarations: [
-    ClienteFormComponent,
-    ClienteListaComponent,
-    ClienteDialogComponent
-  ],
   imports: [
     CommonModule,
-    ClienteRoutingModule,
     SharedModule,
+    PedidoRoutingModule,
+    MatStepperModule,
     MatFormFieldModule,
     MatInputModule,
     MatPaginatorModule,
@@ -36,11 +30,14 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
-    MatDialogModule
+    ClienteModule
   ],
-  exports: [
-    ClienteDialogComponent
+  declarations: [PedidoFormComponent],
+  providers: [
+    {
+      provide: STEPPER_GLOBAL_OPTIONS,
+      useValue: {showError: true},
+    },
   ],
-
 })
-export class ClienteModule { }
+export class PedidoModule { }

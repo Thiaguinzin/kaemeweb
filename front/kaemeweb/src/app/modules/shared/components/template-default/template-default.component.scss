@@ -41,3 +41,7 @@
   font-size: 14px !important;
 }
 
+::ng-deep.mat-mdc-form-field-icon-suffix {
+  margin-bottom: 15px;
+  margin-right: 15px;
+}

@@ -10,6 +10,7 @@ import { RequestInterceptor } from '../../shared/interceptors/request.intercepto
 import { SharedModule } from '../../shared/shared.module';
 import { FornecedorModule } from './fornecedor/fornecedor.module';
 import { MatCardModule } from '@angular/material/card';
+import { PedidoModule } from './pedido/pedido.module';
 
 @NgModule({
   imports: [
@@ -20,7 +21,9 @@ import { MatCardModule } from '@angular/material/card';
     SharedModule,
     ClienteModule,
     FornecedorModule,
-    MatCardModule
+    MatCardModule,
+    SharedModule,
+    PedidoModule
 
   ],
   declarations: [GestaoComponent],

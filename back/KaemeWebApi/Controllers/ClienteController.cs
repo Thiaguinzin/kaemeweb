@@ -51,6 +51,13 @@ public class ClienteController : BaseApiController
     {
         var result = await _clienteService.GetClienteById(id);
         return GetActionResult(result);
-    }      
+    }
+
+    [HttpGet("[action]")]
+    public IActionResult GetClienteBySearch([FromQuery] string? nome, string? cpf)
+    {
+        var result = _clienteService.GetClienteBySearch(nome, cpf);
+        return GetActionResult(result);
+    }
     
 }

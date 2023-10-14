@@ -52,9 +52,45 @@ namespace Infra.Repository
 
         }
 
+        public bool Update(TipoPeca tipoPeca)
+        {
+            try
+            {
+                var sql = $@"UPDATE tipo_peca SET codigo = @Codigo, descricao = @Descricao, ativo = @Ativo WHERE tipo_peca.id = {tipoPeca.Id}";
+
+                using (var connection = _context.CreateConnection())
+                {
+		            var clienteSql = new TipoPeca() 
+                    {
+                        Codigo = tipoPeca.Codigo,
+                        Descricao = tipoPeca.Descricao,
+                        Ativo = tipoPeca.Ativo
+                    };
+
+                int linhasAfetadas = connection.Execute(sql, clienteSql);
+
+                if (linhasAfetadas > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
+                throw;
+            }
+
+        }        
+
         public bool Delete(int id)
         {
-            var query = $"UPDATE tipo_peca WHERE tipo_peca.id = {id}";
+            var query = $"DELETE tipo_peca WHERE tipo_peca.id = {id}";
 
             using (var connection = _context.CreateConnection())
             {
@@ -70,7 +106,7 @@ namespace Infra.Repository
                 }                
             }            
 
-        }          
+        }
 
         public List<TipoPeca> GetAll()
         {

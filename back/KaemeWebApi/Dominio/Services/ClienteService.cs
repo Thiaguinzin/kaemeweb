@@ -76,7 +76,20 @@ namespace Dominio.Services
             {
                 return RepositoryResult.AddException(e);
             }
-        }          
+        }
+
+        public RepositoryResult GetClienteBySearch(string? nome, string? cpf)
+        {
+            try
+            {
+                var result = _clienteRepository.GetClienteBySearch(nome, cpf);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }         
 
     }
 }

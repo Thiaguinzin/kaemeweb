@@ -144,5 +144,26 @@ namespace Infra.Repository
                 return cliente.FirstOrDefault();
             }
         }
+
+        public List<Cliente> GetClienteBySearch(string? nome, string? cpf)
+        {
+            var builder = new SqlBuilder();
+            
+            var selector = builder.AddTemplate($@"select * FROM cliente
+                                                /**where**/
+                                                order by cliente.data_criacao desc");
+
+            if (!string.IsNullOrEmpty(nome))
+                builder.Where($"cliente.nome like '%{nome}%'");
+
+            if (!string.IsNullOrEmpty(cpf))
+                builder.Where($"cliente.cpf like '%{cpf}%'");    
+
+            using (var connection = _context.CreateConnection())
+            {   
+                var cliente = connection.Query<Cliente>(selector.RawSql, selector.Parameters);
+                return cliente.ToList();
+            }
+        }
     }
 }

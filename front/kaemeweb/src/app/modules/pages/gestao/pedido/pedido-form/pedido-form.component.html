@@ -1,0 +1,66 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Cadastrar Pedido" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+    <mat-stepper #stepper>
+      <mat-step [stepControl]="formPedido" errorMessage="Preencha os campos obrigatórios">
+
+        <form [formGroup]="formPedido" style="padding-top: 20px;">
+          <ng-template matStepLabel>Pedido</ng-template>
+            <div class="row">
+
+              <mat-form-field class="col-md-6" appearance="outline">
+                <mat-icon matSuffix class="material-icons" (click)="abrirDialogCliente()">search</mat-icon>
+                <mat-label>Cliente</mat-label>
+                <input matInput formControlName="cliente" required>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3" appearance="outline">
+                <mat-label>Funcionário</mat-label>
+                <input matInput formControlName="usuario" required>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3" appearance="outline">
+                <mat-label>Data e Hora do Pedido</mat-label>
+                <input matInput formControlName="dthr_pedido" required mask="00/00/0000 00:00">
+              </mat-form-field>
+
+            </div>
+
+            <div class="d-flex justify-content-end">
+              <button mat-button color="primary" matStepperNext>Seguinte</button>
+            </div>
+
+        </form>
+      </mat-step>
+
+      <mat-step [stepControl]="formPeca" errorMessage="Address is required.">
+        <form [formGroup]="formPeca">
+          <ng-template matStepLabel>Peças</ng-template>
+          <mat-form-field>
+            <mat-label>Address</mat-label>
+            <input matInput placeholder="Ex. 1 Main St, New York, NY"
+                   required>
+          </mat-form-field>
+          <div>
+            <p>Go to a different step to see the error state</p>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+
+    </mat-stepper>
+
+  </app-template-default>
+</div>
+
+

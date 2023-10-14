@@ -25,6 +25,13 @@ public class TipoPecaController : BaseApiController
         return GetActionResult(result);
     }
 
+    [HttpPut("[action]")]
+    public IActionResult Update([FromBody] TipoPeca tipoPeca)
+    {
+        var result = _tipoPecaService.Update(tipoPeca);
+        return GetActionResult(result);
+    }    
+
     [HttpDelete("[action]")]
     public IActionResult Delete([FromQuery] int id)
     {

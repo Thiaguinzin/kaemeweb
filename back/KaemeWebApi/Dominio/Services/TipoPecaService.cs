@@ -26,6 +26,19 @@ namespace Dominio.Services
             }
         }
 
+        public RepositoryResult Update(TipoPeca tipoPeca)
+        {
+            try
+            {
+                var result = _tipoPecaRepository.Update(tipoPeca);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }        
+
         public RepositoryResult Delete(int id)
         {
             try

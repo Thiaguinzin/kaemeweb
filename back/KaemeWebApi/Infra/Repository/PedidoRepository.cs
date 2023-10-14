@@ -44,7 +44,7 @@ namespace Infra.Repository
 
                         int createPedido = connection.Execute(createPedidoSql, pedidoSql, transaction: tran);
 
-                        // Criando Pedido Peca                    
+                        // Criando Pedido Peca
                         var query = $@"select top 1 num_pedido from pedido where cliente_id = {pedido.Pedido.Cliente_Id} order by data_pedido desc";
                         var num_pedido = connection.Query<int>(query, transaction: tran).FirstOrDefault();
 

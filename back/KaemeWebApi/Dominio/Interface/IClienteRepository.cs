@@ -10,5 +10,6 @@ namespace Dominio.Interface
         bool Delete(int id);
         Task<List<Cliente>> GetAllTop();
         Task<Cliente> GetClienteById(int id);
+        List<Cliente> GetClienteBySearch(string? nome, string? cpf);
     }
 }
