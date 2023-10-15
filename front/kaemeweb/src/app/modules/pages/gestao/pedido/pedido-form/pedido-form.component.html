@@ -2,6 +2,8 @@
   <app-template-default titulo="Cadastrar Pedido" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
 
     <mat-stepper #stepper>
+
+      <!-- Informações do Pedido -->
       <mat-step [stepControl]="formPedido" errorMessage="Preencha os campos obrigatórios">
 
         <form [formGroup]="formPedido" style="padding-top: 20px;">
@@ -33,20 +35,69 @@
         </form>
       </mat-step>
 
+
+      <!-- Peças -->
       <mat-step [stepControl]="formPeca" errorMessage="Address is required.">
-        <form [formGroup]="formPeca">
-          <ng-template matStepLabel>Peças</ng-template>
-          <mat-form-field>
-            <mat-label>Address</mat-label>
-            <input matInput placeholder="Ex. 1 Main St, New York, NY"
-                   required>
-          </mat-form-field>
-          <div>
-            <p>Go to a different step to see the error state</p>
-            <button mat-button matStepperPrevious>Back</button>
-            <button mat-button matStepperNext>Next</button>
-          </div>
-        </form>
+        <ng-template matStepLabel>Peças</ng-template>
+
+        <table mat-table [dataSource]="arrayPecas" class="mat-elevation-z8" style="padding-top: 20px;">
+
+          <ng-container matColumnDef="id" >
+            <th mat-header-cell *matHeaderCellDef> Id </th>
+            <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef> Código </th>
+            <td mat-cell *matCellDef="let element"> {{element.codigo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipo_peca">
+            <th mat-header-cell *matHeaderCellDef> Tipo Peça </th>
+            <td mat-cell *matCellDef="let element"> {{element.tipo_Peca_Descricao}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fornecedor">
+            <th mat-header-cell *matHeaderCellDef> Fornecedor </th>
+            <td mat-cell *matCellDef="let element"> {{element.fornecedor}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valor_venda">
+            <th mat-header-cell *matHeaderCellDef> Valor Venda </th>
+            <td mat-cell *matCellDef="let element"> R$ {{element.valor_Venda}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quantidade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
+            <td mat-cell *matCellDef="let row" (focusout)="checarQuantidade(row, $event)">
+              <mat-form-field appearance="outline" style="width: 75px;">
+                <input matInput [value]="1" style="text-align: center;">
+              </mat-form-field>
+            </td>
+          </ng-container>
+
+          <ng-container matColumnDef="btn">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header style="width: 30px;">
+              <button mat-button (click)="abrirDialogPeca()">
+                <span class="material-icons">add_box</span>
+              </button>
+            </th>
+            <td mat-cell *matCellDef="let row">
+              <button mat-button (click)="removerPeca(row)">
+                <span class="material-icons">delete</span>
+              </button>
+            </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumnsPeca"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumnsPeca;"></tr>
+
+        </table>
+
+        <div>
+          <button mat-button (click)="teste()">teste</button>
+        </div>
+
       </mat-step>
 
       <mat-step>

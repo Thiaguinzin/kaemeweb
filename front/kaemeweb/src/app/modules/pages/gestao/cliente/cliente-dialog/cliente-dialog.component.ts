@@ -1,18 +1,22 @@
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Component, Inject, OnInit, ViewChild } from '@angular/core';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
+import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog'
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Cliente } from 'src/app/modules/shared/models/cliente';
 import { ClienteService } from 'src/app/modules/shared/services/cliente.service';
+import { BaseFormulario } from 'src/app/modules/shared/classes/BaseFormulario';
+import { CepService } from 'src/app/modules/shared/services/cep.service';
+import { ToastrService } from 'ngx-toastr';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-cliente-dialog',
   templateUrl: './cliente-dialog.component.html',
   styleUrls: ['./cliente-dialog.component.scss']
 })
-export class ClienteDialogComponent implements OnInit {
+export class ClienteDialogComponent extends BaseFormulario implements OnInit {
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -20,20 +24,22 @@ export class ClienteDialogComponent implements OnInit {
 
   displayedColumns: string[] = ['nome', 'data_nasc', 'cpf'];
 
-  form: FormGroup = this.fb.group({
+  override form: FormGroup = this.fb.group({
     nome: [''],
     cpf: ['']
   })
 
-  constructor(
-    @Inject(MAT_DIALOG_DATA) public data:any,
-    private dialogRef: MatDialogRef<ClienteDialogComponent>,
-    private fb: FormBuilder,
-    private clienteService: ClienteService
-  ) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data:any,
+  private dialogRef: MatDialogRef<ClienteDialogComponent>,
+  public override fb: FormBuilder,
+  public override toastr: ToastrService,
+  public override dialog: MatDialog,
+  private router: Router,
+  private clienteService: ClienteService)
+{ super (dialog, fb, toastr, router) }
 
-  ngOnInit(): void {
-
+  override ngOnInit(): void {
+    this.exibirMatCardActions = false;
   }
 
   displayTabela = 'none'

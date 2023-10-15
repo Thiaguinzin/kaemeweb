@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
 import { ClienteModule } from '../cliente/cliente.module';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
+import { PecaModule } from '../estoque/peca/peca.module';
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
     ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
-    ClienteModule
+    ClienteModule,
+    PecaModule
   ],
   declarations: [PedidoFormComponent],
   providers: [

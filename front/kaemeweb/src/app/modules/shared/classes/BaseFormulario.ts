@@ -25,7 +25,8 @@ export class BaseFormulario implements OnInit {
   exibirBtnCadastrar: boolean = true;
   exibirBtnEditar: boolean = true;
   exibirBtnAdicionar: boolean = true;
-  exibirBtnExcluir:  boolean = false;
+  exibirBtnExcluir: boolean = false;
+  exibirMatCardActions: boolean = true;
 
   redirectFechar: string = '/gestao';
 

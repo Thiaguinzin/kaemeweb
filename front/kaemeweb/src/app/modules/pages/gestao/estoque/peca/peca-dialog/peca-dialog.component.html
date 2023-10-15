@@ -1,0 +1,79 @@
+
+<div class="containerDialog">
+  <app-template-default titulo="Pesquisar Peça" [paginaComponent]="this">
+
+
+      <form [formGroup]="form">
+
+        <div class="col-md-12">
+            <div class="row">
+
+              <mat-form-field class="col-md-4" appearance="outline">
+                <mat-label>Código</mat-label>
+                <input matInput formControlName='codigo' appUpperCaseInput>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3" appearance="outline">
+                <mat-label>Tipo Peça</mat-label>
+                <mat-select formControlName="tipo_peca_id">
+                    <mat-option *ngFor="let tipoPeca of lista_tipoPecas" [value]="tipoPeca.id">
+                      {{tipoPeca.descricao}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="col-md-3" appearance="outline">
+                <mat-label>Fornecedor</mat-label>
+                <mat-select formControlName="fornecedor_id">
+                    <mat-option *ngFor="let fornecedor of lista_fornecedores" [value]="fornecedor.id">
+                      {{fornecedor.razao_Social.toUpperCase()}}
+                    </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <button class="col-md-2" mat-raised-button color="primary" style="height: 40px; width: 200px;" (click)="buscarPecas()">Pesquisar</button>
+
+          </div>
+        </div>
+
+      </form>
+
+      <div [ngStyle]="{'display': displayTabela}">
+        <table mat-table [dataSource]="dataSource" matSort>
+
+          <ng-container matColumnDef="codigo">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Código </th>
+            <td mat-cell *matCellDef="let row"> {{row.codigo}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="tipo_peca">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Tipo Peça </th>
+            <td mat-cell *matCellDef="let row"> {{row.tipo_Peca_Descricao}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="valor_venda">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor Venda </th>
+            <td mat-cell *matCellDef="let row"> R$ {{row.valor_Venda}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="fornecedor">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Fornecedor </th>
+            <td mat-cell *matCellDef="let row"> {{row.fornecedor}} </td>
+          </ng-container>
+
+          <ng-container matColumnDef="quantidade">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
+            <td mat-cell *matCellDef="let row"> {{row.quantidade}} </td>
+          </ng-container>
+
+          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tr mat-row *matRowDef="let row; columns: displayedColumns" (click)="fecharDialog(row)"></tr>
+
+        </table>
+
+        <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Selecione as páginas de clientes"></mat-paginator>
+    </div>
+
+  </app-template-default>
+  </div>
+

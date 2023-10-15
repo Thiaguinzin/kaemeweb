@@ -14,13 +14,15 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { PecaDialogComponent } from './peca-dialog/peca-dialog.component';
 
 
 
 @NgModule({
   declarations: [
     PecaFormComponent,
-    PecaListaComponent
+    PecaListaComponent,
+    PecaDialogComponent
   ],
   imports: [
     CommonModule,
