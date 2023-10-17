@@ -1,6 +1,6 @@
 import { PecaService } from './../../../../shared/services/peca.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import * as moment from 'moment';
@@ -33,10 +33,9 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   });
 
   @ViewChild(MatTable) table: MatTable<any>;
-  displayedColumnsPeca: string[] = ['id','codigo', 'tipo_peca', 'valor_venda', 'fornecedor', 'quantidade', 'btn'];
+  displayedColumnsPeca: string[] = ['codigo', 'tipo_peca', 'fornecedor', 'quantidade', 'estoque', 'valor_venda', 'btn'];
 
   arrayPecas: Peca[] = [];
-  arrayPecasClone: Peca[] = [];
 
   constructor(private router: Router,
     public override fb: FormBuilder,
@@ -49,7 +48,10 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   override ngOnInit() {
     this.exibirBtnCadastrar = false;
     this.exibirBtnEditar = false;
+    this.exibirBtnFechar = false;
+    this.exibirMatCardActions = false;
 
+    this.formPedido.controls['cliente'].disable();
     this.formPedido.controls['usuario'].setValue(localStorage.getItem("k_user").toUpperCase());
     this.formPedido.controls['dthr_pedido'].setValue(moment(new Date()).format("DD/MM/yyyy HH:mm"));
     this.formPedido.controls['usuario'].disable();
@@ -87,7 +89,8 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
     if (prosseguir) {
       this.arrayPecas.push(peca);
-      this.arrayPecasClone = this.arrayPecas;
+      this.formPeca.addControl("quantidade" + (peca.id), new FormControl(''));
+      this.formPeca.controls["quantidade" + (peca.id)].setValue(1);
       this.table.renderRows();
     }
 
@@ -100,6 +103,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
       if (resultado) {
         const index = this.arrayPecas.findIndex(x => x.id === peca.id);
         this.arrayPecas.splice(index, 1);
+        this.formPeca.removeControl("quantidade" + (peca.id));
         this.table.renderRows();
       }
     });
@@ -113,9 +117,8 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     this.pecaService.getPecaById(peca.id)
       .subscribe(res => {
         if (res.quantidade < quantidade) {
-          debugger
           this.toastr.warning("Sem quantidade no estoque!");
-          this.arrayPecas = [];
+          this.formPeca.controls["quantidade" + (peca.id)].setValue(1);
           this.table.renderRows();
         }
       })
@@ -123,6 +126,35 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
   teste() {
     console.log(this.arrayPecas)
+    console.log(this.formPeca)
+  }
+
+  getTotalVenda(): number {
+
+    if (this.arrayPecas.length > 0) {
+
+      this.arrayPecas.forEach(peca => {
+
+      })
+
+    let total: number = this.arrayPecas
+      .map(item => this.formPeca.controls["quantidade" + (item.id)].value * item.valor_Venda)
+      .reduce((a, b) => a + b, 0);
+
+      return total;
+    }
+
+    return 0;
+  }
+
+  abrirClienteFormComponent() {
+    const resultadoDialog = this.dialog.open(ClienteFormComponent, {
+      disableClose: false,
+    });
+
+    resultadoDialog.afterClosed().subscribe(cliente => {
+
+    });
   }
 
 }

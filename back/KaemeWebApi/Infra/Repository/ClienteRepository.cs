@@ -165,5 +165,6 @@ namespace Infra.Repository
                 return cliente.ToList();
             }
         }
+
     }
 }
