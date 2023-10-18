@@ -6,6 +6,7 @@ namespace Dominio.Models
         public int? Num_Pedido { get; set; }
         public int Quantidade { get; set; }
         public int Peca_Id { get; set; }
+        public decimal Valor_Peca { get; set; }
 
     }
 }

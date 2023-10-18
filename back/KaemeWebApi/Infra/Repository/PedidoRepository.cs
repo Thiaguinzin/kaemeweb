@@ -50,14 +50,15 @@ namespace Infra.Repository
 
                         foreach (var peca in pedido.Pecas)
                         {
-                            var createPedidoPecaSql = $@"INSERT INTO pedido_peca (num_pedido, quantidade, peca_id)
-                                                    VALUES (@Num_Pedido, @Quantidade, @Peca_Id)";
+                            var createPedidoPecaSql = $@"INSERT INTO pedido_peca (num_pedido, quantidade, peca_id, valor_peca)
+                                                    VALUES (@Num_Pedido, @Quantidade, @Peca_Id, @Valor_Peca)";
 
 		                    var pedidoPecaSql = new PedidoPeca()
                             {
                                 Num_Pedido = num_pedido,
                                 Quantidade = peca.Quantidade,
                                 Peca_Id = peca.Peca_Id,
+                                Valor_Peca = peca.Valor_Peca
                             };
 
                             int createPedidoPeca = connection.Execute(createPedidoPecaSql, pedidoPecaSql, transaction: tran);

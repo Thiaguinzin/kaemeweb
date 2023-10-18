@@ -16,6 +16,8 @@ import { ClienteModule } from '../cliente/cliente.module';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { PecaModule } from '../estoque/peca/peca.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import {MatDividerModule} from '@angular/material/divider';
 
 @NgModule({
   imports: [
@@ -34,7 +36,9 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatButtonModule,
     ClienteModule,
     PecaModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatCardModule,
+    MatDividerModule
   ],
   declarations: [PedidoFormComponent],
   providers: [

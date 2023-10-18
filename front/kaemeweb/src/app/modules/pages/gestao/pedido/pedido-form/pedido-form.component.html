@@ -119,19 +119,95 @@
 
         <div class="d-flex justify-content-end" style="padding-top: 50px;">
           <button mat-button matStepperPrevious>Voltar</button>
-          <button [disabled]="arrayPecas.length < 1" mat-button color="primary" matStepperNext>Seguinte</button>
+          <button [disabled]="arrayPecas.length < 1" mat-button color="primary" matStepperNext (click)="montarPedidoPeca()">Seguinte</button>
         </div>
 
       </mat-step>
       </form>
 
       <mat-step>
-        <ng-template matStepLabel>Done</ng-template>
-        <p>You are now done.</p>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button (click)="stepper.reset()">Reset</button>
+        <ng-template matStepLabel>Pagamento</ng-template>
+
+        <div class="row">
+
+          <div class="col-md-6">
+
+            <mat-card class="example-card">
+
+              <mat-card-header>
+                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                <mat-card-title>Resumo do Pedido</mat-card-title>
+              </mat-card-header>
+
+              <mat-card-content>
+                <table mat-table [dataSource]="arrayPedidoPecas" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="codigo">
+                    <th mat-header-cell *matHeaderCellDef> Código </th>
+                    <td mat-cell *matCellDef="let element"> {{element.peca_codigo}} </td>
+                    <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+                  </ng-container>
+
+                  <ng-container matColumnDef="quantidade">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
+                    <td mat-cell *matCellDef="let element"> {{element.quantidade}} </td>
+                    <!-- <td mat-footer-cell *matFooterCellDef></td> -->
+                  </ng-container>
+
+                  <ng-container matColumnDef="valor_peca">
+                    <th mat-header-cell *matHeaderCellDef> Valor </th>
+                    <td mat-cell *matCellDef="let element"> R$ {{element.valor_Peca}} </td>
+                    <!-- <td mat-footer-cell *matFooterCellDef> <b> {{getTotalVenda() > 0 ? "R$ " + getTotalVenda() : ""}} </b> </td> -->
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumnsTeste"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumnsTeste;"></tr>
+                  <!-- <tr mat-footer-row *matFooterRowDef="['codigo','quantidade','valor_peca']"></tr> -->
+
+                </table>
+                <mat-divider></mat-divider>
+              </mat-card-content>
+
+              <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions>
+              <mat-card-footer>
+                <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+              </mat-card-footer>
+            </mat-card>
+
+          </div>
+
+          <div class="col-md-6">
+
+            <mat-card class="example-card">
+              <mat-card-header>
+                <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+                <mat-card-title>Forma de Pagamento</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                <p>This card has divider and indeterminate progress as footer</p>
+                <mat-divider></mat-divider>
+              </mat-card-content>
+              <mat-card-actions>
+                <button mat-button>LIKE</button>
+                <button mat-button>SHARE</button>
+              </mat-card-actions>
+              <mat-card-footer>
+                <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> -->
+              </mat-card-footer>
+            </mat-card>
+
+          </div>
+
         </div>
+
+        <div class="d-flex justify-content-end" style="padding-top: 50px;">
+          <button mat-button matStepperPrevious>Voltar</button>
+          <button mat-button color="primary" matStepperNext>Finalizar</button>
+        </div>
+
       </mat-step>
 
     </mat-stepper>

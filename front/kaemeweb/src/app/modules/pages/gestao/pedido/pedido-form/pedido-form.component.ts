@@ -12,6 +12,7 @@ import { ClienteFormComponent } from '../../cliente/cliente-form/cliente-form.co
 import { Peca } from 'src/app/modules/shared/models/peca';
 import { PecaDialogComponent } from '../../estoque/peca/peca-dialog/peca-dialog.component';
 import { MatTable } from '@angular/material/table';
+import { PedidoPeca } from 'src/app/modules/shared/models/PedidoModels/pedido-peca';
 
 @Component({
   selector: 'app-pedido-form',
@@ -34,8 +35,12 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   displayedColumnsPeca: string[] = ['codigo', 'tipo_peca', 'fornecedor', 'quantidade', 'estoque', 'valor_venda', 'btn'];
+  displayedColumnsTeste: string[] = ['codigo', 'quantidade', 'valor_peca'];
 
   arrayPecas: Peca[] = [];
+
+  arrayPedidoPecas: PedidoPeca[] = [];
+  coco: PedidoPeca[] = [];
 
   constructor(private router: Router,
     public override fb: FormBuilder,
@@ -96,6 +101,26 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
   }
 
+  montarPedidoPeca() {
+
+    const array: PedidoPeca[] = [];
+
+    this.arrayPecas.forEach(peca => {
+      let pedidoPeca: PedidoPeca = {
+        quantidade: this.formPeca.controls["quantidade" + (peca.id)].value,
+        peca_Id: peca.id,
+        peca_codigo: peca.codigo,
+        valor_Peca: peca.valor_Venda
+      }
+
+      array.push(pedidoPeca);
+    })
+
+    this.arrayPedidoPecas = array;
+    this.table.renderRows();
+
+  }
+
   removerPeca(peca: Peca) {
 
     this.resultadoDialog('Remover peça do pedido', 'Tem certeza que deseja continuar?')
@@ -125,8 +150,8 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   }
 
   teste() {
-    console.log(this.arrayPecas)
-    console.log(this.formPeca)
+    console.log(this.arrayPedidoPecas)
+    this.table.renderRows();
   }
 
   getTotalVenda(): number {
