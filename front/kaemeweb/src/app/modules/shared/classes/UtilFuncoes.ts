@@ -37,7 +37,7 @@ export class UtilFuncoes {
     return year + month + day + hours + minutes + seconds;
   }
 
-  static hasValue(value: string | null): boolean {
+  static hasValue(value: any | null): boolean {
 
     if (value) {
 

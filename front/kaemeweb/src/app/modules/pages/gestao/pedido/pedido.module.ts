@@ -18,6 +18,7 @@ import { PecaModule } from '../estoque/peca/peca.module';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
+import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
 
 @NgModule({
   imports: [
@@ -38,7 +39,8 @@ import {MatDividerModule} from '@angular/material/divider';
     PecaModule,
     MatCheckboxModule,
     MatCardModule,
-    MatDividerModule
+    MatDividerModule,
+    DirectivesModule
   ],
   declarations: [PedidoFormComponent],
   providers: [

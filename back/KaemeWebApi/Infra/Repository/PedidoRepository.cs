@@ -22,6 +22,7 @@ namespace Infra.Repository
             try
             {
                 var countCreatePedidoPeca = 0;
+                var countUpdateEstoque = 0;
 
                 using (var connection = _context.CreateConnection())
                 {                    
@@ -65,6 +66,15 @@ namespace Infra.Repository
 
                             if (createPedidoPeca > 0)
                                 countCreatePedidoPeca++;
+
+                            var updateEstoqueSql = $@"update peca set quantidade = (select quantidade - {peca.Quantidade} 
+                                                    from peca where peca.id = {peca.Peca_Id}) where peca.id = {peca.Peca_Id}";
+                            
+                            int updateEstoque = connection.Execute(updateEstoqueSql, transaction: tran);
+
+                            if (updateEstoque > 0)
+                                countUpdateEstoque++;
+
                         }
 
                         // Criando Pedido Cobranca
@@ -85,7 +95,7 @@ namespace Infra.Repository
 
                         int createPedidoCobranca = connection.Execute(createPedidoCobrancaSql, pedidoCobrancaSql, transaction: tran);
 
-                        if (createPedido > 0 && countCreatePedidoPeca > 0 && createPedidoCobranca > 0) {
+                        if (createPedido > 0 && countCreatePedidoPeca > 0 && createPedidoCobranca > 0 && countUpdateEstoque > 0) {
                             tran.Commit();
                             return true;
                         } else {

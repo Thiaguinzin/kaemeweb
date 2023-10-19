@@ -51,6 +51,7 @@ builder.Services.AddScoped<IFornecedorRepository, FornecedorRepository>();
 builder.Services.AddScoped<ITipoPecaRepository, TipoPecaRepository>();
 builder.Services.AddScoped<IPecaRepository, PecaRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
+builder.Services.AddScoped<ITipoPagamentoRepository, TipoPagamentoRepository>();
 
 var app = builder.Build();
 
