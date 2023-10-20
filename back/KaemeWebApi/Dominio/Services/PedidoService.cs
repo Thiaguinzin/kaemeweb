@@ -24,7 +24,20 @@ namespace Dominio.Services
             {
                 return RepositoryResult.AddException(e);
             }
-        }        
+        }
+
+        public RepositoryResult GetPedidoBySearch(PedidoSearch pedidoSearch)
+        {
+            try
+            {
+                var result = _pedidoRepository.GetPedidoBySearch(pedidoSearch);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }           
 
     }
 }

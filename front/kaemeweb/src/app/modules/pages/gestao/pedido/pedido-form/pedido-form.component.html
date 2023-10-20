@@ -24,16 +24,13 @@
               <mat-form-field class="col-md-3" appearance="outline">
                 <mat-label>Data e Hora do Pedido</mat-label>
                 <input matInput formControlName="dthr_pedido" required mask="00/00/0000 00:00">
+                <mat-error *ngIf="!!formPedido.get('dthr_pedido').hasError('dataNaoFutura')"> Data Inválida </mat-error>
               </mat-form-field>
 
             </div>
 
-            <!-- <div class="row">
-              <a (click)="abrirClienteFormComponent()">TESTE</a>
-            </div> -->
-
             <div class="d-flex justify-content-end" style="padding-top: 50px;">
-              <button mat-button color="primary" matStepperNext [disabled]="!clienteSelecionado">Seguinte</button>
+              <button mat-button color="primary" matStepperNext [disabled]="!clienteSelecionado && !formPedido.get('dthr_pedido').hasError('dataNaoFutura')">Seguinte</button>
             </div>
 
         </form>
@@ -127,7 +124,7 @@
 
           <div class="col-md-6">
 
-            <mat-card style="height: 400px; border-radius: 10px;">
+            <mat-card style="border-radius: 10px;">
 
               <mat-card-header>
                 <mat-card-title>Resumo do Pedido</mat-card-title>
@@ -176,8 +173,6 @@
                   <mat-label>Perc. Desconto</mat-label>
                   <input style="text-align: center;" matInput formControlName="desconto_perc" [maxlength]="2">
                 </mat-form-field>
-
-                <!-- <button mat-button>SHARE</button> -->
 
               </mat-card-actions>
               <mat-card-footer>
@@ -237,6 +232,7 @@
                       <mat-label>Data de Pagamento</mat-label>
                       <input matInput formControlName="data_pagamento" mask="00/00/0000 00:00">
                     </mat-form-field>
+                    <mat-error *ngIf="!!formPagamento.get('data_pagamento').hasError('dataNaoFutura')"> Data Inválida </mat-error>
                   </div>
 
                 </fieldset>

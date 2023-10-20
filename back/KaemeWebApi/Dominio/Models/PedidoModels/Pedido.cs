@@ -8,6 +8,7 @@ namespace Dominio.Models
         public DateTime Data_Pedido { get; set; }
         public bool Ativo { get; set; }
         public bool Cancelado { get; set; }
+        public int Status_Pedido_Id { get; set; }
 
     }
 }

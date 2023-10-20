@@ -5,4 +5,5 @@ export interface Pedido {
   data_Pedido: Date;
   ativo: boolean;
   cancelado: boolean;
+  status_Pedido_Id: number;
 }

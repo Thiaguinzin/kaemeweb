@@ -2,7 +2,8 @@ namespace Dominio.Models
 {
     public partial class PedidoCobranca 
     {
-        public int? Id { get; set; }    
+        public int? Id { get; set; }
+        public int? Num_Pedido { get; set; }
         public decimal Valor_Total { get; set; }
         public decimal? Valor_Pedido { get; set; }
         public decimal? Valor_Pago { get; set; }

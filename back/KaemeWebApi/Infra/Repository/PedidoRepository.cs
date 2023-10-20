@@ -31,8 +31,8 @@ namespace Infra.Repository
                     using (var tran = connection.BeginTransaction()) 
                     { 
                         // Criando Pedido
-                        var createPedidoSql = $@"INSERT INTO pedido (cliente_id, usuario_id, data_pedido, ativo, cancelado)
-                                            VALUES (@Cliente_Id, @Usuario_Id, @Data_Pedido, @Ativo, @Cancelado)";
+                        var createPedidoSql = $@"INSERT INTO pedido (cliente_id, usuario_id, data_pedido, ativo, cancelado, status_pedido_id)
+                                            VALUES (@Cliente_Id, @Usuario_Id, @Data_Pedido, @Ativo, @Cancelado, @Status_Pedido_Id)";
 
 		                var pedidoSql = new Pedido()
                         {
@@ -41,6 +41,7 @@ namespace Infra.Repository
                             Data_Pedido = pedido.Pedido.Data_Pedido,
                             Ativo = pedido.Pedido.Ativo,
                             Cancelado = pedido.Pedido.Cancelado,
+                            Status_Pedido_Id = pedido.Pedido.Status_Pedido_Id
                         };
 
                         int createPedido = connection.Execute(createPedidoSql, pedidoSql, transaction: tran);
@@ -78,11 +79,12 @@ namespace Infra.Repository
                         }
 
                         // Criando Pedido Cobranca
-                        var createPedidoCobrancaSql = $@"INSERT INTO pedido_cobranca (valor_total, valor_pedido, valor_pago, data_pagamento, tipo_pagamento_id, parcelas, pago, cancelado)
-                                                    VALUES (@Valor_Total, @Valor_Pedido, @Valor_Pago, @Data_Pagamento, @Tipo_Pagamento_Id, @Parcelas, @Pago, @Cancelado)";
+                        var createPedidoCobrancaSql = $@"INSERT INTO pedido_cobranca (num_pedido,valor_total, valor_pedido, valor_pago, data_pagamento, tipo_pagamento_id, parcelas, pago, cancelado)
+                                                    VALUES (@Num_Pedido, @Valor_Total, @Valor_Pedido, @Valor_Pago, @Data_Pagamento, @Tipo_Pagamento_Id, @Parcelas, @Pago, @Cancelado)";
 
 		                var pedidoCobrancaSql = new PedidoCobranca()
                         {
+                            Num_Pedido = num_pedido,
                             Valor_Total = pedido.Pedido_Cobranca.Valor_Total,
                             Valor_Pedido = pedido.Pedido_Cobranca.Valor_Pedido,
                             Valor_Pago = pedido.Pedido_Cobranca.Valor_Pago,
@@ -115,6 +117,70 @@ namespace Infra.Repository
 
         }
 
-        
+        public List<PedidoInformation> GetPedidoBySearch(PedidoSearch pedidoSearch)
+        {
+            var builder = new SqlBuilder();
+
+            var selector = builder.AddTemplate($@"SET LANGUAGE 'English';
+                                                    select distinct
+	                                                pedido.*,
+	                                                (select usuario.login from usuario where usuario.id = pedido.usuario_id) as Funcionario,
+	                                                (select cliente.nome from cliente where cliente.id = pedido.cliente_id) as Cliente,
+	                                                (select status_pedido.codigo from status_pedido where status_pedido.id = status_pedido_id) as Status_Pedido,
+	                                                pedido_cobranca.valor_total,
+	                                                pedido_cobranca.valor_pedido,
+	                                                pedido_cobranca.valor_pago,
+	                                                pedido_cobranca.data_pagamento,
+	                                                (select tipo_pagamento.codigo from tipo_pagamento where tipo_pagamento.id = pedido_cobranca.tipo_pagamento_id) as Tipo_Pagamento,
+	                                                pedido_cobranca.parcelas,
+	                                                pedido_cobranca.pago
+                                                from pedido
+                                                inner join pedido_peca on pedido_peca.num_pedido = pedido.num_pedido
+                                                inner join pedido_cobranca on pedido_cobranca.id = pedido.num_pedido
+                                                /**where**/
+                                                order by data_pedido desc");
+
+            if (!string.IsNullOrEmpty(pedidoSearch.Num_Pedido))
+                builder.Where($"pedido.num_pedido = {pedidoSearch.Num_Pedido}");
+
+            if (!string.IsNullOrEmpty(pedidoSearch.Cliente_Id))
+                builder.Where($"pedido.cliente_id = {pedidoSearch.Cliente_Id}");
+
+            if (pedidoSearch.Data_Inicio_Pedido != null && pedidoSearch.Data_Fim_Pedido != null) {
+                string dataInicioPedido = pedidoSearch.Data_Inicio_Pedido?.ToString("yyyy-MM-dd HH:mm:ss");
+                string dataFimPedido = pedidoSearch.Data_Fim_Pedido?.ToString("yyyy-MM-dd HH:mm:ss");
+
+                builder.Where($"pedido.data_pedido BETWEEN '{dataInicioPedido}' and '{dataFimPedido}'");
+            }
+
+            if (pedidoSearch.Data_Inicio_Pagamento != null && pedidoSearch.Data_Fim_Pagamento != null) {
+                string dataInicioPagamento = pedidoSearch.Data_Inicio_Pagamento?.ToString("yyyy-MM-dd HH:mm:ss");
+                string dataFimPagamento = pedidoSearch.Data_Fim_Pagamento?.ToString("yyyy-MM-dd HH:mm:ss");
+
+                builder.Where($"pedido_cobranca.data_pagamento BETWEEN '{dataInicioPagamento}' and '{dataFimPagamento}'");
+            }
+
+            if (!string.IsNullOrEmpty(pedidoSearch.Status_Pedido_Id))
+                builder.Where($"pedido.status_pedido_id = {pedidoSearch.Status_Pedido_Id}");
+
+            if (pedidoSearch.Pago == true) {
+                builder.Where($"pedido_cobranca.pago = 1");
+            }
+
+            if (pedidoSearch.Pago == false) {
+                builder.Where($"pedido_cobranca.pago = 0");
+            }
+
+            if (!string.IsNullOrEmpty(pedidoSearch.Tipo_Pagamento_Id))
+                builder.Where($"pedido_cobranca.tipo_pagamento_id = {pedidoSearch.Tipo_Pagamento_Id}");
+
+
+
+            using (var connection = _context.CreateConnection())
+            {   
+                var pedidos = connection.Query<PedidoInformation>(selector.RawSql, selector.Parameters);
+                return pedidos.ToList();
+            }
+        }
     }
 }

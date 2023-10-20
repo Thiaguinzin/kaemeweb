@@ -36,11 +36,12 @@ export class PecaService {
     return this.httpClient.get<Peca>('https://localhost:7072' + '/peca/GetPecaById', {params});
   }
 
-  getPecaBySearch(codigo?: string, tipo_peca_id?: number, fornecedor_id?: number): Observable<Peca[]> {
+  getPecaBySearch(codigo?: string, tipo_peca_id?: number, fornecedor_id?: number, com_estoque?: boolean): Observable<Peca[]> {
     let params = new HttpParams()
     params = params.append('codigo', codigo)
     params = params.append('tipo_peca_id', tipo_peca_id)
     params = params.append('fornecedor_id', fornecedor_id)
+    params = params.append('com_estoque', com_estoque)
 
     return this.httpClient.get<Peca[]>('https://localhost:7072' + '/peca/GetPecaBySearch', {params});
   }

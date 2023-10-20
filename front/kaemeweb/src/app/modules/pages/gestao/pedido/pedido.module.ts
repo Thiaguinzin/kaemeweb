@@ -19,6 +19,7 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
 import {MatDividerModule} from '@angular/material/divider';
 import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
+import { PedidoListaComponent } from './pedido-lista/pedido-lista.component';
 
 @NgModule({
   imports: [
@@ -40,9 +41,10 @@ import { DirectivesModule } from 'src/app/modules/shared/directives/directives.m
     MatCheckboxModule,
     MatCardModule,
     MatDividerModule,
-    DirectivesModule
+    DirectivesModule,
+    MatPaginatorModule,
   ],
-  declarations: [PedidoFormComponent],
+  declarations: [PedidoFormComponent, PedidoListaComponent],
   providers: [
     {
       provide: STEPPER_GLOBAL_OPTIONS,

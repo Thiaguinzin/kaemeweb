@@ -1,5 +1,6 @@
 export interface PedidoCobranca {
   id?: number | null;
+  num_Pedido?: number | null;
   valor_Total: number;
   valor_Pedido: number | null;
   valor_Pago?: number | null;

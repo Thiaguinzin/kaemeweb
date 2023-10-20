@@ -54,9 +54,9 @@ public class PecaController : BaseApiController
     }
 
     [HttpGet("[action]")]
-    public IActionResult GetPecaBySearch([FromQuery] string? codigo, [FromQuery] int? tipo_peca_id, [FromQuery] int? fornecedor_id)
+    public IActionResult GetPecaBySearch([FromQuery] string? codigo, [FromQuery] int? tipo_peca_id, [FromQuery] int? fornecedor_id, [FromQuery] bool? com_estoque = false)
     {
-        var result = _pecaService.GetPecaBySearch(codigo, tipo_peca_id, fornecedor_id);
+        var result = _pecaService.GetPecaBySearch(codigo, tipo_peca_id, fornecedor_id, com_estoque);
         return GetActionResult(result);
     }
     

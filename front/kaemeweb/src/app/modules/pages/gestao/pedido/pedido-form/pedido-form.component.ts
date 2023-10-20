@@ -20,6 +20,7 @@ import { PedidoCreate } from 'src/app/modules/shared/models/PedidoModels/pedido-
 import { Pedido } from 'src/app/modules/shared/models/PedidoModels/pedido';
 import { PedidoCobranca } from 'src/app/modules/shared/models/PedidoModels/pedido-cobranca';
 import { PedidoService } from 'src/app/modules/shared/services/pedido.service';
+import { Validadores } from 'src/app/modules/shared/validadores/validadores';
 
 @Component({
   selector: 'app-pedido-form',
@@ -33,7 +34,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   formPedido: FormGroup = this.fb.group({
     cliente: ['', [Validators.required]],
     usuario: ['', [Validators.required]],
-    dthr_pedido: ['', [Validators.required]]
+    dthr_pedido: ['', [Validators.required, Validadores.dataNaoFuturaValidator()]]
   });
 
   clienteSelecionado: boolean = false;
@@ -49,7 +50,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     parcelas: ['', []],
     pago: [false, []],
     valor_pago: ['', [Validators.required]],
-    data_pagamento: ['', [Validators.required]],
+    data_pagamento: ['', [Validators.required, Validadores.dataNaoFuturaValidator]],
   });
 
   // Usados para resumo do pedido
@@ -89,7 +90,6 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     this.formPedido.controls['dthr_pedido'].setValue(moment(new Date()).format("DD/MM/yyyy HH:mm"));
     this.formPedido.controls['usuario'].disable();
     this.formPagamento.controls['valor_pago'].disable();
-    this.formPagamento.controls['data_pagamento'].setValue(moment(new Date()).format("DD/MM/yyyy HH:mm"));
     this.formPagamento.controls['data_pagamento'].disable();
 
     this.carregarTipoPagamento();
@@ -191,7 +191,8 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
       usuario_Id: +localStorage.getItem('k_user_id'),
       data_Pedido: moment(this.formPedido.controls['dthr_pedido'].value, "DD/MM/yyyy HH:mm").toDate(),
       ativo: true,
-      cancelado: false
+      cancelado: false,
+      status_Pedido_Id: 1
     }
   }
 
@@ -221,7 +222,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
       valor_Total: this.total_venda,
       valor_Pedido: this.getTotalVendaDesconto(),
       valor_Pago: UtilFuncoes.hasValue(this.formPagamento.controls['valor_pago'].value) ? this.formPagamento.controls['valor_pago'].value : null,
-      data_Pagamento: UtilFuncoes.hasValue(this.formPagamento.controls['data_pagamento'].value) ? moment(this.formPagamento.controls['data_pagamento'].value, "DDMMyyyyHHmm").toDate() : null,
+      data_Pagamento: UtilFuncoes.hasValue(this.formPagamento.controls['data_pagamento'].value) ? moment(this.formPagamento.controls['data_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
       tipo_Pagamento_Id: this.formPagamento.controls['tipo_pagamento'].value,
       parcelas: UtilFuncoes.hasValue(this.formPagamento.controls['parcelas'].value) ? this.formPagamento.controls['parcelas'].value : null,
       pago: this.formPagamento.controls['pago'].value,
@@ -256,11 +257,6 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
           this.table.renderRows();
         }
       })
-  }
-
-  teste() {
-    console.log(this.arrayPedidoPecas)
-    this.table.renderRows();
   }
 
   getTotalVenda(): number {
