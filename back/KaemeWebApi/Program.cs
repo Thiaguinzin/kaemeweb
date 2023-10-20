@@ -52,6 +52,7 @@ builder.Services.AddScoped<ITipoPecaRepository, TipoPecaRepository>();
 builder.Services.AddScoped<IPecaRepository, PecaRepository>();
 builder.Services.AddScoped<IPedidoRepository, PedidoRepository>();
 builder.Services.AddScoped<ITipoPagamentoRepository, TipoPagamentoRepository>();
+builder.Services.AddScoped<IStatusPedidoRepository, StatusPedidoRepository>();
 
 var app = builder.Build();
 

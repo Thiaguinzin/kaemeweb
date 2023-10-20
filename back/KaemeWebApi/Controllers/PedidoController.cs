@@ -25,7 +25,7 @@ public class PedidoController : BaseApiController
         return GetActionResult(result);
     }
 
-    [HttpGet("[action]")]
+    [HttpPost("[action]")]
     public IActionResult GetPedidoBySearch([FromBody] PedidoSearch pedidoSearch)
     {
         var result = _pedidoService.GetPedidoBySearch(pedidoSearch);
