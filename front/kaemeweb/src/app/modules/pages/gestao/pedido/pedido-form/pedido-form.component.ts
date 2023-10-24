@@ -21,6 +21,7 @@ import { Pedido } from 'src/app/modules/shared/models/PedidoModels/pedido';
 import { PedidoCobranca } from 'src/app/modules/shared/models/PedidoModels/pedido-cobranca';
 import { PedidoService } from 'src/app/modules/shared/services/pedido.service';
 import { Validadores } from 'src/app/modules/shared/validadores/validadores';
+import { RelReciboPedidoComponent } from 'src/app/modules/shared/reports/recibo-pedido/recibo-pedido.component';
 
 @Component({
   selector: 'app-pedido-form',
@@ -58,6 +59,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   nome_cliente: string;
   data_nasc: Date;
   cpf: string;
+  valor_pedido: number;
 
   @ViewChild(MatTable) table: MatTable<any>;
   displayedColumnsPeca: string[] = ['codigo', 'tipo_peca', 'fornecedor', 'quantidade', 'estoque', 'valor_venda', 'btn'];
@@ -73,6 +75,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   modoConsulta: boolean = false;
   pedidoCreateReturn: PedidoCreate;
   baixa: boolean = false;
+  pedidoPago: boolean = false;
 
   constructor(private router: Router,
     public override fb: FormBuilder,
@@ -109,7 +112,6 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     this.formPagamento.controls['valor_pago'].disable();
     this.formPagamento.controls['data_pagamento'].disable();
 
-    console.log(this.baixa)
     if (this.router.url.includes('consultar') === true) {
 
       // Caso entre para consulta
@@ -143,6 +145,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     this.formPagamento.controls['tipo_pagamento'].setValue(pedido.pedido_Cobranca.tipo_Pagamento_Id);
     this.formPagamento.controls['parcelas'].setValue(pedido.pedido_Cobranca.parcelas);
     this.formPagamento.controls['pago'].setValue(pedido.pedido_Cobranca.pago);
+    this.pedidoPago = this.formPagamento.controls['pago'].value;
     this.formPagamento.controls['valor_pago'].setValue(pedido.pedido_Cobranca.valor_Pago);
     this.formPagamento.controls['data_pagamento'].setValue(moment(pedido.pedido_Cobranca.data_Pagamento).format("DD/MM/yyyy HH:mm"));
 
@@ -232,6 +235,11 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
           .subscribe(res => {
             if (res) {
               this.toastr.success("Pedido criado com sucesso!");
+
+              if (pedidoCreate.pedido_Cobranca.pago) {
+                this.abrirRecibo();
+              }
+
               this.router.navigate(['gestao/']);
             } else {
               this.toastr.warning("Não foi possível criar o pedido!");
@@ -262,6 +270,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
             .subscribe(res => {
               if (res) {
                 this.toastr.success("Pedido baixado com sucesso!");
+                this.abrirRecibo();
                 this.router.navigate(['gestao/pedido']);
               } else {
                 this.toastr.warning("Não foi possível baixar o pedido!");
@@ -403,11 +412,14 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
       if (UtilFuncoes.hasValue(perc) && perc > 0) {
         let valor_atualizado = this.total_venda - (this.total_venda * perc / 100);
+        this.valor_pedido = +valor_atualizado.toFixed(2);
         return +valor_atualizado.toFixed(2);
       } else {
+        this.valor_pedido = +this.getTotalVenda().toFixed(2);
         return +this.getTotalVenda().toFixed(2);
       }
     } else {
+      this.valor_pedido = this.pedidoCreateReturn.pedido_Cobranca.valor_Pedido;
       return this.pedidoCreateReturn.pedido_Cobranca.valor_Pedido;
     }
 
@@ -424,6 +436,22 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
       this.formPagamento.controls['data_pagamento'].disable();
     }
 
+  }
+
+  abrirRecibo() {
+    debugger
+    const dialogRef = this.dialog.open(RelReciboPedidoComponent, {
+      disableClose: true,
+      data: {
+        pedido: this.formPedido,
+        pedidoPeca: this.formPeca,
+        pedidoPagamento: this.formPagamento,
+        arrayPedidoPecas: this.arrayPedidoPecas,
+        data_nasc: this.data_nasc,
+        valor_pedido: this.valor_pedido,
+        tipo_pagamento: this.lista_tipoPagamento.filter(x => x.id === this.formPagamento.controls['tipo_pagamento'].value)[0].codigo
+      }
+    }).close();
   }
 
 }

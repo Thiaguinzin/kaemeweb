@@ -14,13 +14,19 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { NgxMaskDirective, NgxMaskPipe, provideNgxMask } from 'ngx-mask';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
+import { RelReciboPedidoComponent } from './reports/recibo-pedido/recibo-pedido.component';
+import { MatTableModule } from '@angular/material/table';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
   declarations: [
     DialogComponent,
-    TemplateDefaultComponent
+    TemplateDefaultComponent,
+    RelReciboPedidoComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +38,11 @@ import { getPortuguesePaginatorIntl } from './portuguese-paginator-intl';
     MatCardModule,
     MatFormFieldModule,
     NgxMaskDirective,
-    NgxMaskPipe
+    NgxMaskPipe,
+    MatTableModule,
+    MatCheckboxModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     AuthService,

@@ -6,6 +6,7 @@ import { Routes, RouterModule, Router } from '@angular/router';
 import { GestaoComponent } from './gestao.component';
 import { NgModel } from '@angular/forms';
 import { DashboardComponent } from '../../core/components/dashboard/dashboard.component';
+import { RelReciboPedidoComponent } from '../../shared/reports/recibo-pedido/recibo-pedido.component';
 
 const routes: Routes = [
   {
@@ -15,7 +16,9 @@ const routes: Routes = [
       { path: 'cliente', loadChildren: () => import('./cliente/cliente.module').then(m => m.ClienteModule) },
       { path: 'fornecedor', loadChildren: () => import('./fornecedor/fornecedor.module').then(m => m.FornecedorModule), data: {breadcrumb: {disable: true, label: 'Fornecedor'}} },
       { path: 'estoque', loadChildren: () => import('./estoque/estoque.module').then(m => m.EstoqueModule), data: {breadcrumb: {disable: true, label: 'Estoque'}} },
-      { path: 'pedido', loadChildren: () => import('./pedido/pedido.module').then(m => m.PedidoModule), data: {breadcrumb: {disable: true, label: 'Pedido'}} }
+      { path: 'pedido', loadChildren: () => import('./pedido/pedido.module').then(m => m.PedidoModule), data: {breadcrumb: {disable: true, label: 'Pedido'}} },
+
+      { path: 'report', component: RelReciboPedidoComponent, data: {breadcrumb: {disable: true, label: 'Pedido'}} }
     ]
   },
 ];

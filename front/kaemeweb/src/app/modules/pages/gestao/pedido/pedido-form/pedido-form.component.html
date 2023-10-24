@@ -252,6 +252,8 @@
             <button *ngIf="baixa" mat-button color="primary" matStepperNext (click)="salvar()">Dar Baixa</button>
             <button *ngIf="!baixa" mat-button color="primary" matStepperNext [routerLink]="['/gestao/pedido']">Sair</button>
           </ng-template>
+          <button *ngIf="modoConsulta && pedidoPago" mat-button color="primary" matStepperNext (click)="abrirRecibo()">Recibo</button>
+
         </div>
 
       </mat-step>
