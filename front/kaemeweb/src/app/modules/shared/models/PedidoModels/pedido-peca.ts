@@ -6,5 +6,5 @@ export interface PedidoPeca {
   valor_Peca: number;
 
   // Campos para visualização
-  peca_codigo?: string;
+  peca_Codigo?: string;
 }

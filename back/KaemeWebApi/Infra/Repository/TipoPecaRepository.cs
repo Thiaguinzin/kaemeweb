@@ -68,16 +68,16 @@ namespace Infra.Repository
                     };
 
                 int linhasAfetadas = connection.Execute(sql, clienteSql);
-
-                if (linhasAfetadas > 0)
-                {
-                    return true;
+    
+                    if (linhasAfetadas > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-                else
-                {
-                    return false;
-                }
-            }
             }
             catch (Exception e)
             {

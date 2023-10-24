@@ -88,4 +88,69 @@ export class UtilFuncoes {
 
   }
 
+//Recebe: 1 - Evento ao digitar em um input, 2 - Tipo de formatação
+  //Retorna: Nada, seta no input a string formatada de acordo com o tipo de formatação passado por parametro
+  static formatarStringInput(event: any, tipoFormatacao: number)
+  {
+    let termo: string = event.srcElement.value
+    event.srcElement.value = this.formatarString(termo, tipoFormatacao);
+  }
+
+
+  //Recebe: 1 - String a ser formatada, 2 - Tipo de formatação
+  //Retorna: String formatada de acordo com o tipo passado por parâmetro
+  static formatarString(termo: string, tipoFormatacao: number): string{
+    switch (tipoFormatacao) {
+      case 0:{ //aceita espaço, letras maiusculas, NÃO aceita caracteres especiais, aceita numeros
+        termo = termo.toUpperCase().normalize('NFD').replace(/([\u0300-\u036f]|[^0-9a-zA-Z\s])/g, '').replace('  ', ' ')
+        break;
+      }
+      case 1:{ //aceita espaço, letras maiusculas, NÃO aceita caracteres especiais, NÃO aceita numeros
+        termo = termo.toUpperCase().normalize('NFD').replace(/([\u0300-\u036f]|[^a-zA-Z\s])/g, '').replace('  ', ' ')
+        break;
+      }
+      case 2:{  //aceita espaço, letras maiusculas, NÃO aceita caracteres especiais, aceita numeros, aceita ç
+        termo = termo.toUpperCase().normalize('NFD').replace(/^a-zA-Z\s\Ç/g, '').replace('  ', ' ')
+        break;
+      }
+      case 3:{  //aceita espaço, NÂO letras maiusculas, NÃO aceita caracteres especiais, aceita numeros, NÂO aceita ç
+        termo = termo.toUpperCase().normalize('NFD').replace(/\D/g, '');
+        break;
+      }
+      case 4:{  //somente números e hífen
+        termo = termo.toUpperCase().normalize('NFD').replace(/[^\d.-]/g,'').replace('  ', '')
+        break;
+      }
+      case 5:{  //fenotipagem, apenas "P", "N" e "?"
+        termo = termo.toUpperCase().normalize('NFD').replace(/[^PpNn?]/g,'').replace('  ', '')
+        break;
+      }
+      case 6:{  //somente números e sinal de negativo e ponto
+        termo = termo.toUpperCase().normalize('NFD').replace(/[^0-9.-]/g,'').replace('  ', '')
+        break;
+      }
+      case 7:{  //somente números e um unico ponto
+        termo = termo.toUpperCase().normalize('NFD').replace(/[^0-9.,]/g,'').replace('  ', '').replace(',', '.').replace(/[.,]([.,])[.,]/g, '$1').replace(/^\./, '0.')
+        break;
+      }
+
+      case 8:{  //letras maiusculas
+        termo = termo.toUpperCase().normalize('NFD')
+        break;
+      }
+
+      case 9:{  //somente números de 1 a 9
+        termo = termo.toUpperCase().normalize('NFD').replace(/[^1-9]/g,'').replace('  ', '')
+        break;
+      }
+
+      default:
+        break;
+    }
+    if(termo.length == 1 && termo == ' ')
+      termo = termo.trim();
+
+    return termo;
+  }
+
 }

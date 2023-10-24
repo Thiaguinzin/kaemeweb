@@ -117,6 +117,52 @@ namespace Infra.Repository
 
         }
 
+        public bool AtualizarPedidoCobranca(PedidoCobranca pedidoCobranca, bool baixar)
+        {
+            if (baixar) {
+                var sql = $@"update pedido_cobranca set valor_pago = @Valor_Pago, data_pagamento = @Data_Pagamento, tipo_pagamento_id = @Tipo_Pagamento_Id, parcelas = @Parcelas, pago = @Pago where pedido_cobranca.num_pedido = {pedidoCobranca.Num_Pedido}";
+
+                using (var connection = _context.CreateConnection())
+                {
+		            var clienteSql = new PedidoCobranca() 
+                    {
+                        Valor_Pago = pedidoCobranca.Valor_Pago,
+                        Data_Pagamento = pedidoCobranca.Data_Pagamento,
+                        Tipo_Pagamento_Id = pedidoCobranca.Tipo_Pagamento_Id,
+                        Parcelas = pedidoCobranca.Parcelas,
+                        Pago = true
+                    };
+
+                    int linhasAfetadas = connection.Execute(sql, clienteSql);
+
+                    if (linhasAfetadas > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            } else {
+                var sql = $@"update pedido_cobranca set cancelado = 1, pago = 0 where pedido_cobranca.num_pedido = {pedidoCobranca.Num_Pedido}";
+
+                using (var connection = _context.CreateConnection())
+                {
+                    int linhasAfetadas = connection.Execute(sql);
+
+                    if (linhasAfetadas > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+            }
+        }        
+
         public List<PedidoInformation> GetPedidoBySearch(PedidoSearch pedidoSearch)
         {
             var builder = new SqlBuilder();
@@ -182,5 +228,71 @@ namespace Infra.Repository
                 return pedidos.ToList();
             }
         }
+
+        public async Task<Pedido> GetPedidoByNumPedido(int num_pedido)
+        {
+            var query = $@"SELECT 
+                                *,
+                                (select cliente.nome from cliente where cliente.id = pedido.cliente_id) as cliente,
+                                (select cliente.data_nasc from cliente where cliente.id = pedido.cliente_id) as data_nasc,
+                                (select usuario.login from usuario where usuario.id = pedido.usuario_id) as usuario
+                            FROM pedido WHERE pedido.num_pedido = {num_pedido}";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var pedido = await connection.QueryAsync<Pedido>(query);
+                return pedido.FirstOrDefault();
+            }            
+        }
+
+        public async Task<List<PedidoPeca>> GetPedidoPecaByNumPedido(int num_pedido)
+        {
+            var query = $@"SELECT DISTINCT
+                        	*,
+                        	(select peca.codigo from peca where peca.id = pedido_peca.peca_id) as peca_codigo
+                        FROM pedido_peca WHERE pedido_peca.num_pedido = {num_pedido}";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var pedidoPeca = await connection.QueryAsync<PedidoPeca>(query);
+                return pedidoPeca.ToList();
+            }  
+        }        
+
+        public async Task<PedidoCobranca> GetPedidoCobrancaByNumPedido(int num_pedido)
+        {
+            var query = $@"SELECT * FROM pedido_cobranca WHERE pedido_cobranca.num_pedido = {num_pedido}";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var pedidoCobranca = await connection.QueryAsync<PedidoCobranca>(query);
+                return pedidoCobranca.FirstOrDefault();
+            }   
+        }
+
+        public List<PedidoInformation> GetTop100Pedidos()
+        {
+            
+            var query = $@"select distinct top 100 
+	                        pedido.*,
+	                        (select cliente.nome from cliente where cliente.id = pedido.cliente_id) as cliente,
+	                        (select usuario.login from usuario where usuario.id = pedido.usuario_id) as funcionario,
+	                        pedido_cobranca.valor_pedido,
+	                        pedido_cobranca.valor_pago,
+	                        (select tipo_pagamento.codigo from tipo_pagamento where tipo_pagamento.id = pedido_cobranca.tipo_pagamento_id) as tipo_pagamento,
+	                        (select status_pedido.codigo from status_pedido where status_pedido.id = pedido.status_pedido_id) as status_pedido,
+                            pedido_cobranca.pago
+                        from pedido
+                        inner join pedido_peca on pedido_peca.num_pedido = pedido.num_pedido
+                        inner join pedido_cobranca on pedido_cobranca.num_pedido = pedido.num_pedido
+                        order by data_pedido desc";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var pedidos = connection.Query<PedidoInformation>(query);
+                return pedidos.ToList();
+            }   
+        }
+
     }
 }

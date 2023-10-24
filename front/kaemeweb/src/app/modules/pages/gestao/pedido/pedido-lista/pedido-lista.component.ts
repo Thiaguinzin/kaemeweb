@@ -19,6 +19,8 @@ import { UtilFuncoes } from 'src/app/modules/shared/classes/UtilFuncoes';
 import * as moment from 'moment';
 import { PedidoService } from 'src/app/modules/shared/services/pedido.service';
 import { PedidoInformation } from 'src/app/modules/shared/models/PedidoModels/pedido-information';
+import { DialogComponent } from 'src/app/modules/shared/dialog/dialog.component';
+import { PedidoCobranca } from 'src/app/modules/shared/models/PedidoModels/pedido-cobranca';
 
 @Component({
   selector: 'app-pedido-lista',
@@ -65,6 +67,15 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
     this.form.controls['cliente'].disable();
     this.carregarStatusPedido();
     this.carregarTipoPagamento();
+    this.carregarPedidosTop100();
+  }
+
+  carregarPedidosTop100() {
+    this.pedidoService.getTop100Pedidos()
+      .subscribe(res => {
+        console.log(res);
+        this.dataSource = new MatTableDataSource(res);
+      });
   }
 
   carregarStatusPedido() {
@@ -132,6 +143,63 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
       pago: UtilFuncoes.hasValue(this.form.controls['pago'].value) ? this.form.controls['pago'].value : null,
       tipo_Pagamento_Id: UtilFuncoes.hasValue(this.form.controls['tipo_pagamento_id'].value) ? this.form.controls['tipo_pagamento_id'].value : null
     }
+  }
+
+  limparCamposBuscar() {
+    this.form.reset();
+  }
+
+  consultarPedido(pedido: PedidoInformation) {
+    this.router.navigate(['/gestao/pedido/'+pedido.num_Pedido+'/consultar/']);
+  }
+
+  atualizarPagamento(realizandoPagamento: boolean, pedido: PedidoInformation) {
+    if (realizandoPagamento) {
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Realizar Baixa?',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          this.router.navigate(['/gestao/pedido/'+ pedido.num_Pedido +'/consultar', ], { queryParams: { baixa: true } });
+        }
+      })
+    } else {
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Cancelar Baixa?',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+        if(resultado == true) {
+          var pedidoCobranca: PedidoCobranca = {
+            num_Pedido: pedido.num_Pedido,
+            cancelado: true
+          }
+
+          this.pedidoService.atualizarPedidoCobranca(pedidoCobranca, false)
+            .subscribe(res => {
+              if (res) {
+                this.toastr.success("Baixa cancelada com sucesso!");
+                window.location.reload();
+              } else {
+                this.toastr.warning("Não foi possível cancelar a baixa!");
+              }
+            }, error => {
+              console.log(error);
+              this.toastr.error("Erro ao cancelar a baixa!");
+            })
+        }
+      })
+    }
+
   }
 
 }

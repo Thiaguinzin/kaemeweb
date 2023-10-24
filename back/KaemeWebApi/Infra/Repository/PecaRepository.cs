@@ -204,5 +204,21 @@ namespace Infra.Repository
                 return peca.ToList();
             }
         }
+
+        public async Task<List<Peca>> GetPecasByNumPedido(int num_pedido)
+        {
+            var query = $@"select distinct
+                        	peca.*
+                        from pedido_peca
+                        inner join peca on peca.id = pedido_peca.peca_id
+                        where num_pedido = {num_pedido}";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var pecas = await connection.QueryAsync<Peca>(query);
+                return pecas.ToList();
+            }
+
+        }
     }
 }

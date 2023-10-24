@@ -8,5 +8,8 @@ namespace Dominio.Models
         public int Peca_Id { get; set; }
         public decimal Valor_Peca { get; set; }
 
+        // Apenas para visualização
+        public string? Peca_Codigo { get; set; }
+
     }
 }

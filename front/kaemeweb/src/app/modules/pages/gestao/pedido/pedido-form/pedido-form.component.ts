@@ -1,4 +1,4 @@
-import { UtilFuncoes } from './../../../../shared/classes/UtilFuncoes';
+import { UtilFuncoes } from 'src/app/modules/shared/classes/UtilFuncoes';
 import { PecaService } from './../../../../shared/services/peca.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
@@ -29,7 +29,7 @@ import { Validadores } from 'src/app/modules/shared/validadores/validadores';
 })
 export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
-
+  utilFuncoes = UtilFuncoes;
   // Etapa 1
   formPedido: FormGroup = this.fb.group({
     cliente: ['', [Validators.required]],
@@ -61,6 +61,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
   @ViewChild(MatTable) table: MatTable<any>;
   displayedColumnsPeca: string[] = ['codigo', 'tipo_peca', 'fornecedor', 'quantidade', 'estoque', 'valor_venda', 'btn'];
+  stepperLinear: boolean = true;
 
   pedido: Pedido;
   arrayPecas: Peca[] = [];
@@ -68,6 +69,10 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   total_venda: number
 
   lista_tipoPagamento: TipoPagamento[] = [];
+
+  modoConsulta: boolean = false;
+  pedidoCreateReturn: PedidoCreate;
+  baixa: boolean = false;
 
   constructor(private router: Router,
     public override fb: FormBuilder,
@@ -77,9 +82,21 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     private pecaService: PecaService,
     private tipoPagamentoService: TipoPagamentoService,
     private pedidoService: PedidoService)
-    { super (dialog, fb, toastr, router) }
+    { super (dialog, fb, toastr, router)
+
+      // Recupera valor do parâmetro
+      this.route.queryParams
+      .subscribe(params => {
+        if (params['baixa'] === 'true') {
+          this.baixa = true;
+        }
+      });
+
+    }
 
   override ngOnInit() {
+
+
     this.exibirBtnCadastrar = false;
     this.exibirBtnEditar = false;
     this.exibirBtnFechar = false;
@@ -92,7 +109,52 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     this.formPagamento.controls['valor_pago'].disable();
     this.formPagamento.controls['data_pagamento'].disable();
 
+    console.log(this.baixa)
+    if (this.router.url.includes('consultar') === true) {
+
+      // Caso entre para consulta
+      this.modoFormulario = 'consulta';
+      this.exibirBtnEditar = false;
+      this.exibirBtnCadastrar = false;
+      this.redirectFechar = 'gestao/fornecedor';
+
+      const num_pedido = this.route.snapshot.params['id'];
+      this.pedidoService.getPedidoByNumPedido(num_pedido)
+        .subscribe(res => {
+          console.log(res);
+          this.pedidoCreateReturn = res;
+          this.stepperLinear = false;
+          this.modoConsulta = true;
+          this.carregarPedido(res);
+        });
+    }
+
     this.carregarTipoPagamento();
+  }
+
+  carregarPedido(pedido: PedidoCreate) {
+    this.formPedido.controls['cliente'].setValue(pedido.pedido.cliente);
+    this.nome_cliente = pedido.pedido.cliente;
+    this.data_nasc = pedido.pedido.data_Nasc;
+    this.formPedido.controls['usuario'].setValue(pedido.pedido.usuario);
+    this.formPedido.controls['dthr_pedido'].setValue(moment(pedido.pedido.data_Pedido).format("DD/MM/yyyy HH:mm"));
+
+    this.arrayPedidoPecas = pedido.pecas;
+    this.formPagamento.controls['tipo_pagamento'].setValue(pedido.pedido_Cobranca.tipo_Pagamento_Id);
+    this.formPagamento.controls['parcelas'].setValue(pedido.pedido_Cobranca.parcelas);
+    this.formPagamento.controls['pago'].setValue(pedido.pedido_Cobranca.pago);
+    this.formPagamento.controls['valor_pago'].setValue(pedido.pedido_Cobranca.valor_Pago);
+    this.formPagamento.controls['data_pagamento'].setValue(moment(pedido.pedido_Cobranca.data_Pagamento).format("DD/MM/yyyy HH:mm"));
+
+    this.formPedido.disable();
+
+    if (this.baixa) {
+      this.formPagamento.enable();
+      this.formPagamento.controls['pago'].setValue(true);
+      this.formPagamento.controls['pago'].disable();
+    } else {
+      this.formPagamento.disable();
+    }
   }
 
   carregarTipoPagamento() {
@@ -111,12 +173,14 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     });
 
     resultadoDialog.afterClosed().subscribe(cliente => {
-      this.formPedido.controls['cliente'].setValue(cliente.nome);
-      this.cliente_id = cliente.id;
-      this.clienteSelecionado = true;
-      this.nome_cliente = cliente.nome;
-      this.data_nasc = cliente.data_Nasc
-      this.cpf = cliente.cpf;
+      if (cliente != undefined) {
+        this.formPedido.controls['cliente'].setValue(cliente.nome);
+        this.cliente_id = cliente.id;
+        this.clienteSelecionado = true;
+        this.nome_cliente = cliente.nome;
+        this.data_nasc = cliente.data_Nasc
+        this.cpf = cliente.cpf;
+      }
     });
   }
 
@@ -150,37 +214,71 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   }
 
   override salvar() {
-    debugger
 
-    if(this.formPedido.valid && this.formPeca.valid && this.formPagamento.valid) {
-      const pedido = this.montarPedido();
-      const pedidoPeca = this.arrayPedidoPecas;
-      const pedidoCobranca = this.montarPedidoCobranca();
+    if (!this.baixa) {
+      if(this.formPedido.valid && this.formPeca.valid && this.formPagamento.valid) {
+        const pedido = this.montarPedido();
+        const pedidoPeca = this.arrayPedidoPecas;
+        const pedidoCobranca = this.montarPedidoCobranca();
 
-      const pedidoCreate: PedidoCreate = {
-        pedido: pedido,
-        pecas: pedidoPeca,
-        pedido_Cobranca: pedidoCobranca
+        const pedidoCreate: PedidoCreate = {
+          pedido: pedido,
+          pecas: pedidoPeca,
+          pedido_Cobranca: pedidoCobranca
+        }
+
+
+        this.pedidoService.create(pedidoCreate)
+          .subscribe(res => {
+            if (res) {
+              this.toastr.success("Pedido criado com sucesso!");
+              this.router.navigate(['gestao/']);
+            } else {
+              this.toastr.warning("Não foi possível criar o pedido!");
+            }
+          }, error => {
+            console.log(error);
+            this.toastr.error("Erro ao criar o pedido!");
+          })
+      } else {
+        this.toastr.info("Campos obrigatórios não preenchidos!")
+      }
+    } else { // Realizar Baixa do Pedido
+
+      if(this.formPagamento.valid) {
+
+        var pedidoCobranca: PedidoCobranca = {
+          num_Pedido: this.route.snapshot.params['id'],
+          valor_Pago: UtilFuncoes.hasValue(this.formPagamento.controls['valor_pago'].value) ? this.formPagamento.controls['valor_pago'].value : null,
+          data_Pagamento: UtilFuncoes.hasValue(this.formPagamento.controls['data_pagamento'].value) ? moment(this.formPagamento.controls['data_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
+          tipo_Pagamento_Id: this.formPagamento.controls['tipo_pagamento'].value,
+          parcelas: UtilFuncoes.hasValue(this.formPagamento.controls['parcelas'].value) ? this.formPagamento.controls['parcelas'].value : null,
+          pago: true,
+          cancelado: false
+        }
+
+        if (!this.pedidoCreateReturn.pedido_Cobranca.pago) {
+           this.pedidoService.atualizarPedidoCobranca(pedidoCobranca, true)
+            .subscribe(res => {
+              if (res) {
+                this.toastr.success("Pedido baixado com sucesso!");
+                this.router.navigate(['gestao/pedido']);
+              } else {
+                this.toastr.warning("Não foi possível baixar o pedido!");
+              }
+            }, error => {
+              console.log(error);
+              this.toastr.error("Erro ao baixar o pedido!");
+            })
+        } else {
+          this.toastr.warning("Pedido já baixado!");
+        }
+
+      } else {
+        this.toastr.info("Campos obrigatórios não preenchidos!")
       }
 
-
-      this.pedidoService.create(pedidoCreate)
-        .subscribe(res => {
-          if (res) {
-            this.toastr.success("Pedido criado com sucesso!");
-            this.router.navigate(['gestao/']);
-          } else {
-            this.toastr.warning("Não foi possível criar o pedido!");
-          }
-        }, error => {
-          console.log(error);
-          this.toastr.error("Erro ao criar o pedido!");
-        })
-    } else {
-      this.toastr.info("Campos obrigatórios não preenchidos!")
     }
-
-
 
   }
 
@@ -204,7 +302,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
       let pedidoPeca: PedidoPeca = {
         quantidade: this.formPeca.controls["quantidade" + (peca.id)].value,
         peca_Id: peca.id,
-        peca_codigo: peca.codigo,
+        peca_Codigo: peca.codigo,
         valor_Peca: peca.valor_Venda
       }
 
@@ -257,25 +355,34 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
           this.table.renderRows();
         }
       })
+
+    if (quantidade === 0) {
+      this.formPeca.controls["quantidade" + (peca.id)].setValue(1);
+    }
   }
 
   getTotalVenda(): number {
 
-    if (this.arrayPecas.length > 0) {
+    if (!this.modoConsulta) {
+      if (this.arrayPecas.length > 0) {
 
-      this.arrayPecas.forEach(peca => {
+        this.arrayPecas.forEach(peca => {
 
-      })
+        })
 
-    let total: number = this.arrayPecas
-      .map(item => this.formPeca.controls["quantidade" + (item.id)].value * item.valor_Venda)
-      .reduce((a, b) => a + b, 0);
+      let total: number = this.arrayPecas
+        .map(item => this.formPeca.controls["quantidade" + (item.id)].value * item.valor_Venda)
+        .reduce((a, b) => a + b, 0);
 
-      this.total_venda = total;
-      return +total.toFixed(2);
+        this.total_venda = total;
+        return +total.toFixed(2);
+      }
+
+      return 0;
     }
 
     return 0;
+
   }
 
   abrirClienteFormComponent() {
@@ -290,14 +397,20 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
 
   getTotalVendaDesconto(): number {
-    const perc = +this.formPagamento.controls['desconto_perc'].value;
 
-    if (UtilFuncoes.hasValue(perc) && perc > 0) {
-      let valor_atualizado = this.total_venda - (this.total_venda * perc / 100);
-      return +valor_atualizado.toFixed(2);
+    if (!this.modoConsulta) {
+      const perc = +this.formPagamento.controls['desconto_perc'].value;
+
+      if (UtilFuncoes.hasValue(perc) && perc > 0) {
+        let valor_atualizado = this.total_venda - (this.total_venda * perc / 100);
+        return +valor_atualizado.toFixed(2);
+      } else {
+        return +this.getTotalVenda().toFixed(2);
+      }
     } else {
-      return +this.getTotalVenda().toFixed(2);
+      return this.pedidoCreateReturn.pedido_Cobranca.valor_Pedido;
     }
+
 
   }
 

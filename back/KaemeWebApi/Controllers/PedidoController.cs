@@ -13,9 +13,9 @@ namespace KaemeWebApi.Controllers;
 public class PedidoController : BaseApiController
 {
     private readonly PedidoService _pedidoService;
-    public PedidoController(IPedidoRepository pedidoRepository)
+    public PedidoController(IPedidoRepository pedidoRepository, IPecaRepository pecaRepository)
     {
-        _pedidoService = new PedidoService(pedidoRepository);
+        _pedidoService = new PedidoService(pedidoRepository, pecaRepository);
     }
 
     [HttpPost("[action]")]
@@ -26,9 +26,30 @@ public class PedidoController : BaseApiController
     }
 
     [HttpPost("[action]")]
+    public IActionResult AtualizarPedidoCobranca([FromBody] PedidoCobranca pedidoCobranca, [FromQuery] bool baixar)
+    {
+        var result = _pedidoService.AtualizarPedidoCobranca(pedidoCobranca, baixar);
+        return GetActionResult(result);
+    }    
+
+    [HttpPost("[action]")]
     public IActionResult GetPedidoBySearch([FromBody] PedidoSearch pedidoSearch)
     {
         var result = _pedidoService.GetPedidoBySearch(pedidoSearch);
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetPedidoByNumPedido([FromQuery] int num_pedido)
+    {
+        var result = await _pedidoService.GetPedidoByNumPedido(num_pedido);
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public IActionResult GetTop100Pedidos()
+    {
+        var result = _pedidoService.GetTop100Pedidos();
         return GetActionResult(result);
     }    
     

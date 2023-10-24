@@ -7,7 +7,7 @@ const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {label: 'Pedidos'} } },
   { path: 'cadastrar', component: PedidoFormComponent, data: {breadcrumb: {label: 'Cadastrar Pedido'}} },
   // { path: ':id/editar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
-  // { path: ':id/consultar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
+  { path: ':id/consultar', component: PedidoFormComponent, data: {breadcrumb: {skip: true} } },
   { path: 'home', component: PedidoListaComponent, data: {breadcrumb: {skip: true} } }
 
 ];
