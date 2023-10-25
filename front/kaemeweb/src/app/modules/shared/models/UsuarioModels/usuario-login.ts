@@ -5,4 +5,5 @@ export interface UsuarioLogin {
   nome?: string | null;
   data_Criacao?: string | null;
   ativo?: boolean | null;
+  perfil_Id?: string | null;
 }

@@ -1,9 +1,10 @@
 import { TokenService } from './token.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioLogin } from '../models/UsuarioModels/usuario-login';
 import { UsuarioToken } from '../models/UsuarioModels/usuario-token';
-import { tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
+import { Usuario } from '../models/UsuarioModels/usuario';
 
 @Injectable({
   providedIn: 'root'
@@ -18,9 +19,10 @@ export class UserService {
     this.decodeAndNotify();
   }
 
-  setInfo(nome_user: string, id_user: number): void {
+  setInfo(nome_user: string, id_user: number, perfil_id: string): void {
     window.localStorage.setItem("k_user", nome_user);
     window.localStorage.setItem("k_user_id", id_user.toString());
+    window.localStorage.setItem("k_user_perfil_id", perfil_id);
   }
 
   logout(): void {
@@ -40,6 +42,16 @@ export class UserService {
 
   private decodeAndNotify(): void {
     const token = this.tokenService.getToken();
+  }
+
+  getUsuarioBySearch(login?: string, nome?: string, perfil_id?: string, ativo?: string): Observable<Usuario[]> {
+    let params = new HttpParams()
+    params = params.append('login', login)
+    params = params.append('nome', nome)
+    params = params.append('perfil_id', perfil_id)
+    params = params.append('ativo', ativo)
+
+    return this.httpClient.get<Usuario[]>('https://localhost:7072' + '/usuario/GetUsuarioBySearch', {params});
   }
 
 }

@@ -16,11 +16,14 @@ export class MenuComponent implements OnInit {
   @ViewChild(MatAccordion) accordion: MatAccordion;
   mostraMenu = false;
 
+  perfil_id = localStorage.getItem('k_user_perfil_id');
+
   constructor(private dialog: MatDialog,
     private usuarioService: UserService,
     private router: Router) { }
 
   ngOnInit() {
+    // console.log(this.perfil_id)
   }
 
   public logout() {

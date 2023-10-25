@@ -43,7 +43,6 @@ export class LoginFormComponent {
         } else {
           this.toastr.error(res.body.errorMessage);
         }
-        console.log(res);
       }, error => {
         this.toastr.error("Algo deu errado!");
       })

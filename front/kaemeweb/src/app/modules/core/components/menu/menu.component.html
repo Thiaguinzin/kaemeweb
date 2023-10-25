@@ -46,6 +46,21 @@
           </mat-accordion>
         </mat-expansion-panel>
 
+        <mat-expansion-panel class="opcoesPrincipaisWeb" *ngIf="perfil_id == '1'">
+          <mat-expansion-panel-header class="painelMenuHeaderWeb">
+            <mat-panel-title>
+              Configurações
+            </mat-panel-title>
+            <mat-panel-description style="justify-content: flex-end;">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-accordion>
+            <p class="opcaoMenu" [routerLink]="['/gestao/usuario/home']" (click)="selecionaOpcao()">
+              Usuários</p>
+
+          </mat-accordion>
+        </mat-expansion-panel>
+
       </mat-accordion>
       <!-- FIM DO CONTEUDO DO MENU-->
     </div>

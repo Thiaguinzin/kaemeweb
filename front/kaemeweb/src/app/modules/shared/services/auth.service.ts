@@ -24,7 +24,7 @@ export class AuthService {
   logarUsuario(token: string, usuario: UsuarioLogin)
   {
       this.userService.setToken(JSON.stringify(token));
-      this.userService.setInfo(usuario.nome, usuario.id);
+      this.userService.setInfo(usuario.nome, usuario.id, usuario.perfil_Id);
   }
 
 }

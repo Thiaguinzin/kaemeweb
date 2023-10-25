@@ -8,5 +8,6 @@ namespace Dominio.Models.UsuarioModels
         public string? Nome { get; set; }
         public DateTime? Data_Criacao { get; set; }
         public bool? Ativo { get; set; }
+        public int? Perfil_Id { get; set; }
     }
 }

@@ -20,6 +20,19 @@ namespace Dominio.Services
             _config = configuration;
         }
 
+
+        public RepositoryResult Create(Usuario usuario)
+        {
+            try
+            {
+                var result = _usuarioRepository.Create(usuario);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }
         public async Task<RepositoryResult> GetAll()
         {
             try
@@ -46,6 +59,19 @@ namespace Dominio.Services
             }            
         }
 
+        public RepositoryResult GetUsuarioBySearch(string? login, string? nome, string? perfil_id, bool? ativo)
+        {
+            try
+            {
+                var usuario = _usuarioRepository.GetUsuarioBySearch(login, nome, perfil_id, ativo);
+                return RepositoryResult.AddDapper(usuario);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }            
+        }        
+
         public async Task<RepositoryResult> Login(UsuarioLogin usuarioLogin)
         {
             try
@@ -67,6 +93,7 @@ namespace Dominio.Services
                         Login = resultIsValideUser.Item2.Login,
                         Nome = resultIsValideUser.Item2.Nome,
                         Ativo = resultIsValideUser.Item2.Ativo,
+                        Perfil_Id = resultIsValideUser.Item2.Perfil_Id
                     }
                     });
                 } else {

@@ -19,5 +19,6 @@ export class TokenService {
         window.localStorage.removeItem(key);
         window.localStorage.removeItem('k_user');
         window.localStorage.removeItem('k_unidade');
+        window.localStorage.removeItem('k_user_perfil_id');
     }
 }

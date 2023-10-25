@@ -1,0 +1,77 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Cadastrar Usuário" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form">
+
+    <div class="divDadosPrincipais">
+      <div class="col-md-12">
+
+        <div class="row">
+
+          <mat-form-field class="col-md-5" appearance="outline">
+            <mat-label>Nome</mat-label>
+            <input matInput formControlName="razao_social" appUpperCaseInput appSpecialCharacterFilter>
+            <mat-error *ngIf="!!form.get('nome').hasError('maxlength')">Nome deve conter até 150 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-4" appearance="outline">
+            <mat-label>Login</mat-label>
+            <input matInput formControlName="login">
+            <mat-error *ngIf="!!form.get('login').hasError('maxlength')">Login deve conter até 50 caracteres</mat-error>
+            <mat-error *ngIf="!!form.get('login').hasError('minlength')">Login deve conter pelo menos 5 caracteres</mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Senha</mat-label>
+            <input matInput formControlName="senha">
+            <mat-error *ngIf="!!form.get('senha').hasError('maxlength')">Senha deve conter até 15 caracteres</mat-error>
+            <mat-error *ngIf="!!form.get('senha').hasError('minlength')">Senha deve conter pelo menos 6 caracteres</mat-error>
+          </mat-form-field>
+
+          <!-- <mat-form-field class="col-md-1" appearance="outline">
+            <mat-label>UF</mat-label>
+            <mat-select formControlName="uf">
+                <mat-option *ngFor="let uf of lista_uf" [value]="uf.codigo">
+                  {{uf.codigo}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field> -->
+
+          <!-- <mat-form-field class="col-md-2" appearance="outline">
+            <mat-label>CNPJ</mat-label>
+            <input matInput formControlName="cnpj" mask="00.000.000/0000-00">
+          </mat-form-field> -->
+
+        </div>
+
+        <div class="row">
+
+          <mat-form-field class="col-md-5" appearance="outline">
+            <mat-label>Perfil</mat-label>
+            <mat-select formControlName="perfil_id">
+                <mat-option *ngFor="let perfil of lista_perfil" [value]="perfil.id">
+                  {{perfil.descricao}}
+                </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Ativo</mat-label>
+            <mat-select formControlName="ativo">
+              <mat-option [value]="true">Sim</mat-option>
+              <mat-option [value]="false">Não</mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+      </div>
+    </div>
+
+    </form>
+
+  </app-template-default>
+</div>
+
+
