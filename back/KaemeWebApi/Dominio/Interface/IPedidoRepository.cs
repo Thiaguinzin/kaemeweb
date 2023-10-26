@@ -12,5 +12,6 @@ namespace Dominio.Interface
         Task<List<PedidoPeca>> GetPedidoPecaByNumPedido(int num_pedido);
         Task<PedidoCobranca> GetPedidoCobrancaByNumPedido(int num_pedido);
         List<PedidoInformation> GetTop100Pedidos();
+        List<PedidoInformation> GetPedidoCliente(int num_pedido, string cpf);
     }
 }

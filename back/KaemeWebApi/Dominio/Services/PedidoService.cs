@@ -93,5 +93,18 @@ namespace Dominio.Services
             }
         }
 
+        public RepositoryResult GetPedidoCliente(int num_pedido, string cpf)
+        {
+            try
+            {
+                var result = _pedidoRepository.GetPedidoCliente(num_pedido, cpf);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }        
+
     }
 }

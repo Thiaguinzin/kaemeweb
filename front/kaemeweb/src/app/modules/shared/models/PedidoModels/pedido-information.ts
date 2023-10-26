@@ -16,4 +16,8 @@ export interface PedidoInformation {
   tipo_Pagamento: string | null;
   parcelas: number | null;
   pago: boolean;
+  peca_Id: number | null;
+  peca_Codigo: string | null;
+  quantidade: number | null;
+  valor_Peca: number | null;
 }

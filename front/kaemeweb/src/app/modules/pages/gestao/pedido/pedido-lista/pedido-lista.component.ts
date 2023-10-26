@@ -121,6 +121,7 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
   }
 
   buscarPedidos() {
+    debugger
     const pedidoSearch = this.montarPedidoSearch();
 
     this.pedidoService.getPedidoBySearch(pedidoSearch)
@@ -140,7 +141,7 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
       data_Inicio_Pagamento: UtilFuncoes.hasValue(this.form.controls['dthr_inicio_pagamento'].value) ? moment(this.form.controls['dthr_inicio_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
       data_Fim_Pagamento: UtilFuncoes.hasValue(this.form.controls['dthr_fim_pagamento'].value) ? moment(this.form.controls['dthr_fim_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
       status_Pedido_Id: UtilFuncoes.hasValue(this.form.controls['status_pedido_id'].value) ? this.form.controls['status_pedido_id'].value : null,
-      pago: UtilFuncoes.hasValue(this.form.controls['pago'].value) ? this.form.controls['pago'].value : null,
+      pago: this.form.controls['pago'].value !== '' ? this.form.controls['pago'].value : null,
       tipo_Pagamento_Id: UtilFuncoes.hasValue(this.form.controls['tipo_pagamento_id'].value) ? this.form.controls['tipo_pagamento_id'].value : null
     }
   }

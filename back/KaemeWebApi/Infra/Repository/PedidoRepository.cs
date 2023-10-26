@@ -295,5 +295,37 @@ namespace Infra.Repository
             }   
         }
 
+        public List<PedidoInformation> GetPedidoCliente(int num_pedido, string cpf)
+        {
+            var query = $@"select * from
+                            (select 
+                            	pedido.num_pedido,
+                            	(select usuario.nome from usuario where usuario.id = pedido.usuario_id) as funcionario,
+                            	pedido.data_pedido,
+                            	pedido_peca.id as pedido_peca_id,
+                            	(select peca.codigo from peca where peca.id = pedido_peca.peca_id) as peca_codigo,
+                            	pedido_peca.quantidade,
+                            	pedido_peca.valor_peca,
+                            	pedido.cancelado,
+                            	pedido_cobranca.valor_pago,
+                            	pedido_cobranca.data_pagamento,
+                            	(select descricao from tipo_pagamento where tipo_pagamento.id = pedido_cobranca.tipo_pagamento_id) as tipo_pagamento,
+                            	(select descricao from status_pedido where status_pedido.id = pedido.status_pedido_id) as status_pedido
+
+                            from pedido
+                            inner join cliente on cliente.id = pedido.cliente_id
+                            inner join pedido_peca on pedido_peca.num_pedido = pedido.num_pedido
+                            inner join pedido_cobranca on pedido_cobranca.num_pedido = pedido.num_pedido
+
+                            where pedido.num_pedido = {num_pedido} and cliente.cpf = '{cpf}')q
+
+                            order by q.peca_codigo asc";
+
+            using (var connection = _context.CreateConnection())
+            {
+                var pedido = connection.Query<PedidoInformation>(query);
+                return pedido.ToList();
+            } 
+        }
     }
 }

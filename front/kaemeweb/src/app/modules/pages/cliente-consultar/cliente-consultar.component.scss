@@ -1,0 +1,23 @@
+.imgLogin{
+  position: fixed;
+  align-self: start;
+  opacity: 0.4;
+  width: auto;
+  // max-height: 100%;
+}
+
+.main-div{
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+:host ::ng-deep .mat-mdc-card{
+  width: 1500px !important;
+}
+
+fieldset, legend {
+  all: revert;
+}

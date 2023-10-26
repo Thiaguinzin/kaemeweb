@@ -38,4 +38,11 @@ export class PedidoService {
     return this.httpClient.post<boolean>('https://localhost:7072' + '/pedido/AtualizarPedidoCobranca', pedidoCobranca, {params});
   }
 
+  getPedidoCliente(num_pedido: number, cpf: string): Observable<PedidoInformation[]> {
+    let params = new HttpParams()
+    params = params.append('num_pedido', num_pedido)
+    params = params.append('cpf', cpf)
+    return this.httpClient.get<PedidoInformation[]>('https://localhost:7072' + '/pedido/GetPedidoCliente', {params});
+  }
+
 }

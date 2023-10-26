@@ -37,8 +37,8 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.js",
-              "./node_modules/html2pdf.js/dist/html2pdf.js"
+              "node_modules/bootstrap/dist/js/bootstrap.js"
+
             ]
           },
           "configurations": {
@@ -105,7 +105,7 @@
               "node_modules/ngx-toastr/toastr.css"
             ],
             "scripts": [
-              "./node_modules/html2pdf.js/dist/html2pdf.js"
+
             ]
           }
         }

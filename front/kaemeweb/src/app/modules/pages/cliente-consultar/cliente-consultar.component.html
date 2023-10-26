@@ -1,0 +1,121 @@
+<div class="d-flex justify-content-end ">
+  <img src="./assets/img/img-fundo-1.jpg" class="imgLogin d-none d-sm-block" alt="img">
+</div>
+
+<div class="main-div">
+
+  <app-template-default titulo="Consultar Pedido" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+    <form [formGroup]="form" style="margin-bottom: 20px;">
+
+      <div class="divDadosPrincipais">
+        <div class="col-md-12">
+
+          <div class="row d-flex justify-content-center">
+
+            <mat-form-field class="col-md-3" appearance="outline">
+              <mat-label>Número do Pedido</mat-label>
+              <input matInput formControlName="num_pedido" onlyNumbersDirective>
+              <mat-error *ngIf="!!form.get('num_pedido').hasError('maxlength')">Número do pedido deve conter até 8 caracteres</mat-error>
+              <mat-error *ngIf="!!form.get('num_pedido').hasError('mixlength')">Número do pedido deve pelo menos 1 caracter</mat-error>
+            </mat-form-field>
+            <mat-form-field class="col-md-3" appearance="outline">
+              <mat-label>CPF</mat-label>
+              <input matInput formControlName="cpf" mask='000.000.000-00'>
+            </mat-form-field>
+
+            <button class="col-md-2" [disabled]="!form.valid" mat-raised-button color="primary" style="margin-right: 10px; height: 40px;" (click)="consultar()">Consultar</button>
+
+          </div>
+
+        </div>
+      </div>
+
+    </form>
+
+  <div *ngIf="pedido.length > 0">
+  <div class="row">
+    <div class="col-md-12">
+
+      <fieldset style="margin-bottom: 30px">
+        <legend> [Informações do Pedido] </legend>
+        <div class="row" style="text-align: center;">
+
+          <div class="col-md-2">
+            <h4> Número do pedido: {{pedido[0].num_Pedido}} </h4>
+          </div>
+
+          <div class="col-md-3">
+            <h4> Funcionário: {{pedido[0].funcionario}} </h4>
+          </div>
+
+          <div class="col-md-3">
+            <h4> Data do Pedido: {{pedido[0].data_Pedido | date: "dd/MM/yyyy HH:mm"}} </h4>
+          </div>
+
+          <div class="col-md-3">
+            <h4> Status do Pedido: {{pedido[0].status_Pedido}} </h4>
+          </div>
+
+        </div>
+
+        <div class="row" style="text-align: center;">
+
+          <div class="col-md-2">
+            <h4> Valor Pago: R$ {{pedido[0].valor_Pago}} </h4>
+          </div>
+
+          <div class="col-md-3">
+            <h4> Data do Pagamento: {{pedido[0].data_Pagamento | date: "dd/MM/yyyy HH:mm"}} </h4>
+          </div>
+
+          <div class="col-md-3">
+            <h4> Tipo de Pagamento: {{pedido[0].tipo_Pagamento}} </h4>
+          </div>
+
+          <div class="col-md-3">
+            <h4> Cancelado: {{pedido[0].cancelado === true ? 'SIM' : 'NÃO'}} </h4>
+          </div>
+
+        </div>
+
+        </fieldset>
+    </div>
+
+  </div>
+
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="peca_codigo">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Peça </th>
+        <td mat-cell *matCellDef="let row"> {{row.peca_Codigo}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="quantidade">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
+        <td mat-cell *matCellDef="let row"> {{row.quantidade}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="valor_peca">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Valor </th>
+        <td mat-cell *matCellDef="let row"> R$ {{row.valor_Peca}} </td>
+      </ng-container>
+
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <!-- <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Nenhum resultado obtido na pesquisa "{{input.value}}"</td>
+      </tr> -->
+    </table>
+
+    <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of users"></mat-paginator>
+  </div>
+
+  </div>
+
+  </app-template-default>
+
+

@@ -51,6 +51,14 @@ public class PedidoController : BaseApiController
     {
         var result = _pedidoService.GetTop100Pedidos();
         return GetActionResult(result);
+    }
+
+    [AllowAnonymous]
+    [HttpGet("[action]")]
+    public IActionResult GetPedidoCliente([FromQuery] int num_pedido, [FromQuery] string cpf)
+    {
+        var result = _pedidoService.GetPedidoCliente(num_pedido, cpf);
+        return GetActionResult(result);
     }    
     
 }

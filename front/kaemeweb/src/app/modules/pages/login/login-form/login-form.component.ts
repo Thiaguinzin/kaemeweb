@@ -62,4 +62,8 @@ export class LoginFormComponent {
     }
   }
 
+  redirectConsultarPedidos() {
+    this.router.navigate(['/consultar-pedido/']);
+  }
+
 }

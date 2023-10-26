@@ -18,7 +18,11 @@ namespace Dominio.Models
         public DateTime? Data_Pagamento { get; set; }
         public string? Tipo_Pagamento { get; set; }
         public int? Parcelas { get; set; }
-        public bool Pago { get; set; }        
+        public bool Pago { get; set; }
+        public int? Peca_Id { get; set; }
+        public string? Peca_Codigo { get; set; }
+        public int? Quantidade { get; set; }
+        public decimal? Valor_Peca { get; set; }
 
     }
 }
