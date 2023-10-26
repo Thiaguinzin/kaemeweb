@@ -7,8 +7,8 @@ import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {label: 'Usuário'} } },
   { path: 'cadastrar', component: UsuarioFormComponent, data: {breadcrumb: {skip: true} } },
-  // { path: ':id/editar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
-  // { path: ':id/consultar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
+  { path: ':id/editar', component: UsuarioFormComponent, data: {breadcrumb: {skip: true} } },
+  { path: ':id/consultar', component: UsuarioFormComponent, data: {breadcrumb: {skip: true} } },
   { path: 'home', component: UsuarioListaComponent, data: {breadcrumb: {skip: true} } }
 
 ];

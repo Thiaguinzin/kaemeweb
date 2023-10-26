@@ -33,6 +33,20 @@ namespace Dominio.Services
                 return RepositoryResult.AddException(e);
             }
         }
+
+        public RepositoryResult Update(Usuario usuario)
+        {
+            try
+            {
+                var result = _usuarioRepository.Update(usuario);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }
+
         public async Task<RepositoryResult> GetAll()
         {
             try
@@ -58,6 +72,19 @@ namespace Dominio.Services
                 return RepositoryResult.AddException(e);
             }            
         }
+
+        public async Task<RepositoryResult> GetUsuarioById(int id)
+        {
+            try
+            {
+                var usuario = await _usuarioRepository.GetUsuarioById(id);
+                return RepositoryResult.AddDapper(usuario);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }            
+        }        
 
         public RepositoryResult GetUsuarioBySearch(string? login, string? nome, string? perfil_id, bool? ativo)
         {
@@ -158,6 +185,12 @@ namespace Dominio.Services
                     } else {
                         return ("Usuário não possui senha cadastrada.", null);
                     }
+
+                    if (usuario.Ativo == false)
+                    {
+                        return ("Usuário desativado do sistema.", null);
+                    }
+
 
                 } else {
                     return ("Usuário não encontrado.", null);

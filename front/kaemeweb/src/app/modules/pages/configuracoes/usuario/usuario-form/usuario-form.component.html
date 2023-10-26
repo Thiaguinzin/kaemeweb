@@ -11,7 +11,7 @@
 
           <mat-form-field class="col-md-5" appearance="outline">
             <mat-label>Nome</mat-label>
-            <input matInput formControlName="razao_social" appUpperCaseInput appSpecialCharacterFilter>
+            <input matInput formControlName="nome" appUpperCaseInput appSpecialCharacterFilter>
             <mat-error *ngIf="!!form.get('nome').hasError('maxlength')">Nome deve conter até 150 caracteres</mat-error>
           </mat-form-field>
 

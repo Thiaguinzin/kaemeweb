@@ -57,6 +57,33 @@ namespace Infra.Repository
             }            
         }
 
+        public bool Update(Usuario usuario)
+        {
+            var sql = $@"update usuario set login = @Login, nome = @Nome, perfil_id = @Perfil_Id, ativo = @Ativo where usuario.id = {usuario.Id}";
+
+            using (var connection = _context.CreateConnection())
+            {
+
+		        var usuarioSql = new Usuario() 
+                {
+                    Login = usuario.Login,
+                    Nome = usuario.Nome,
+                    Perfil_Id = usuario.Perfil_Id,
+                    Ativo = usuario.Ativo,
+                };
+
+                int linhasAfetadas = connection.Execute(sql, usuarioSql);
+                if (linhasAfetadas > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }                    
+            }
+        }
+
         public async Task<List<Usuario>> GetAll()
         {
             var query = "SELECT * FROM USUARIO";
@@ -111,6 +138,17 @@ namespace Infra.Repository
             {   
                 var usuarios = connection.Query<Usuario>(selector.RawSql, selector.Parameters);
                 return usuarios.ToList();
+            }
+        }
+
+        public async Task<Usuario> GetUsuarioById(int id)
+        {
+            var query = $"SELECT * FROM USUARIO WHERE USUARIO.ID = {id}";         
+
+            using (var connection = _context.CreateConnection())
+            {
+                var usuario = await connection.QueryAsync<Usuario>(query);
+                return usuario.FirstOrDefault();
             }
         }
     }

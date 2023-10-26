@@ -44,6 +44,14 @@ export class UserService {
     const token = this.tokenService.getToken();
   }
 
+  create(usuario: Usuario): Observable<boolean> {
+    return this.httpClient.post<boolean>('https://localhost:7072' + '/usuario/Create', usuario);
+  }
+
+  update(usuario: Usuario): Observable<boolean> {
+    return this.httpClient.put<boolean>('https://localhost:7072' + '/usuario/Update', usuario);
+  }
+
   getUsuarioBySearch(login?: string, nome?: string, perfil_id?: string, ativo?: string): Observable<Usuario[]> {
     let params = new HttpParams()
     params = params.append('login', login)
@@ -52,6 +60,13 @@ export class UserService {
     params = params.append('ativo', ativo)
 
     return this.httpClient.get<Usuario[]>('https://localhost:7072' + '/usuario/GetUsuarioBySearch', {params});
+  }
+
+  getUsuarioById(id: number): Observable<Usuario> {
+    let params = new HttpParams()
+    params = params.append('id', id)
+
+    return this.httpClient.get<Usuario>('https://localhost:7072' + '/usuario/GetUsuarioById', {params});
   }
 
 }

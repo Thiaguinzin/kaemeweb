@@ -23,6 +23,13 @@ public class UsuarioController : BaseApiController
         return GetActionResult(result);
     }
 
+    [HttpPut("[action]")]
+    public IActionResult Update([FromBody] Usuario usuario)
+    {
+        var result = _usuarioService.Update(usuario);
+        return GetActionResult(result);
+    }    
+
     [HttpGet("[action]")]
     public async Task<IActionResult> GetAll()
     {
@@ -34,6 +41,13 @@ public class UsuarioController : BaseApiController
     public IActionResult GetUsuarioBySearch([FromQuery] string? login, [FromQuery] string? nome, [FromQuery] string? perfil_id, [FromQuery] bool? ativo)
     {
         var result = _usuarioService.GetUsuarioBySearch(login, nome, perfil_id, ativo);
+        return GetActionResult(result);
+    }
+
+    [HttpGet("[action]")]
+    public async Task<IActionResult> GetUsuarioById([FromQuery] int id)
+    {
+        var result = await _usuarioService.GetUsuarioById(id);
         return GetActionResult(result);
     }    
 }

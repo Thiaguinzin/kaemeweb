@@ -12,6 +12,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { UsuarioRoutingModule } from './usuario-routing.module';
+import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 
 
@@ -30,7 +32,9 @@ import { UsuarioRoutingModule } from './usuario-routing.module';
     NgxMaskPipe,
     MatTableModule,
     MatPaginatorModule,
-    MatButtonModule
+    MatButtonModule,
+    DirectivesModule,
+    MatSlideToggleModule
   ]
 })
 export class UsuarioModule { }
