@@ -233,11 +233,11 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
         this.pedidoService.create(pedidoCreate)
           .subscribe(res => {
-            if (res) {
+            if (res != null) {
               this.toastr.success("Pedido criado com sucesso!");
 
               if (pedidoCreate.pedido_Cobranca.pago) {
-                this.abrirRecibo();
+                this.abrirRecibo(res.num_Pedido);
               }
 
               this.router.navigate(['gestao/']);
@@ -270,7 +270,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
             .subscribe(res => {
               if (res) {
                 this.toastr.success("Pedido baixado com sucesso!");
-                this.abrirRecibo();
+                this.abrirRecibo(this.route.snapshot.params['id']);
                 this.router.navigate(['gestao/pedido']);
               } else {
                 this.toastr.warning("Não foi possível baixar o pedido!");
@@ -438,11 +438,12 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
   }
 
-  abrirRecibo() {
+  abrirRecibo(num_pedido?: number) {
     debugger
     const dialogRef = this.dialog.open(RelReciboPedidoComponent, {
       disableClose: true,
       data: {
+        num_pedido: this.utilFuncoes.hasValue(num_pedido) ? num_pedido : this.route.snapshot.params['id'],
         pedido: this.formPedido,
         pedidoPeca: this.formPeca,
         pedidoPagamento: this.formPagamento,

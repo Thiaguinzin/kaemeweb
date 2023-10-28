@@ -161,7 +161,7 @@ export class ClienteFormComponent extends BaseFormulario {
 
     if (this.modoFormulario === 'edicao') {
       const cliente = this.montarCliente();
-      this.clienteService.create(cliente)
+      this.clienteService.update(cliente)
         .subscribe(res => {
 
           if(res) {

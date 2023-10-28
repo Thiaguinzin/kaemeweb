@@ -3,6 +3,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { PedidoPeca } from '../../models/PedidoModels/pedido-peca';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Pedido } from '../../models/PedidoModels/pedido';
 declare var html2pdf: any;
 
 @Component({
@@ -13,6 +14,7 @@ declare var html2pdf: any;
 export class RelReciboPedidoComponent implements OnInit {
 
   dataEmissao = ' ';
+  num_pedido = ' ';
 
   cliente = ' ';
   data_nasc = ' ';
@@ -21,6 +23,7 @@ export class RelReciboPedidoComponent implements OnInit {
   arrayPedidoPecas: PedidoPeca[] = [];
   valor_pedido = ' ';
   parcelas = ' ';
+  data_pagamento = ' ';
 
   tipoPagamento: FormGroup = this.fb.group({
     dinheiro: [false, []],
@@ -79,13 +82,15 @@ export class RelReciboPedidoComponent implements OnInit {
 
   protected carregarCampos() {
     debugger
+    this.num_pedido = this.data.num_pedido;
     this.cliente = this.data.pedido.controls['cliente'].value;
     this.data_nasc = this.data.data_nasc;
     this.data_pedido = this.data.pedido.controls['dthr_pedido'].value;
 
     this.arrayPedidoPecas = this.data.arrayPedidoPecas;
     this.valor_pedido = this.data.valor_pedido;
-
+    this.parcelas = this.data.pedidoPagamento.controls['parcelas'].value;
+    this.data_pagamento = this.data.pedidoPagamento.controls['data_pagamento'].value;
 
     if (this.data.tipo_pagamento.trim().toUpperCase().includes("PIX")) {
       this.tipoPagamento.controls['pix'].setValue(true);

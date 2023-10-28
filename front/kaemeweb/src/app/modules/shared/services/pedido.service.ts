@@ -6,6 +6,7 @@ import { PedidoCreate } from '../models/PedidoModels/pedido-create';
 import { PedidoSearch } from '../models/PedidoModels/pedido-search';
 import { PedidoInformation } from '../models/PedidoModels/pedido-information';
 import { PedidoCobranca } from '../models/PedidoModels/pedido-cobranca';
+import { Pedido } from '../models/PedidoModels/pedido';
 
 @Injectable({
   providedIn: 'root'
@@ -14,8 +15,8 @@ export class PedidoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  create(pedidoCreate: PedidoCreate): Observable<boolean> {
-    return this.httpClient.post<boolean>('https://localhost:7072' + '/pedido/Create', pedidoCreate);
+  create(pedidoCreate: PedidoCreate): Observable<Pedido> {
+    return this.httpClient.post<Pedido>('https://localhost:7072' + '/pedido/Create', pedidoCreate);
   }
 
   getPedidoBySearch(pedidoSearch: PedidoSearch): Observable<PedidoInformation[]> {

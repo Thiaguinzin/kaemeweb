@@ -10,6 +10,7 @@ import { AuthGuard } from './modules/shared/guards/auth.guard';
 import { CoreModule } from './modules/core/core.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RequestInterceptor } from './modules/shared/interceptors/request.interceptor';
+import { AcessGuard } from './modules/shared/guards/acess.guard';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { RequestInterceptor } from './modules/shared/interceptors/request.interc
   ],
   providers: [
     AuthGuard,
+    AcessGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

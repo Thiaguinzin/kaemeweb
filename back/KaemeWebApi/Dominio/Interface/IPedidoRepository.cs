@@ -5,7 +5,7 @@ namespace Dominio.Interface
 {
     public interface IPedidoRepository
     {
-        bool Create(PedidoCreate pedido);
+        Pedido Create(PedidoCreate pedido);
         bool AtualizarPedidoCobranca(PedidoCobranca pedidoCobranca, bool baixar);
         List<PedidoInformation> GetPedidoBySearch(PedidoSearch pedidoSearch);
         Task<Pedido> GetPedidoByNumPedido(int num_pedido);

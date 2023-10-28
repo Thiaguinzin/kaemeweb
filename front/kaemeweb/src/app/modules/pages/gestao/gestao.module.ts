@@ -11,6 +11,7 @@ import { SharedModule } from '../../shared/shared.module';
 import { FornecedorModule } from './fornecedor/fornecedor.module';
 import { MatCardModule } from '@angular/material/card';
 import { PedidoModule } from './pedido/pedido.module';
+import { AuthGuard } from '../../shared/guards/auth.guard';
 
 @NgModule({
   imports: [
@@ -28,11 +29,12 @@ import { PedidoModule } from './pedido/pedido.module';
   ],
   declarations: [GestaoComponent],
   providers: [
+    AuthGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,
       multi: true
     }
-  ]
+  ],
 })
 export class GestaoModule { }

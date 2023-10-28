@@ -17,7 +17,7 @@ namespace Infra.Repository
             _context = context;
         }
 
-        public bool Create(PedidoCreate pedido)
+        public Pedido Create(PedidoCreate pedido)
         {
             try
             {
@@ -100,10 +100,10 @@ namespace Infra.Repository
 
                         if (createPedido > 0 && countCreatePedidoPeca > 0 && createPedidoCobranca > 0 && countUpdateEstoque > 0) {
                             tran.Commit();
-                            return true;
+                            return pedidoSql;
                         } else {
                             tran.Rollback();
-                            return false;
+                            return null;
                         }
                     }
 
@@ -112,7 +112,7 @@ namespace Infra.Repository
             catch (Exception e)
             {
                 Console.WriteLine(e);
-                return false;
+                return null;
                 throw;
             }
 
