@@ -19,6 +19,10 @@ export class PedidoService {
     return this.httpClient.post<Pedido>('https://localhost:7072' + '/pedido/Create', pedidoCreate);
   }
 
+  delete(pedido: PedidoInformation): Observable<boolean> {
+    return this.httpClient.post<boolean>('https://localhost:7072' + '/pedido/Delete', pedido);
+  }
+
   getPedidoBySearch(pedidoSearch: PedidoSearch): Observable<PedidoInformation[]> {
     return this.httpClient.post<PedidoInformation[]>('https://localhost:7072' + '/pedido/GetPedidoBySearch', pedidoSearch);
   }
@@ -37,6 +41,14 @@ export class PedidoService {
     let params = new HttpParams()
     params = params.append('baixar', baixar)
     return this.httpClient.post<boolean>('https://localhost:7072' + '/pedido/AtualizarPedidoCobranca', pedidoCobranca, {params});
+  }
+
+  atualizarStatusPedido(num_pedido: number, status_pedido_id: number): Observable<boolean> {
+    let params = new HttpParams()
+    params = params.append('num_pedido', num_pedido)
+    params = params.append('status_pedido_id', status_pedido_id)
+
+    return this.httpClient.get<boolean>('https://localhost:7072' + '/pedido/AtualizarStatusPedido?num_pedido=' +num_pedido + '&status_pedido_id='+status_pedido_id);
   }
 
   getPedidoCliente(num_pedido: number, cpf: string): Observable<PedidoInformation[]> {

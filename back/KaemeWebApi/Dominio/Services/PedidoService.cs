@@ -28,6 +28,19 @@ namespace Dominio.Services
             }
         }
 
+        public async Task<RepositoryResult> Delete(PedidoInformation pedido)
+        {
+            try
+            {
+                var result = await _pedidoRepository.Delete(pedido);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }        
+
         public RepositoryResult AtualizarPedidoCobranca(PedidoCobranca pedidoCobranca, bool baixar)
         {
             try
@@ -39,7 +52,20 @@ namespace Dominio.Services
             {
                 return RepositoryResult.AddException(e);
             }
-        }        
+        }
+
+        public RepositoryResult AtualizarStatusPedido(int num_pedido, int status_pedido_id)
+        {
+            try
+            {
+                var result = _pedidoRepository.AtualizarStatusPedido(num_pedido, status_pedido_id);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }
 
         public RepositoryResult GetPedidoBySearch(PedidoSearch pedidoSearch)
         {

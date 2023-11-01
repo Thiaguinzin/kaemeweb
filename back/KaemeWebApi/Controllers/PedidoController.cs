@@ -24,13 +24,27 @@ public class PedidoController : BaseApiController
         var result = _pedidoService.Create(pedido);
         return GetActionResult(result);
     }
+    
+    [HttpPost("[action]")]
+    public async Task<IActionResult> Delete([FromBody] PedidoInformation pedido)
+    {
+        var result = await _pedidoService.Delete(pedido);
+        return GetActionResult(result);
+    }    
 
     [HttpPost("[action]")]
     public IActionResult AtualizarPedidoCobranca([FromBody] PedidoCobranca pedidoCobranca, [FromQuery] bool baixar)
     {
         var result = _pedidoService.AtualizarPedidoCobranca(pedidoCobranca, baixar);
         return GetActionResult(result);
-    }    
+    }
+
+    [HttpGet("[action]")]
+    public IActionResult AtualizarStatusPedido([FromQuery] int num_pedido, [FromQuery] int status_pedido_id)
+    {
+        var result = _pedidoService.AtualizarStatusPedido(num_pedido, status_pedido_id);
+        return GetActionResult(result);
+    }      
 
     [HttpPost("[action]")]
     public IActionResult GetPedidoBySearch([FromBody] PedidoSearch pedidoSearch)

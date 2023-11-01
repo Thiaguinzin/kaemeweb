@@ -143,7 +143,17 @@
 
       <ng-container matColumnDef="status_pedido">
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Status do Pedido </th>
-        <td mat-cell *matCellDef="let row"> {{row.status_Pedido}} </td>
+        <td mat-cell *matCellDef="let row">
+
+          <mat-select [(value)]="row.status_Pedido_Id" (selectionChange)="atualizarStatusPedido(row, $event)">
+
+            <mat-option *ngFor="let statusPedido of lista_statusPedido" [value]="statusPedido.id">
+              {{statusPedido.codigo}}
+            </mat-option>
+
+          </mat-select>
+
+        </td>
       </ng-container>
 
       <ng-container matColumnDef="btnEditar">
@@ -167,8 +177,8 @@
             <span class="material-icons">add_box</span>
           </button>
         </th>
-        <td mat-cell *matCellDef="let row">
-        <!-- <td mat-cell *matCellDef="let row" (click)="acaoExcluir(row)"> -->
+        <!-- <td mat-cell *matCellDef="let row"> -->
+        <td mat-cell *matCellDef="let row" (click)="acaoExcluir(row)">
           <button mat-button>
             <span class="material-icons">delete</span>
           </button>

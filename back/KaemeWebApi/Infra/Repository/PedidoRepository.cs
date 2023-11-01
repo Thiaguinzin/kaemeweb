@@ -98,9 +98,13 @@ namespace Infra.Repository
 
                         int createPedidoCobranca = connection.Execute(createPedidoCobrancaSql, pedidoCobrancaSql, transaction: tran);
 
+                        var pedidoReturn = new Pedido();
+                        var queryPedidoReturn = $@"select top 1 * from pedido where cliente_id = {pedido.Pedido.Cliente_Id} order by num_pedido desc";
+                        pedidoReturn = connection.Query<Pedido>(queryPedidoReturn, transaction: tran).FirstOrDefault();
+
                         if (createPedido > 0 && countCreatePedidoPeca > 0 && createPedidoCobranca > 0 && countUpdateEstoque > 0) {
                             tran.Commit();
-                            return pedidoSql;
+                            return pedidoReturn;
                         } else {
                             tran.Rollback();
                             return null;
@@ -114,6 +118,75 @@ namespace Infra.Repository
                 Console.WriteLine(e);
                 return null;
                 throw;
+            }
+
+        }
+
+        public async Task<bool> Delete(PedidoInformation pedido)
+        {
+            try
+            {
+                var countUpdateEstoque = 0;
+                var countDeletePedidoPeca = 0;
+                var countDeletePedidoCobranca = 0;
+                var countDeletePedido = 0;
+
+                var pedidoPecas = await GetPedidoPecaByNumPedido((int)pedido.Num_Pedido);
+
+                using (var connection = _context.CreateConnection())
+                {                    
+                    connection.Open();
+                    
+                    using (var tran = connection.BeginTransaction()) 
+                    { 
+
+                        foreach (var pedidoPeca in pedidoPecas)
+                        {
+                            var repondoEstoqueSql = $@"update peca set quantidade = quantidade + (select quantidade from pedido_peca where num_pedido = {pedidoPeca.Num_Pedido} and pedido_peca.peca_id = {pedidoPeca.Peca_Id}) where peca.id = {pedidoPeca.Peca_Id}";
+                            int repondoEstoque = await connection.ExecuteAsync(repondoEstoqueSql, transaction: tran);
+
+                            if (repondoEstoque > 0)
+                                countUpdateEstoque++;                           
+
+                        }
+
+                            // Deletando PEDIDO_PECA
+                            var deletePedidoPecaSql = $@"delete pedido_peca where num_pedido = {pedido.Num_Pedido}";
+                            int deletePedidoPeca = await connection.ExecuteAsync(deletePedidoPecaSql, transaction: tran);
+
+                            if (deletePedidoPeca > 0)
+                                countDeletePedidoPeca++;                             
+
+                            // Deletando PEDIDO_COBRANCA
+                            var deletePedidoCobrancaSql = $@"delete pedido_cobranca where num_pedido = {pedido.Num_Pedido}";
+                            int deletePedidoCobranca = await connection.ExecuteAsync(deletePedidoCobrancaSql, transaction: tran);
+
+                            if (deletePedidoCobranca > 0)
+                                countDeletePedidoCobranca++;
+
+                            // Deletando PEDIDO
+                            var deletePedidoSql = $@"delete pedido where num_pedido = {pedido.Num_Pedido}";
+                            int deletePedido = await connection.ExecuteAsync(deletePedidoSql, transaction: tran);
+
+                            if (deletePedido > 0)
+                                countDeletePedido++;
+
+
+                        if (countUpdateEstoque > 0 && countDeletePedido > 0 && countDeletePedidoCobranca > 0 && countDeletePedidoPeca > 0) {
+                            tran.Commit();
+                            return true;
+                        } else {
+                            tran.Rollback();
+                            return false;
+                        }
+                    }
+
+                }                
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e);
+                return false;
             }
 
         }
@@ -326,6 +399,25 @@ namespace Infra.Repository
                 var pedido = connection.Query<PedidoInformation>(query);
                 return pedido.ToList();
             } 
+        }
+
+        public bool AtualizarStatusPedido(int num_pedido, int status_pedido_id)
+        {
+            var sql = $@"update pedido set status_pedido_id = {status_pedido_id} where num_pedido = {num_pedido}";
+
+            using (var connection = _context.CreateConnection())
+            {
+                int linhasAfetadas = connection.Execute(sql);
+                
+                if (linhasAfetadas > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }            
         }
     }
 }

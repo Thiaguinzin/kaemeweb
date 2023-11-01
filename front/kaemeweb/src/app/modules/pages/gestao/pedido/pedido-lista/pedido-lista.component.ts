@@ -64,6 +64,9 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
   }
 
   override ngOnInit() {
+    this.exibirBtnCadastrar = false;
+    this.exibirBtnEditar = false;
+
     this.form.controls['cliente'].disable();
     this.carregarStatusPedido();
     this.carregarTipoPagamento();
@@ -121,7 +124,6 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
   }
 
   buscarPedidos() {
-    debugger
     const pedidoSearch = this.montarPedidoSearch();
 
     this.pedidoService.getPedidoBySearch(pedidoSearch)
@@ -142,7 +144,7 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
       data_Fim_Pagamento: UtilFuncoes.hasValue(this.form.controls['dthr_fim_pagamento'].value) ? moment(this.form.controls['dthr_fim_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
       status_Pedido_Id: UtilFuncoes.hasValue(this.form.controls['status_pedido_id'].value) ? this.form.controls['status_pedido_id'].value : null,
       pago: this.form.controls['pago'].value !== '' ? this.form.controls['pago'].value : null,
-      tipo_Pagamento_Id: UtilFuncoes.hasValue(this.form.controls['tipo_pagamento_id'].value) ? this.form.controls['tipo_pagamento_id'].value : null
+      tipo_Pagamento_Id: UtilFuncoes.hasValue(this.form.controls['tipo_pagamento_id'].value) ? this.form.controls['tipo_pagamento_id'].value.toString() : null
     }
   }
 
@@ -201,6 +203,62 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
       })
     }
 
+  }
+
+  acaoExcluir(pedido: PedidoInformation) {
+
+    if (!pedido.pago) {
+
+      const resultadoDialog = this.dialog.open(DialogComponent, {
+        data: {
+          titulo: 'Cancelar Pedido?',
+          corpo: 'Deseja realmente prosseguir?',
+          qtdBotoes: 2
+        }
+      });
+
+      resultadoDialog.afterClosed().subscribe(resultado => {
+
+        if (resultado) {
+
+          this.pedidoService.delete(pedido)
+          .subscribe(res => {
+            if (res) {
+              this.toastr.success("Pedido cancelado com sucesso!");
+              window.location.reload();
+            } else {
+              this.toastr.warning("Não foi possível cancelar o pedido!");
+            }
+          }, error => {
+            console.log(error);
+            this.toastr.error("Erro ao cancelar o pedido");
+          });
+
+        }
+
+      })
+
+    } else {
+      this.toastr.info("Antes de excluir o pedido é preciso cancelar o pagamento!")
+    }
+  }
+
+  atualizarStatusPedido(pedido: PedidoInformation, select: any) {
+    var statusPedidoSelect = select.value;
+
+    this.pedidoService.atualizarStatusPedido(pedido.num_Pedido, statusPedidoSelect)
+      .subscribe(res => {
+        if (res) {
+          this.toastr.success("Status do pedido atualizado com sucesso!");
+          window.location.reload();
+        } else {
+          this.toastr.warning("Não foi possível atualizar o status do pedido!");
+          window.location.reload();
+        }
+      }, error => {
+        console.log(error);
+        this.toastr.error("Erro ao atualizar o status do pedido");
+      })
   }
 
 }

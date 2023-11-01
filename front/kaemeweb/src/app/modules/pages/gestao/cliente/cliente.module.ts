@@ -14,6 +14,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { ClienteListaComponent } from './cliente-lista/cliente-lista.component';
 import { ClienteDialogComponent } from './cliente-dialog/cliente-dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
 
 
 
@@ -36,7 +37,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatSelectModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
+    DirectivesModule
   ],
   exports: [
     ClienteDialogComponent

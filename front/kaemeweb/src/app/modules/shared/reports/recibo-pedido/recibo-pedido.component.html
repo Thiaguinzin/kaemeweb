@@ -105,6 +105,7 @@
           <div class="col-md-5">
 
             <app-template-default titulo="Forma de Pagamento" [paginaComponent]="this">
+
               <form [formGroup]="tipoPagamento">
               <section class="example-section" >
                 <p><mat-checkbox formControlName="dinheiro">DINHEIRO</mat-checkbox></p>
@@ -113,10 +114,11 @@
               </section>
             </form>
 
-              <mat-hint style="font-weight: bold">Parcelas</mat-hint>
-              <mat-form-field class="col-md-12">
-                <input matInput [value]="parcelas" style="font-size: 20px !important; text-align: center;">
-              </mat-form-field>
+              <div class="row">
+                <p style="font-size: 12px;"> <b> Data de Pagamento: {{data_pagamento}} </b></p>
+                <p style="font-size: 12px;"> <b> Parcelas: {{parcelas}} </b></p>
+                <p style="font-size: 12px;"> <b> Total Pago: R$ {{valor_pago}} </b></p>
+              </div>
 
             </app-template-default>
 

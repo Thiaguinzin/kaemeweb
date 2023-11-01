@@ -51,7 +51,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
     parcelas: ['', []],
     pago: [false, []],
     valor_pago: ['', [Validators.required]],
-    data_pagamento: ['', [Validators.required, Validadores.dataNaoFuturaValidator]],
+    data_pagamento: ['', [Validators.required, Validadores.dataNaoFuturaValidator()]],
   });
 
   // Usados para resumo do pedido
@@ -324,7 +324,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   }
 
   montarPedidoCobranca(): PedidoCobranca {
-    debugger
+
     return {
       valor_Total: this.total_venda,
       valor_Pedido: this.getTotalVendaDesconto(),
@@ -439,7 +439,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   }
 
   abrirRecibo(num_pedido?: number) {
-    debugger
+
     const dialogRef = this.dialog.open(RelReciboPedidoComponent, {
       disableClose: true,
       data: {

@@ -22,8 +22,9 @@ export class RelReciboPedidoComponent implements OnInit {
 
   arrayPedidoPecas: PedidoPeca[] = [];
   valor_pedido = ' ';
-  parcelas = ' ';
   data_pagamento = ' ';
+  parcelas = ' ';
+  valor_pago = ' ';
 
   tipoPagamento: FormGroup = this.fb.group({
     dinheiro: [false, []],
@@ -91,6 +92,7 @@ export class RelReciboPedidoComponent implements OnInit {
     this.valor_pedido = this.data.valor_pedido;
     this.parcelas = this.data.pedidoPagamento.controls['parcelas'].value;
     this.data_pagamento = this.data.pedidoPagamento.controls['data_pagamento'].value;
+    this.valor_pago = this.data.pedidoPagamento.controls['valor_pago'].value;
 
     if (this.data.tipo_pagamento.trim().toUpperCase().includes("PIX")) {
       this.tipoPagamento.controls['pix'].setValue(true);
