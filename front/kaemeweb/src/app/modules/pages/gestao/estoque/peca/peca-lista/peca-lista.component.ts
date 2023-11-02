@@ -1,3 +1,4 @@
+import { ReportService } from './../../../../../shared/services/report.service';
 import { Component, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialog } from '@angular/material/dialog';
@@ -55,7 +56,8 @@ export class PecaListaComponent extends BaseFormulario {
     private route: ActivatedRoute,
     private fornecedorService: FornecedorService,
     private tipoPecaService: TipoPecaService,
-    private pecaService: PecaService)
+    private pecaService: PecaService,
+    private reportService: ReportService)
   { super (dialog, fb, toastr, router) }
 
 
@@ -246,6 +248,24 @@ export class PecaListaComponent extends BaseFormulario {
       this.carregarGetTop100();
     }
 
+  }
+
+  getRelatorio() {
+    this.reportService.getRelatorioEstoque('','','',false)
+      .subscribe(res => {
+        const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+        const url = window.URL.createObjectURL(blob);
+
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'Pecas_Estoque.xlsx';
+
+        document.body.appendChild(a);
+
+        a.click();
+
+        document.body.removeChild(a);
+      })
   }
 
 }
