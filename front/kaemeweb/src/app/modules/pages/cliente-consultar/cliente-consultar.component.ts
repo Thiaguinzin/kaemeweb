@@ -26,6 +26,7 @@ export class ClienteConsultarComponent extends BaseFormulario implements OnInit 
   @ViewChild(MatSort) sort: MatSort;
 
   pedido: PedidoInformation[] = [];
+  valor_total: number;
 
   override form: FormGroup = this.fb.group({
     num_pedido: ['', [Validators.required, Validators.minLength(1), Validators.maxLength(8)]],
@@ -58,6 +59,7 @@ export class ClienteConsultarComponent extends BaseFormulario implements OnInit 
       .subscribe(res => {
         if (res.length > 0) {
           this.pedido = res;
+          this.valor_total = res[0].valor_Total;
           this.dataSource = new MatTableDataSource(res);
         } else {
           this.toastr.warning("Pedido inválido!")

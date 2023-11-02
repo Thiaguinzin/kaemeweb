@@ -381,6 +381,7 @@ namespace Infra.Repository
                             	pedido_peca.valor_peca,
                             	pedido.cancelado,
                             	pedido_cobranca.valor_pago,
+                                pedido_cobranca.valor_total,
                             	pedido_cobranca.data_pagamento,
                             	(select descricao from tipo_pagamento where tipo_pagamento.id = pedido_cobranca.tipo_pagamento_id) as tipo_pagamento,
                             	(select descricao from status_pedido where status_pedido.id = pedido.status_pedido_id) as status_pedido

@@ -46,6 +46,7 @@
           </mat-accordion>
         </mat-expansion-panel>
 
+        <!-- CONFIGURAÇÕES -->
         <mat-expansion-panel class="opcoesPrincipaisWeb" *ngIf="perfil_id == '1'">
           <mat-expansion-panel-header class="painelMenuHeaderWeb">
             <mat-panel-title>
@@ -57,6 +58,22 @@
           <mat-accordion>
             <p class="opcaoMenu" [routerLink]="['/gestao/usuario/home']" (click)="selecionaOpcao()">
               Usuários</p>
+
+          </mat-accordion>
+        </mat-expansion-panel>
+
+        <!-- RELATÓRIOS -->
+        <mat-expansion-panel class="opcoesPrincipaisWeb" *ngIf="perfil_id == '1'">
+          <mat-expansion-panel-header class="painelMenuHeaderWeb">
+            <mat-panel-title>
+              Relatórios
+            </mat-panel-title>
+            <mat-panel-description style="justify-content: flex-end;">
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          <mat-accordion>
+            <p class="opcaoMenu" [routerLink]="['/gestao/relatorio/pecas-estoque']" (click)="selecionaOpcao()">
+              Peças no Estoque</p>
 
           </mat-accordion>
         </mat-expansion-panel>

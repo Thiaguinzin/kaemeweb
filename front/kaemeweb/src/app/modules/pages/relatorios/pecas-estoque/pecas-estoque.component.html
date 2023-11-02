@@ -1,0 +1,53 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Relatório Peças em Estoque" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form">
+
+    <div class="divDadosPrincipais">
+      <div class="col-md-12">
+
+        <div class="row">
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Tipo de Peça</mat-label>
+            <mat-select formControlName="tipo_peca_id">
+
+              <mat-option [value]="0">
+                Todos
+              </mat-option>
+
+              <mat-option *ngFor="let peca of lista_tipoPeca" [value]="peca.id">
+                {{peca.descricao}}
+              </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Fornecedor</mat-label>
+            <mat-select formControlName="fornecedor_id">
+
+              <mat-option [value]="0">
+                Todos
+              </mat-option>
+
+              <mat-option *ngFor="let fornecedor of lista_fornecedor" [value]="fornecedor.id">
+                {{fornecedor.razao_Social}}
+              </mat-option>
+
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+
+      </div>
+    </div>
+
+    </form>
+
+  </app-template-default>
+</div>
+
+

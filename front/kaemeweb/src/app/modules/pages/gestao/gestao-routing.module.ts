@@ -19,8 +19,9 @@ const routes: Routes = [
       { path: 'estoque', loadChildren: () => import('./estoque/estoque.module').then(m => m.EstoqueModule), data: {breadcrumb: {disable: true, label: 'Estoque'}} },
       { path: 'pedido', loadChildren: () => import('./pedido/pedido.module').then(m => m.PedidoModule), data: {breadcrumb: {disable: true, label: 'Pedido'}} },
       { path: 'usuario', canActivate: [AcessGuard], loadChildren: () => import('../configuracoes/usuario/usuario.module').then(m => m.UsuarioModule), data: {breadcrumb: {disable: true, label: 'Usuários'}} },
+      { path: 'relatorio', canActivate: [AcessGuard], loadChildren: () => import('../relatorios/relatorios.module').then(m => m.RelatoriosModule), data: {breadcrumb: {disable: true, label: 'Relatório'}} },
 
-      { path: 'report', component: RelReciboPedidoComponent, data: {breadcrumb: {disable: true, label: 'Pedido'}} }
+      // { path: 'report', component: RelReciboPedidoComponent, data: {breadcrumb: {disable: true, label: 'Pedido'}} }
     ]
   },
 ];

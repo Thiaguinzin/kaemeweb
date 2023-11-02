@@ -1,27 +1,25 @@
-import { UsuarioFormComponent } from './usuario-form/usuario-form.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsuarioListaComponent } from './usuario-lista/usuario-lista.component';
-import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { RelatorioRoutingModule } from './relatorio-routing.module';
+import { PecasEstoqueComponent } from './pecas-estoque/pecas-estoque.component';
+import { SharedModule } from '../../shared/shared.module';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { ReactiveFormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 import { NgxMaskDirective, NgxMaskPipe } from 'ngx-mask';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
-import { UsuarioRoutingModule } from './usuario-routing.module';
-import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DirectivesModule } from '../../shared/directives/directives.module';
 
 
 
 @NgModule({
-  declarations: [UsuarioListaComponent, UsuarioFormComponent],
+  declarations: [PecasEstoqueComponent],
   imports: [
     CommonModule,
-    UsuarioRoutingModule,
+    RelatorioRoutingModule,
     SharedModule,
     MatFormFieldModule,
     ReactiveFormsModule,
@@ -33,7 +31,6 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatPaginatorModule,
     MatButtonModule,
     DirectivesModule,
-    MatSlideToggleModule
   ]
 })
-export class UsuarioModule { }
+export class RelatoriosModule { }
