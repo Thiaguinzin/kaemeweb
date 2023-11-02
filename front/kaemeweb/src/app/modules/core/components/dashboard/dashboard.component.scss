@@ -6,3 +6,8 @@
     @include mat-elevation(8);
   }
 }
+
+
+:host ::ng-deep.mat-mdc-card-content {
+  background-color: #C1C1FF;
+}

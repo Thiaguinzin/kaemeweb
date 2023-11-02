@@ -250,22 +250,4 @@ export class PecaListaComponent extends BaseFormulario {
 
   }
 
-  getRelatorio() {
-    this.reportService.getRelatorioEstoque('','','',false)
-      .subscribe(res => {
-        const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-        const url = window.URL.createObjectURL(blob);
-
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'Pecas_Estoque.xlsx';
-
-        document.body.appendChild(a);
-
-        a.click();
-
-        document.body.removeChild(a);
-      })
-  }
-
 }

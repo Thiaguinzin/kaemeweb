@@ -4,8 +4,8 @@ import { PecasEstoqueComponent } from './pecas-estoque/pecas-estoque.component';
 
 
 const routes: Routes = [
-  // { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {label: 'Usuário'} } },
-  { path: 'pecas-estoque', component: PecasEstoqueComponent, data: {breadcrumb: {skip: true} } },
+  { path: '', redirectTo: 'pecas-estoque', pathMatch: 'full' },
+  { path: 'pecas-estoque', component: PecasEstoqueComponent, data: {breadcrumb: {label: 'Relatório Peças Estoque'} } },
   // { path: ':id/editar', component: UsuarioFormComponent, data: {breadcrumb: {skip: true} } },
   // { path: ':id/consultar', component: UsuarioFormComponent, data: {breadcrumb: {skip: true} } },
   // { path: 'home', component: UsuarioListaComponent, data: {breadcrumb: {skip: true} } }
