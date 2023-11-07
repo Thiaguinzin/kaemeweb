@@ -130,7 +130,14 @@ namespace Dominio.Services
             {
                 return RepositoryResult.AddException(e);
             }
-        }        
+        }
+
+        public List<PedidoInformation> GetHistoricoPedido(PedidoSearch pedidoSearch)
+        {
+            var result = _pedidoRepository.GetHistoricoPedido(pedidoSearch);
+            return result;
+        }
+
 
     }
 }

@@ -2,6 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { UsuarioToken } from '../models/UsuarioModels/usuario-token';
 import { CepReturn } from '../models/cep-return';
+import { PedidoSearch } from '../models/PedidoModels/pedido-search';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +20,10 @@ export class ReportService {
     params = params.append('com_estoque', com_estoque)
 
     return this.httpClient.get('https://localhost:7072' + '/report/GetRelatorioEstoque', { responseType: 'blob', params: params });
+  }
+
+  getHistoricoPedido(pedidoSearch: PedidoSearch) {
+    return this.httpClient.post('https://localhost:7072' + '/report/GetHistoricoPedido', pedidoSearch, { responseType: 'blob'});
   }
 
 }

@@ -21,6 +21,7 @@ namespace Dominio.Models
         public bool Pago { get; set; }
         public int? Peca_Id { get; set; }
         public string? Peca_Codigo { get; set; }
+        public string? Tipo_Peca { get; set; }
         public int? Quantidade { get; set; }
         public decimal? Valor_Peca { get; set; }
 

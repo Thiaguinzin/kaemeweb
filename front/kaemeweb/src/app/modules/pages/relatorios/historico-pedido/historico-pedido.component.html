@@ -1,0 +1,72 @@
+<div class="col-md-12" style="padding: 0.5em;">
+  <app-template-default titulo="Relatório Histórico de Pedidos" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+
+
+    <form [formGroup]="form">
+
+    <div class="divDadosPrincipais">
+      <div class="col-md-12">
+
+        <div class="row">
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Data Início Pedido</mat-label>
+            <input matInput formControlName="dthr_inicio_pedido" mask="00/00/0000 00:00">
+            <mat-error *ngIf="!!form.get('dthr_inicio_pedido').hasError('dataNaoFutura')"> Data Inválida </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Data Fim Pedido</mat-label>
+            <input matInput formControlName="dthr_fim_pedido" mask="00/00/0000 00:00">
+            <mat-error *ngIf="!!form.get('dthr_fim_pedido').hasError('dataNaoFutura')"> Data Inválida </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Data Início Pagamento</mat-label>
+            <input matInput formControlName="dthr_inicio_pagamento" mask="00/00/0000 00:00">
+            <mat-error *ngIf="!!form.get('dthr_inicio_pagamento').hasError('dataNaoFutura')"> Data Inválida </mat-error>
+          </mat-form-field>
+
+          <mat-form-field class="col-md-3" appearance="outline">
+            <mat-label>Data Fim Pagamento</mat-label>
+            <input matInput formControlName="dthr_fim_pagamento" mask="00/00/0000 00:00">
+            <mat-error *ngIf="!!form.get('dthr_fim_pagamento').hasError('dataNaoFutura')"> Data Inválida </mat-error>
+          </mat-form-field>
+
+        </div>
+
+
+        <div class="row">
+
+          <mat-form-field class="col-md-6" appearance="outline">
+            <mat-icon matSuffix class="material-icons" (click)="abrirDialogCliente()">search</mat-icon>
+            <mat-label>Cliente</mat-label>
+            <input matInput formControlName="cliente">
+          </mat-form-field>
+
+          <mat-form-field class="col-md-6" appearance="outline">
+            <mat-label>Usuário</mat-label>
+            <mat-select formControlName="usuario_id">
+              <mat-option *ngFor="let usuario of lista_usuario" [value]="usuario.id">
+                {{usuario.login.toUpperCase()}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+        </div>
+
+        <div class="row">
+          <div class="d-flex justify-content-end" style="padding-top: 5px;">
+            <button mat-button (click)="limparCamposBuscar()">Limpar</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    </form>
+
+  </app-template-default>
+</div>
+
+

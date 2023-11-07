@@ -10,6 +10,7 @@ import { BaseFormulario } from 'src/app/modules/shared/classes/BaseFormulario';
 import { UtilFuncoes } from 'src/app/modules/shared/classes/UtilFuncoes';
 import { Fornecedor } from 'src/app/modules/shared/models/fornecedor';
 import { TipoPeca } from 'src/app/modules/shared/models/tipo-peca';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-pecas-estoque',
@@ -79,9 +80,11 @@ export class PecasEstoqueComponent extends BaseFormulario implements OnInit {
       const blob = new Blob([res], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
       const url = window.URL.createObjectURL(blob);
 
+      const data = new Date();
+
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'Pecas_Estoque.xlsx';
+      a.download = `Pecas_Estoque_${moment(data).format("DD-MM-yyyy")}.xlsx`;
 
       document.body.appendChild(a);
 

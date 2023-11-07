@@ -15,5 +15,6 @@ namespace Dominio.Interface
         Task<PedidoCobranca> GetPedidoCobrancaByNumPedido(int num_pedido);
         List<PedidoInformation> GetTop100Pedidos();
         List<PedidoInformation> GetPedidoCliente(int num_pedido, string cpf);
+        List<PedidoInformation> GetHistoricoPedido(PedidoSearch pedidoSearch);
     }
 }

@@ -69,4 +69,8 @@ export class UserService {
     return this.httpClient.get<Usuario>('https://localhost:7072' + '/usuario/GetUsuarioById', {params});
   }
 
+  getAll(): Observable<Usuario[]> {
+    return this.httpClient.get<Usuario[]>('https://localhost:7072' + '/usuario/GetAll');
+  }
+
 }

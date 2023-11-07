@@ -420,5 +420,83 @@ namespace Infra.Repository
                 }
             }            
         }
+
+        public List<PedidoInformation> GetHistoricoPedido(PedidoSearch pedidoSearch)
+        {
+            var builder = new SqlBuilder();
+
+            var selector = builder.AddTemplate($@"SET LANGUAGE 'English';
+                            select
+                            	*,
+
+                            	CASE
+                                    WHEN q.RowNum = 1 THEN valor_pago_aux
+                                ELSE 0
+                                END AS valor_pago,
+
+                            	CASE
+                                    WHEN q.RowNum = 1 THEN valor_pedido_aux
+                                ELSE 0
+                                END AS valor_pedido                                
+
+                            from
+                            (select
+                            	pedido.num_pedido,
+                            	pedido.data_pedido,
+                            	usuario.nome as funcionario,
+                            	cliente.nome as cliente,
+                            	status_pedido.codigo as status_pedido,
+                            	peca.codigo as peca_codigo,
+                            	tipo_peca.descricao as tipo_peca,
+                            	pedido_peca.quantidade,
+                            	(valor_peca * pedido_peca.quantidade) as valor_peca,
+                            	pedido_cobranca.valor_pedido as valor_pedido_aux,
+                            	pedido_cobranca.valor_pago as valor_pago_aux,
+                            	data_pagamento,
+                            	pedido.cancelado,
+                            	ROW_NUMBER() OVER (PARTITION BY pedido.num_pedido ORDER BY peca.codigo) AS RowNum
+
+                            from pedido
+                            join cliente on cliente.id = pedido.cliente_id
+                            join status_pedido on status_pedido.id = pedido.status_pedido_id
+                            join usuario on usuario.id = pedido.usuario_id
+                            join pedido_peca on pedido_peca.num_pedido = pedido.num_pedido
+                            join peca on peca.id = pedido_peca.peca_id
+                            join tipo_peca on tipo_peca.id = peca.tipo_peca_id
+                            join pedido_cobranca on pedido_cobranca.num_pedido = pedido.num_pedido
+                            join tipo_pagamento on tipo_pagamento.id = pedido_cobranca.tipo_pagamento_id
+
+                            /**where**/
+                            )as q
+
+                            order by data_pedido asc");
+
+            if (pedidoSearch.Data_Inicio_Pedido != null && pedidoSearch.Data_Fim_Pedido != null) {
+                string dataInicioPedido = pedidoSearch.Data_Inicio_Pedido?.ToString("yyyy-MM-dd HH:mm:ss");
+                string dataFimPedido = pedidoSearch.Data_Fim_Pedido?.ToString("yyyy-MM-dd HH:mm:ss");
+
+                builder.Where($"pedido.data_pedido BETWEEN '{dataInicioPedido}' and '{dataFimPedido}'");
+            }
+
+            if (pedidoSearch.Data_Inicio_Pagamento != null && pedidoSearch.Data_Fim_Pagamento != null) {
+                string dataInicioPagamento = pedidoSearch.Data_Inicio_Pagamento?.ToString("yyyy-MM-dd HH:mm:ss");
+                string dataFimPagamento = pedidoSearch.Data_Fim_Pagamento?.ToString("yyyy-MM-dd HH:mm:ss");
+
+                builder.Where($"pedido_cobranca.data_pagamento BETWEEN '{dataInicioPagamento}' and '{dataFimPagamento}'");
+            }
+
+            if (!string.IsNullOrEmpty(pedidoSearch.Cliente_Id))
+                builder.Where($"pedido.cliente_id = {pedidoSearch.Cliente_Id}");
+
+            if (!string.IsNullOrEmpty(pedidoSearch.Usuario_Id))
+                builder.Where($"pedido.usuario_id = {pedidoSearch.Usuario_Id}");
+
+            using (var connection = _context.CreateConnection())
+            {   
+                var pedidos = connection.Query<PedidoInformation>(selector.RawSql, selector.Parameters);
+                return pedidos.ToList();
+            }            
+
+        }
     }
 }

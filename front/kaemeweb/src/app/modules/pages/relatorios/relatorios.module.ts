@@ -12,11 +12,12 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { DirectivesModule } from '../../shared/directives/directives.module';
+import { HistoricoPedidoComponent } from './historico-pedido/historico-pedido.component';
 
 
 
 @NgModule({
-  declarations: [PecasEstoqueComponent],
+  declarations: [PecasEstoqueComponent, HistoricoPedidoComponent],
   imports: [
     CommonModule,
     RelatorioRoutingModule,
