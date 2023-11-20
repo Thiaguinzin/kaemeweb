@@ -240,7 +240,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
                 this.abrirRecibo(res.num_Pedido);
               }
 
-              this.router.navigate(['gestao/']);
+              this.router.navigate(['gestao/pedido']);
             } else {
               this.toastr.warning("Não foi possível criar o pedido!");
             }
