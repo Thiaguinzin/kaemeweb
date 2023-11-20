@@ -6,6 +6,7 @@ namespace Dominio.Interface
     {
         bool Create(Usuario usuario);
         bool Update(Usuario usuario);
+        bool Delete(int id);
         Task<List<Usuario>> GetAll();
         Task<Usuario> GetUsuarioByLogin(string login);
         Task<Usuario> GetUsuarioById(int id);

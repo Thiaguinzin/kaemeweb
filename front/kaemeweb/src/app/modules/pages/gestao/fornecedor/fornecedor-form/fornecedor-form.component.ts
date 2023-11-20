@@ -106,17 +106,16 @@ export class FornecedorFormComponent extends BaseFormulario {
   }
 
   override salvar() {
-    debugger
     const fornecedor = this.montarFornecedor();
 
     if (this.modoFormulario === 'cadastro') {
       this.fornecedorService.create(fornecedor)
       .subscribe(res => {
         if(res) {
+          super.consultar();
           this.toastr.success("Fornecedor cadastrado com sucesso!")
           this.router.navigate(['gestao/fornecedor']);
           this.exibirBtnCadastrar = false;
-          super.consultar();
         } else {
           this.toastr.warning("Erro ao cadastrar o fornecedor!")
         }
@@ -127,10 +126,10 @@ export class FornecedorFormComponent extends BaseFormulario {
       this.fornecedorService.update(fornecedor)
       .subscribe(res => {
         if(res) {
+          super.consultar();
           this.toastr.success("Fornecedor editado com sucesso!")
           this.router.navigate(['gestao/fornecedor']);
           this.exibirBtnCadastrar = false;
-          super.consultar();
         } else {
           this.toastr.warning("Erro ao editar o fornecedor!")
         }

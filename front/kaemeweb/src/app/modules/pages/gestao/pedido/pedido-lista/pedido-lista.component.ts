@@ -78,6 +78,7 @@ export class PedidoListaComponent extends BaseFormulario implements OnInit {
       .subscribe(res => {
         console.log(res);
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
       });
   }
 

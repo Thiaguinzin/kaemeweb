@@ -78,6 +78,7 @@ export class PecaListaComponent extends BaseFormulario {
       .subscribe(res => {
         this.lista_pecas = res;
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
       })
   }
 

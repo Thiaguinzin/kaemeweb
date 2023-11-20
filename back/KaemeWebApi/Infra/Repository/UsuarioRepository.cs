@@ -84,6 +84,31 @@ namespace Infra.Repository
             }
         }
 
+        public bool Delete(int id)
+        {
+            using (var connection = _context.CreateConnection())
+            {
+                var queryPedidos = $@"select COUNT(*) from pedido where usuario_id = '{id}'";
+                var resultPedidos = connection.Query<int>(queryPedidos).FirstOrDefault();
+
+                if (resultPedidos > 0) {
+                    return false;
+                }
+
+                var sql = $@"delete usuario where usuario.id = {id}";
+
+                int linhasAfetadas = connection.Execute(sql);
+                if (linhasAfetadas > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }                    
+            }
+        }        
+
         public async Task<List<Usuario>> GetAll()
         {
             var query = "SELECT * FROM USUARIO";

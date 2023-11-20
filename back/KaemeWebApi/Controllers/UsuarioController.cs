@@ -28,6 +28,13 @@ public class UsuarioController : BaseApiController
     {
         var result = _usuarioService.Update(usuario);
         return GetActionResult(result);
+    }
+
+    [HttpDelete("[action]")]
+    public IActionResult Delete([FromQuery] int id)
+    {
+        var result = _usuarioService.Delete(id);
+        return GetActionResult(result);
     }    
 
     [HttpGet("[action]")]

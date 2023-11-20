@@ -125,7 +125,7 @@ namespace Infra.Repository
 
         public async Task<List<Cliente>> GetAllTop()
         {
-            var query = "SELECT TOP 5 * FROM CLIENTE";
+            var query = "SELECT TOP 100 * FROM CLIENTE order by data_criacao desc";
 
             using (var connection = _context.CreateConnection())
             {

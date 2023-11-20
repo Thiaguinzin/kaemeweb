@@ -32,7 +32,6 @@ export class UsuarioListaComponent extends BaseFormulario implements OnInit  {
     private route: ActivatedRoute,
     public override toastr: ToastrService,
     public override dialog: MatDialog,
-    private fornecedorService: FornecedorService,
     private userService: UserService) {
     super (dialog, fb, toastr, router)
 
@@ -51,6 +50,7 @@ export class UsuarioListaComponent extends BaseFormulario implements OnInit  {
       .subscribe(res => {
         this.lista_usuarios = res;
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
         console.log(res)
       })
   }
@@ -128,6 +128,43 @@ export class UsuarioListaComponent extends BaseFormulario implements OnInit  {
 
   consultarUsuario(usuario: Usuario) {
     this.router.navigate(['/gestao/usuario/'+usuario.id+'/consultar/']);
+  }
+
+  acaoExcluir(usuario: Usuario) {
+
+    const resultadoDialog = this.dialog.open(DialogComponent, {
+      data: {
+        titulo: 'Excluir usuário',
+        corpo: 'Deseja realmente prosseguir?',
+        qtdBotoes: 2
+      }
+    });
+
+    resultadoDialog.afterClosed().subscribe(resultado => {
+      if(resultado == true) {
+        this.excluir(usuario);
+      }
+    })
+
+  }
+
+  excluir(usuario: Usuario) {
+
+    this.userService.delete(usuario.id)
+      .subscribe(res => {
+
+        if (res) {
+          this.toastr.success("Usuário excluido com sucesso!")
+          window.location.reload();
+        } else {
+          this.toastr.warning("Não foi possível excluir o usuário!")
+        }
+
+      }, error => {
+        this.toastr.error("Erro ao excluir o usuário!")
+        console.log(error)
+      })
+
   }
 
 }

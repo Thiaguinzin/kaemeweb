@@ -25,6 +25,8 @@ export class PecaFormComponent extends BaseFormulario {
   lista_fornecedores: Fornecedor[] = [];
   lista_tipoPecas: TipoPeca[] = [];
 
+  tituloPagina = 'Cadastro de Peça'
+
   override form: FormGroup = this.fb.group({
     codigo: ['', [Validators.required, Validators.maxLength(50)]],
     descricao: ['', [Validators.required, Validators.maxLength(100)]],
@@ -63,6 +65,7 @@ export class PecaFormComponent extends BaseFormulario {
       this.modoFormulario = 'consulta';
       this.exibirBtnEditar = false;
       this.exibirBtnCadastrar = false;
+      this.tituloPagina = 'Consulta de Peça'
 
       const id = this.route.snapshot.params['id'];
       this.pecaService.getPecaById(id)
@@ -78,6 +81,7 @@ export class PecaFormComponent extends BaseFormulario {
       this.modoFormulario = 'edicao';
       this.exibirBtnEditar = true;
       this.exibirBtnCadastrar = false;
+      this.tituloPagina = 'Edição de Peça'
 
       const id = this.route.snapshot.params['id'];
       this.pecaService.getPecaById(id)

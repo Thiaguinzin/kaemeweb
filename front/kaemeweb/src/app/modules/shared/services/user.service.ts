@@ -52,6 +52,12 @@ export class UserService {
     return this.httpClient.put<boolean>('https://localhost:7072' + '/usuario/Update', usuario);
   }
 
+  delete(id: number): Observable<boolean> {
+    let params = new HttpParams()
+    params = params.append('id', id)
+    return this.httpClient.delete<boolean>('https://localhost:7072' + '/usuario/Delete', {params});
+  }
+
   getUsuarioBySearch(login?: string, nome?: string, perfil_id?: string, ativo?: string): Observable<Usuario[]> {
     let params = new HttpParams()
     params = params.append('login', login)

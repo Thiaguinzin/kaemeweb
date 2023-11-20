@@ -55,6 +55,7 @@ export class TipoPecaComponent extends BaseFormulario {
         this.lista_tipoPecas = res;
         console.log(res)
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
       })
   }
 

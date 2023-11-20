@@ -1,5 +1,5 @@
 <div class="col-md-12" style="padding: 0.5em;">
-  <app-template-default titulo="Cadastrar Fornecedor" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
+  <app-template-default [titulo]="tituloPagina" (acaoFormulario)="getAcaoFormulario($event)" [paginaComponent]="this">
 
 
     <form [formGroup]="form">
@@ -10,14 +10,14 @@
         <div class="row">
 
           <mat-form-field class="col-md-3" appearance="outline">
-            <mat-label>Código</mat-label>
-            <input matInput formControlName="codigo" appUpperCaseInput appSpecialCharacterFilter>
-            <mat-error *ngIf="!!form.get('codigo').hasError('maxlength')">Código deve conter até 50 caracteres</mat-error>
+            <mat-label>Peça</mat-label>
+            <input matInput formControlName="codigo" appUpperCaseInput>
+            <mat-error *ngIf="!!form.get('codigo').hasError('maxlength')">Peça deve conter até 50 caracteres</mat-error>
           </mat-form-field>
 
           <mat-form-field class="col-md-5" appearance="outline">
             <mat-label>Descrição</mat-label>
-            <input matInput formControlName="descricao" appUpperCaseInput appSpecialCharacterFilter>
+            <input matInput formControlName="descricao" appUpperCaseInput>
             <mat-error *ngIf="!!form.get('descricao').hasError('maxlength')">Descrição deve conter até 100 caracteres</mat-error>
           </mat-form-field>
 

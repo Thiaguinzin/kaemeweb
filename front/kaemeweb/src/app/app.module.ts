@@ -11,6 +11,7 @@ import { CoreModule } from './modules/core/core.module';
 import { ToastrModule } from 'ngx-toastr';
 import { RequestInterceptor } from './modules/shared/interceptors/request.interceptor';
 import { AcessGuard } from './modules/shared/guards/acess.guard';
+import { CanDeactivateGuard } from './modules/shared/guards/can-deactivate.guard';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { AcessGuard } from './modules/shared/guards/acess.guard';
   providers: [
     AuthGuard,
     AcessGuard,
+    CanDeactivateGuard,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: RequestInterceptor,

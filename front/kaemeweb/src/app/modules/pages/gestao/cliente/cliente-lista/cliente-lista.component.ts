@@ -43,14 +43,10 @@ export class ClienteListaComponent extends BaseFormulario {
 
     this.clienteService.getAllTop()
       .subscribe(res => {
-        console.log(res);
         this.lista_clientes = res;
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
       });
-  }
-
-  ngAfterViewInit() {
-
   }
 
   applyFilter(event: Event) {

@@ -4,6 +4,7 @@ import { PedidoPeca } from '../../models/PedidoModels/pedido-peca';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Pedido } from '../../models/PedidoModels/pedido';
+import * as moment from 'moment';
 declare var html2pdf: any;
 
 @Component({
@@ -82,7 +83,6 @@ export class RelReciboPedidoComponent implements OnInit {
   }
 
   protected carregarCampos() {
-    debugger
     this.num_pedido = this.data.num_pedido;
     this.cliente = this.data.pedido.controls['cliente'].value;
     this.data_nasc = this.data.data_nasc;
@@ -91,7 +91,13 @@ export class RelReciboPedidoComponent implements OnInit {
     this.arrayPedidoPecas = this.data.arrayPedidoPecas;
     this.valor_pedido = this.data.valor_pedido;
     this.parcelas = this.data.pedidoPagamento.controls['parcelas'].value;
-    this.data_pagamento = this.data.pedidoPagamento.controls['data_pagamento'].value;
+
+    if (this.data.pedidoPagamento.controls['data_pagamento'].value.includes('/')) {
+      this.data_pagamento = this.data.pedidoPagamento.controls['data_pagamento'].value;
+    } else {
+      this.data_pagamento = moment(this.data.pedidoPagamento.controls['data_pagamento'].value, "DDMMYYYYHHmm").format('DD/MM/yyyy HH:mm')
+    }
+
     this.valor_pago = this.data.pedidoPagamento.controls['valor_pago'].value;
 
     if (this.data.tipo_pagamento.trim().toUpperCase().includes("PIX")) {

@@ -23,6 +23,8 @@ export class ClienteFormComponent extends BaseFormulario {
 
   lista_uf: Uf[] = [];
 
+  tituloPagina = "Cadastrar Cliente";
+
   override form: FormGroup = this.fb.group({
     nome: ['', [Validators.required, Validators.maxLength(200)]],
     data_nasc: ['', []],
@@ -69,6 +71,7 @@ export class ClienteFormComponent extends BaseFormulario {
       this.exibirBtnEditar = true;
       this.exibirBtnCadastrar = false;
       this.redirectFechar = 'gestao/cliente';
+      this.tituloPagina = "Editar Cliente";
 
       const id = this.route.snapshot.params['id'];
       this.clienteService.getClienteById(id)
@@ -84,6 +87,7 @@ export class ClienteFormComponent extends BaseFormulario {
       this.exibirBtnEditar = false;
       this.exibirBtnCadastrar = false;
       this.redirectFechar = 'gestao/cliente';
+      this.tituloPagina = "Consultar Cliente";
 
       const id = this.route.snapshot.params['id'];
       this.clienteService.getClienteById(id)

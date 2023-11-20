@@ -103,7 +103,6 @@ export class BaseFormulario implements OnInit {
       this.formSalvarHabilitado = true;
     }
     else {
-      this.exibirBtnFechar = false;
       this.toastr.warning("Verifique os campos em vermelho e tente novamente.")
       this.form.markAllAsTouched();
 

@@ -8,7 +8,7 @@ const routes: Routes = [
   // { path: ':id/editar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
   // { path: ':id/consultar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
   // { path: 'home', component: FornecedorListaComponent, data: {breadcrumb: {skip: true} } }
-  { path: 'tipopeca', component: TipoPecaComponent, data: {breadcrumb: {label: 'Tipo Peça'} } },
+  { path: 'tipo-peca', component: TipoPecaComponent, data: {breadcrumb: {label: 'Tipo Peça'} } },
   { path: 'peca', loadChildren: () => import('./peca/peca.module').then(m => m.PecaModule) }
 
 ];

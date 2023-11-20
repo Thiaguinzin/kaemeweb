@@ -41,7 +41,7 @@ export class UtilFuncoes {
 
     if (value) {
 
-      if (value.toString().trim() != "") {
+      if (value.toString().trim() != "" && value.toString().trim() != 'Invalid date') {
         return true;
       }
       else {

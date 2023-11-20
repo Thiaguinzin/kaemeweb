@@ -47,6 +47,19 @@ namespace Dominio.Services
             }
         }
 
+        public RepositoryResult Delete(int id)
+        {
+            try
+            {
+                var result = _usuarioRepository.Delete(id);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }        
+
         public async Task<RepositoryResult> GetAll()
         {
             try

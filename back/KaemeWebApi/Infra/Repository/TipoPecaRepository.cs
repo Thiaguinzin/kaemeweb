@@ -121,7 +121,7 @@ namespace Infra.Repository
 
         public List<TipoPeca> GetAllAtivos()
         {
-            var query = @"SELECT * FROM tipo_peca where tipo_peca.ativo = 1";
+            var query = @"SELECT * FROM tipo_peca where tipo_peca.ativo = 1 order by descricao asc";
 
             using (var connection = _context.CreateConnection())
             {

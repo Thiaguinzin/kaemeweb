@@ -2,10 +2,11 @@ import { Component, NgModule } from '@angular/core';
 import { Routes, RouterModule, Router } from '@angular/router';
 import { PedidoFormComponent } from './pedido-form/pedido-form.component';
 import { PedidoListaComponent } from './pedido-lista/pedido-lista.component';
+import { CanDeactivateGuard } from 'src/app/modules/shared/guards/can-deactivate.guard';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full', data: {breadcrumb: {label: 'Pedido'} } },
-  { path: 'cadastrar', component: PedidoFormComponent, data: {breadcrumb: {label: 'Cadastrar'}} },
+  { path: 'cadastrar', component: PedidoFormComponent, data: {breadcrumb: {label: 'Cadastrar'}}, canDeactivate: [CanDeactivateGuard] },
   // { path: ':id/editar', component: FornecedorFormComponent, data: {breadcrumb: {skip: true} } },
   { path: ':id/consultar', component: PedidoFormComponent, data: {breadcrumb: {label: 'Consultar'}} },
   { path: 'home', component: PedidoListaComponent, data: {breadcrumb: {skip: true} } }

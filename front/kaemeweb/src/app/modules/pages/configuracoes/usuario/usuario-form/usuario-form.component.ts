@@ -82,12 +82,12 @@ export class UsuarioFormComponent extends BaseFormulario implements OnInit {
   }
 
   override salvar(): void {
-    debugger
     const usuario = this.montarUsuario();
 
     this.userService.create(usuario)
       .subscribe(res => {
         if (res) {
+          super.consultar();
           this.toastr.success("Usuário cadastrado com sucesso!")
           this.router.navigate(['gestao/usuario/home']);
           this.exibirBtnCadastrar = false;

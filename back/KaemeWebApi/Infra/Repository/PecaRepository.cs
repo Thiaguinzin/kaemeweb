@@ -162,7 +162,7 @@ namespace Infra.Repository
                         FROM peca
                         JOIN tipo_peca on tipo_peca.id = peca.tipo_peca_id
                         JOIN fornecedor on fornecedor.id = peca.fornecedor_id
-                        order by peca.data_criacao, peca.ativo desc";
+                        order by peca.data_criacao desc, peca.ativo desc";
 
             using (var connection = _context.CreateConnection())
             {
