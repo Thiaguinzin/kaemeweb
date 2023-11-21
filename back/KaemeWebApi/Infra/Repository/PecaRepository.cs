@@ -171,7 +171,7 @@ namespace Infra.Repository
             }
         }
 
-        public List<Peca> GetPecaBySearch(string? codigo, int? tipo_peca_id, int? fornecedor_id, bool? com_estoque = false)
+        public List<Peca> GetPecaBySearch(string? codigo, int? tipo_peca_id, int? fornecedor_id, bool? com_estoque = false, bool? ativo = true)
         {
             var builder = new SqlBuilder();
             
@@ -196,6 +196,12 @@ namespace Infra.Repository
 
             if (com_estoque == true)
                 builder.Where($"peca.quantidade > 0");
+
+            if (ativo == true)
+                builder.Where($"peca.ativo = 1");
+
+            if (ativo == false)
+                builder.Where($"peca.ativo = 0");
 
 
             using (var connection = _context.CreateConnection())

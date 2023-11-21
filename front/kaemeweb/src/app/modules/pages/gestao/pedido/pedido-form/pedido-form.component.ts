@@ -293,10 +293,13 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
 
   montarPedido(): Pedido {
+    debugger
     return {
       cliente_Id: this.cliente_id,
       usuario_Id: +localStorage.getItem('k_user_id'),
-      data_Pedido: moment(this.formPedido.controls['dthr_pedido'].value, "DD/MM/yyyy HH:mm").toDate(),
+      data_Pedido: this.formPedido.controls['dthr_pedido'].value.includes('/') ?
+                    moment(this.formPedido.controls['dthr_pedido'].value, "DD/MM/yyyy HH:mm").toDate() :
+                    moment(this.formPedido.controls['dthr_pedido'].value, "DDMMYYYYHHmm").toDate(),
       ativo: true,
       cancelado: false,
       status_Pedido_Id: 1

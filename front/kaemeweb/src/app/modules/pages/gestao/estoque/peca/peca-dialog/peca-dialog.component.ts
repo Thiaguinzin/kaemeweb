@@ -89,7 +89,7 @@ export class PecaDialogComponent extends BaseFormulario implements OnInit {
     const tipo_peca_id = this.form.controls['tipo_peca_id'].value ? this.form.controls['tipo_peca_id'].value : '';
     const fornecedor_id = this.form.controls['fornecedor_id'].value ? this.form.controls['fornecedor_id'].value : '';
 
-    this.pecaService.getPecaBySearch(codigo, tipo_peca_id, fornecedor_id, true)
+    this.pecaService.getPecaBySearch(codigo, tipo_peca_id, fornecedor_id, true, true)
       .subscribe(res => {
         this.dataSource = new MatTableDataSource(res);
         this.dataSource.paginator = this.paginator;

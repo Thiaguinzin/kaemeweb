@@ -78,11 +78,11 @@ namespace Dominio.Services
             }
         }
 
-        public RepositoryResult GetPecaBySearch(string? codigo, int? tipo_peca_id, int? fornecedor_id, bool? com_estoque = false)
+        public RepositoryResult GetPecaBySearch(string? codigo, int? tipo_peca_id, int? fornecedor_id, bool? com_estoque = false, bool? ativo = true)
         {
             try
             {
-                var result = _pecaRepository.GetPecaBySearch(codigo, tipo_peca_id, fornecedor_id, com_estoque);
+                var result = _pecaRepository.GetPecaBySearch(codigo, tipo_peca_id, fornecedor_id, com_estoque, ativo);
                 return RepositoryResult.AddDapper(result);
             }
             catch (Exception e)

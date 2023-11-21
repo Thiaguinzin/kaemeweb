@@ -42,6 +42,7 @@ export class PecaListaComponent extends BaseFormulario {
     codigo: ['', [Validators.maxLength(50)]],
     tipo_peca_id: ['', []],
     fornecedor_id: ['', []],
+    ativo: ['', []],
   });
 
   formQuantidade: FormGroup = this.fb.group({
@@ -226,13 +227,15 @@ export class PecaListaComponent extends BaseFormulario {
     const codigo = this.form.controls['codigo'].value ? this.form.controls['codigo'].value : '';
     const tipo_peca_id = this.form.controls['tipo_peca_id'].value ? this.form.controls['tipo_peca_id'].value : '';
     const fornecedor_id = this.form.controls['fornecedor_id'].value ? this.form.controls['fornecedor_id'].value : '';
+    const ativo = this.form.controls['ativo'].value;
 
-    this.pecaService.getPecaBySearch(codigo, tipo_peca_id, fornecedor_id)
+    this.pecaService.getPecaBySearch(codigo, tipo_peca_id, fornecedor_id, true, ativo)
       .subscribe(res => {
         this.lista_pecas = res;
         this.btnLimparPress = false;
         this.btnBuscarPress = true;
         this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
     });
   }
 

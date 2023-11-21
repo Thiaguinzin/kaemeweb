@@ -9,12 +9,12 @@
 
           <div class="row d-flex justify-content-center">
 
-            <mat-form-field class="col-md-3" appearance="outline">
+            <mat-form-field class="col-md-2" appearance="outline">
               <mat-label>Peça</mat-label>
               <input matInput formControlName='codigo' appUpperCaseInput>
             </mat-form-field>
 
-            <mat-form-field class="col-md-3" appearance="outline">
+            <mat-form-field class="col-md-2" appearance="outline">
               <mat-label>Tipo Peça</mat-label>
               <mat-select formControlName="tipo_peca_id">
                   <mat-option *ngFor="let tipoPeca of lista_tipoPecas" [value]="tipoPeca.id">
@@ -29,6 +29,15 @@
                   <mat-option *ngFor="let fornecedor of lista_fornecedores" [value]="fornecedor.id">
                     {{fornecedor.razao_Social.toUpperCase()}}
                   </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-2" appearance="outline">
+              <mat-label>Ativo</mat-label>
+              <mat-select formControlName="ativo">
+                <mat-option value=""> </mat-option>
+                <mat-option [value]="true"> SIM </mat-option>
+                <mat-option [value]="false"> NÃO </mat-option>
               </mat-select>
             </mat-form-field>
 
