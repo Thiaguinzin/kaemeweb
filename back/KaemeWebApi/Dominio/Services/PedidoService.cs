@@ -138,6 +138,19 @@ namespace Dominio.Services
             return result;
         }
 
+        public RepositoryResult ConfirmarRecebimento(int num_pedido)
+        {
+            try
+            {
+                var result = _pedidoRepository.ConfirmarRecebimento(num_pedido);
+                return RepositoryResult.AddDapper(result);
+            }
+            catch (Exception e)
+            {
+                return RepositoryResult.AddException(e);
+            }
+        }        
+
 
     }
 }

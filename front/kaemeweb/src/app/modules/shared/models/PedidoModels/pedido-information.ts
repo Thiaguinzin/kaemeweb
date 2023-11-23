@@ -1,6 +1,7 @@
 export interface PedidoInformation {
   num_Pedido: number | null;
   cliente_Id: number;
+  cpf: string;
   usuario_Id: number;
   data_Pedido: Date;
   ativo: boolean;

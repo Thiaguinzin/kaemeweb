@@ -73,6 +73,14 @@ public class PedidoController : BaseApiController
     {
         var result = _pedidoService.GetPedidoCliente(num_pedido, cpf);
         return GetActionResult(result);
-    }    
+    }
+
+    [AllowAnonymous]
+    [HttpGet("[action]")]
+    public IActionResult ConfirmarRecebimento([FromQuery] int num_pedido)
+    {
+        var result = _pedidoService.ConfirmarRecebimento(num_pedido);
+        return GetActionResult(result);
+    }
     
 }

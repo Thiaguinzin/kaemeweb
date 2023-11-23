@@ -58,4 +58,11 @@ export class PedidoService {
     return this.httpClient.get<PedidoInformation[]>('https://localhost:7072' + '/pedido/GetPedidoCliente', {params});
   }
 
+  confirmarRecebimento(num_pedido: number): Observable<boolean> {
+    let params = new HttpParams()
+    params = params.append('num_pedido', num_pedido)
+
+    return this.httpClient.get<boolean>('https://localhost:7072' + '/pedido/ConfirmarRecebimento?num_pedido=' +num_pedido);
+  }
+
 }

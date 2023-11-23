@@ -16,5 +16,6 @@ namespace Dominio.Interface
         List<PedidoInformation> GetTop100Pedidos();
         List<PedidoInformation> GetPedidoCliente(int num_pedido, string cpf);
         List<PedidoInformation> GetHistoricoPedido(PedidoSearch pedidoSearch);
+        bool ConfirmarRecebimento(int num_pedido);
     }
 }

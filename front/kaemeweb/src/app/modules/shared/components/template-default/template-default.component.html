@@ -20,6 +20,7 @@
       <button *ngIf="paginaComponent.exibirBtnCadastrar" mat-raised-button color="primary" style="margin-right: 10px;" (click)="acaoClick('salvar')">Cadastrar</button>
       <button *ngIf="paginaComponent.exibirBtnEditar" mat-raised-button color="primary" style="margin-right: 10px;" (click)="acaoClick('salvar')">Editar</button>
       <button *ngIf="paginaComponent.exibirBtnExportar" mat-raised-button color="primary" style="margin-right: 10px;" (click)="acaoClick('salvar')">Exportar</button>
+      <button *ngIf="paginaComponent.exibirBtnPersonalizado" mat-raised-button color="primary" style="margin-right: 10px;" (click)="acaoClick('salvar')">{{paginaComponent.nomeBtnPersonalizado}}</button>
       <button *ngIf="paginaComponent.exibirBtnFechar" mat-raised-button (click)="acaoClick('cancelar')">Cancelar</button>
     </div>
   </mat-card-actions>

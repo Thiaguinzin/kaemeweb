@@ -385,7 +385,9 @@ namespace Infra.Repository
                                 pedido_cobranca.valor_pedido,
                             	pedido_cobranca.data_pagamento,
                             	(select descricao from tipo_pagamento where tipo_pagamento.id = pedido_cobranca.tipo_pagamento_id) as tipo_pagamento,
-                            	(select descricao from status_pedido where status_pedido.id = pedido.status_pedido_id) as status_pedido
+                            	(select descricao from status_pedido where status_pedido.id = pedido.status_pedido_id) as status_pedido,
+                                pedido.status_pedido_id,
+                                cliente.cpf
 
                             from pedido
                             inner join cliente on cliente.id = pedido.cliente_id
@@ -419,7 +421,7 @@ namespace Infra.Repository
                 {
                     return false;
                 }
-            }            
+            }
         }
 
         public List<PedidoInformation> GetHistoricoPedido(PedidoSearch pedidoSearch)
@@ -498,6 +500,25 @@ namespace Infra.Repository
                 return pedidos.ToList();
             }            
 
+        }
+
+        public bool ConfirmarRecebimento(int num_pedido)
+        {
+            var sql = $@"update pedido set status_pedido_id = 5 where num_pedido = {num_pedido}";
+
+            using (var connection = _context.CreateConnection())
+            {
+                int linhasAfetadas = connection.Execute(sql);
+                
+                if (linhasAfetadas > 0)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
         }
     }
 }

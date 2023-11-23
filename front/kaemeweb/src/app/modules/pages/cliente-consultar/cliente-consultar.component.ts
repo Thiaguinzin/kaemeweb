@@ -11,6 +11,7 @@ import { Fornecedor } from '../../shared/models/fornecedor';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { PedidoInformation } from '../../shared/models/PedidoModels/pedido-information';
+import { DialogComponent } from '../../shared/dialog/dialog.component';
 
 @Component({
   selector: 'app-cliente-consultar',
@@ -33,7 +34,6 @@ export class ClienteConsultarComponent extends BaseFormulario implements OnInit 
     cpf: ['', [Validators.required, Validators.minLength(11)]],
   })
 
-
   constructor(private router: Router,
     public override fb: FormBuilder,
     public override toastr: ToastrService,
@@ -47,6 +47,7 @@ export class ClienteConsultarComponent extends BaseFormulario implements OnInit 
     this.exibirBtnCadastrar = false;
     this.exibirBtnEditar = false;
     this.redirectFechar = '/login/';
+    this.nomeBtnPersonalizado = 'Confirmar Recebimento'
     // this.carregarTipoPecas();
   }
 
@@ -61,6 +62,66 @@ export class ClienteConsultarComponent extends BaseFormulario implements OnInit 
           this.pedido = res;
           this.valor_total = res[0].valor_Total;
           this.dataSource = new MatTableDataSource(res);
+          this.dataSource.paginator = this.paginator;
+
+          // Caso o pedido seja diferente de confirmado, então o botão para confirmar é mostrado ao cliente
+          if (res[0].status_Pedido_Id != 5) {
+            this.exibirBtnPersonalizado = true;
+          }
+
+        } else {
+          this.toastr.warning("Pedido inválido!")
+        }
+      }, error => {
+        console.log(error);
+        this.toastr.error("Erro ao consultar o pedido!")
+      })
+  }
+
+  override salvar() {
+
+    const resultadoDialog = this.dialog.open(DialogComponent, {
+      data: {
+        titulo: 'Confirmar Recebimento',
+        corpo: 'Deseja realmente prosseguir?',
+        qtdBotoes: 2
+      }
+    });
+
+    resultadoDialog.afterClosed().subscribe(resultado => {
+      if(resultado == true) {
+        this.pedidoService.confirmarRecebimento(this.pedido[0].num_Pedido)
+          .subscribe(res => {
+            if (res) {
+              this.toastr.success("Pedido confirmado com sucesso!");
+              this.reloadPedido();
+              this.exibirBtnPersonalizado = false;
+            } else {
+              this.toastr.success("Não foi possível confirmar o pedido!");
+            }
+          }, error => {
+            console.log(error);
+            this.toastr.warning("Erro ao confirmar o pedido!")
+          })
+      }
+    })
+
+  }
+
+  reloadPedido() {
+    this.pedidoService.getPedidoCliente(this.pedido[0].num_Pedido, this.pedido[0].cpf)
+      .subscribe(res => {
+        if (res.length > 0) {
+          this.pedido = res;
+          this.valor_total = res[0].valor_Total;
+          this.dataSource = new MatTableDataSource(res);
+          this.dataSource.paginator = this.paginator;
+
+          // Caso o pedido seja diferente de confirmado, então o botão para confirmar é mostrado ao cliente
+          if (res[0].status_Pedido_Id != 5) {
+            this.exibirBtnPersonalizado = true;
+          }
+
         } else {
           this.toastr.warning("Pedido inválido!")
         }

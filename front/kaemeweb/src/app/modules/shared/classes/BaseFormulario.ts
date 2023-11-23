@@ -29,17 +29,13 @@ export class BaseFormulario implements OnInit {
   exibirBtnExportar: boolean = false;
   exibirMatCardActions: boolean = true;
 
+  exibirBtnPersonalizado: boolean = false;
+  nomeBtnPersonalizado: string = '';
+
   redirectFechar: string = '/gestao';
 
   ngOnInit(): void {
     this.home();
-  }
-
-  cssBotaoImpressora(): string{
-    if(localStorage.getItem('impressoraEtiqueta') == undefined)
-      return 'impressoraQZNaoSelecionada';
-    else
-      return '';
   }
 
   adicionar(){
