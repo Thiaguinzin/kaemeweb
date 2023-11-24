@@ -77,6 +77,8 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
   baixa: boolean = false;
   pedidoPago: boolean = false;
 
+  tituloPagina: string = 'Cadastrar Pedido';
+
   constructor(private router: Router,
     public override fb: FormBuilder,
     public override toastr: ToastrService,
@@ -119,6 +121,7 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
       this.exibirBtnEditar = false;
       this.exibirBtnCadastrar = false;
       this.redirectFechar = 'gestao/fornecedor';
+      this.tituloPagina = 'Consultar Pedido';
 
       const num_pedido = this.route.snapshot.params['id'];
       this.pedidoService.getPedidoByNumPedido(num_pedido)

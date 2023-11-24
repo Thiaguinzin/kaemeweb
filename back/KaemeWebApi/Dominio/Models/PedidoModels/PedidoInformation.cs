@@ -4,7 +4,7 @@ namespace Dominio.Models
     {
         public int? Num_Pedido { get; set; }
         public int Cliente_Id { get; set; }
-        public string Cpf { get; set; }
+        public string? Cpf { get; set; }
         public int Usuario_Id { get; set; }
         public DateTime Data_Pedido { get; set; }
         public bool Ativo { get; set; }
