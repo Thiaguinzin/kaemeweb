@@ -227,7 +227,7 @@ export class PecaListaComponent extends BaseFormulario {
     const codigo = this.form.controls['codigo'].value ? this.form.controls['codigo'].value : '';
     const tipo_peca_id = this.form.controls['tipo_peca_id'].value ? this.form.controls['tipo_peca_id'].value : '';
     const fornecedor_id = this.form.controls['fornecedor_id'].value ? this.form.controls['fornecedor_id'].value : '';
-    const ativo = this.form.controls['ativo'].value;
+    const ativo = this.form.controls['ativo'].value === null ? '' : this.form.controls['ativo'].value;
 
     this.pecaService.getPecaBySearch(codigo, tipo_peca_id, fornecedor_id, true, ativo)
       .subscribe(res => {
