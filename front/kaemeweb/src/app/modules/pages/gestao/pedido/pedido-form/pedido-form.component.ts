@@ -296,7 +296,6 @@ export class PedidoFormComponent extends BaseFormulario implements OnInit {
 
 
   montarPedido(): Pedido {
-    debugger
     return {
       cliente_Id: this.cliente_id,
       usuario_Id: +localStorage.getItem('k_user_id'),

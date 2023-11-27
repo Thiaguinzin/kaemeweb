@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DirectivesModule } from 'src/app/modules/shared/directives/directives.module';
 
 
 
@@ -32,7 +33,8 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
     MatTableModule,
     MatPaginatorModule,
     MatButtonModule,
-    MatSlideToggleModule
+    MatSlideToggleModule,
+    DirectivesModule
   ]
 })
 export class EstoqueModule { }

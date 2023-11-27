@@ -85,7 +85,7 @@ export class HistoricoPedidoComponent extends BaseFormulario implements OnInit {
       data_Inicio_Pagamento: this.utilFuncoes.hasValue(this.form.controls['dthr_inicio_pagamento'].value) ? moment(this.form.controls['dthr_inicio_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
       data_Fim_Pagamento: this.utilFuncoes.hasValue(this.form.controls['dthr_fim_pagamento'].value) ? moment(this.form.controls['dthr_fim_pagamento'].value, "DDMMYYYYHHmm").toDate() : null,
       cliente_Id: this.utilFuncoes.hasValue(this.cliente_id) ? this.cliente_id.toString() : '',
-      usuario_Id: this.utilFuncoes.hasValue(this.form.controls['usuario_id'].value) ? this.form.controls['usuario_id'].value : ''
+      usuario_Id: this.utilFuncoes.hasValue(this.form.controls['usuario_id'].value) ? this.form.controls['usuario_id'].value.toString() : ''
     }
   }
 
