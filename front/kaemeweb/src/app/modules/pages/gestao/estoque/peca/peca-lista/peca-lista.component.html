@@ -98,7 +98,7 @@
         <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantidade </th>
         <td mat-cell *matCellDef="let row" (focusout)="atualizarQuantidade(row, $event)">
           <mat-form-field appearance="outline" style="width: 75px;">
-            <input matInput [value]="row.quantidade" style="text-align: center;">
+            <input matInput [value]="row.quantidade" style="text-align: center;" appSpecialCharacterFilter>
           </mat-form-field>
         </td>
       </ng-container>
